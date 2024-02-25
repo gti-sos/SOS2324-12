@@ -21,5 +21,9 @@ app.get("/cool", (req, res) => {
     res.send(`<html> <body> <h1> ${cool()}</h1> </body> </html>`)
 });
 
-
+// .../samples/JMS Requests
+app.get("/samples/JMS", (req, res) => {
+    const price = mean_price_by_city(datos_ejemplo,"Paris");
+    res.send(`<html> <body> <h1> The average price for an AirBnB in Paris is ${price} </h1> </body> </html>`);
+});
 
