@@ -1,4 +1,5 @@
-let datos_ejemplo = [
+module.exports = {
+   datos_ejemplo : [
     {
       "listing_id": 46898229,
       "name": "Paris Central. Le Marais. Elevator and AC",
@@ -2636,12 +2637,12 @@ let datos_ejemplo = [
       "maximum_nights_number": 1125,
       "instant_bookable": "f"
     }
-  ];
+  ],
 
   // Función para calcular la media de los precios
   // en una ciudad específica
 
-  function mean_price_by_city(data,searchCity){
+  mean_price_by_city: function mean_price_by_city(data,searchCity){
     var airbnb_in_city = data.filter(airbnb => airbnb.city === searchCity);
 
     if (airbnb_in_city.length === 0){
@@ -2655,4 +2656,4 @@ let datos_ejemplo = [
 
     return prices_mean;
   }
-
+};
