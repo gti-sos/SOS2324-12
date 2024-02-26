@@ -17,7 +17,9 @@
    [16] mp_price: price paid
    [17] mp_commoditysource: Source supplying price information
 */
-function mean_price_bread_country(country) {
+
+module.exports = {
+    mean_price_bread_country: function mean_price_bread_country(country) {
 let array = []
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",3,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
@@ -42,4 +44,5 @@ array.forEach((e) => {
 })
 
 return s/i
+}
 }
