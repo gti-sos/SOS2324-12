@@ -18,6 +18,8 @@
    [17] mp_commoditysource: Source supplying price information
 */
 
+module.exports = {
+    mean_price_bread_country: function mean_price_bread_country(country) {
 let array = []
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",3,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
@@ -35,11 +37,12 @@ let i = 0
 let s = 0
 
 array.forEach((e) => {
-    if (e[3] === "Badakhshan") {
+    if (e[3] === country) {
         s += e[16]
         i++
     }
 })
 
-let res = s/i
-console.log(res)
+return s/i
+}
+}

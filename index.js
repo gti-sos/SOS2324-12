@@ -1,6 +1,7 @@
 let cool = require("cool-ascii-faces");
 let express = require("express");
 const { datos_ejemplo, mean_price_by_city } = require('./samples/JMS');
+const { mean_price_bread_country } = require('./samples/BFA');
 
 let app = express();
 const PORT = (process.env.PORT || 10000);
