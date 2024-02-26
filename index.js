@@ -28,16 +28,15 @@ app.get("/samples/JMS", (req, res) => {
     res.send(`<html> <body> <h1> The average price for an AirBnB in Paris is ${price} </h1> </body> </html>`);
 });
 
-<<<<<<< HEAD
 // .../samples/JMR Requests
 app.get("/samples/JMR", (req, res) => {
-    const total = calcularMediaCampo(datos,"total_improved_total");
-    res.send(`<html> <body> <h1> The average improvement of drinking water consumption is ${total} </h1> </body> </html>`);
-=======
+    datos.forEach(element => {
+    const media = calcularMediaCampo(element.country, "total_improved_total");
+    res.send(`<html> <body> <h1> La media de mejora total de ${element.country} es: ${media} </h1> </body> </html>`);
+})});
 // .../samples/BFA Requests
 app.get("/samples/BFA", (req, res) => {
     let country = "Badakhshan"
     const price = mean_price_bread_country(country);
     res.send(`<html> <body> <h1> The average price for bread in ${country} is ${price} </h1> </body> </html>`);
->>>>>>> a984a297f3394ca18acdebdd3fdaaa9e6e0a3438
 });
