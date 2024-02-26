@@ -32,9 +32,9 @@ app.get("/samples/JMS", (req, res) => {
 // .../samples/JMR Requests
 app.get("/samples/JMR", (req, res) => {
     datos.forEach(element => {
-    const media = calcularMediaCampo(element.country, "total_improved_total");
+    const media = calcularMediaCampo(element.country, "total_improved_total");})
     res.send(`<html> <body> <h1> La media de mejora total de ${element.country} es: ${media} </h1> </body> </html>`);
-})});
+});
 // .../samples/BFA Requests
 
 
