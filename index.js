@@ -27,3 +27,9 @@ app.get("/samples/JMS", (req, res) => {
     res.send(`<html> <body> <h1> The average price for an AirBnB in Paris is ${price} </h1> </body> </html>`);
 });
 
+// .../samples/BFA Requests
+app.get("/samples/BFA", (req, res) => {
+    let country = "Badakhshan"
+    const price = mean_price_bread_country(country);
+    res.send(`<html> <body> <h1> The average price for bread in ${country} is ${price} </h1> </body> </html>`);
+});
