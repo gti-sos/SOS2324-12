@@ -1,8 +1,8 @@
 let cool = require("cool-ascii-faces");
 let express = require("express");
 const { datos_ejemplo, mean_price_by_city } = require('./samples/JMS');
-const { datos, calcularMediaCampo } = require('./samples/JMR');
 const { mean_price_bread_country } = require('./samples/BFA');
+const { datos, calcularMediaCampo } = require('./samples/JMR');
 
 let app = express();
 const PORT = (process.env.PORT || 10000);
@@ -31,10 +31,13 @@ app.get("/samples/JMS", (req, res) => {
 
 // .../samples/JMR Requests
 app.get("/samples/JMR", (req, res) => {
-    const total = calcularMediaCampo(datos,"total_improved_total");
-    res.send(`<html> <body> <h1> The average improvement of drinking water consumption is ${total} </h1> </body> </html>`)});
-
+    datos.forEach(element => {
+    const media = calcularMediaCampo(element.country, "total_improved_total");})
+    res.send(`<html> <body> <h1> La media de mejora total de ${element.country} es: ${media} </h1> </body> </html>`);
+});
 // .../samples/BFA Requests
+
+
 app.get("/samples/BFA", (req, res) => {
     let country = "Badakhshan"
     const price = mean_price_bread_country(country);

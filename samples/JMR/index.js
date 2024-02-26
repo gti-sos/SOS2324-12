@@ -1,6 +1,6 @@
 
-
-const datos = [
+module.exports = {
+datos : [
     {
         iso_code: "AFG",
         country: "Afghanistan",
@@ -343,12 +343,12 @@ const datos = [
         total_unimproved_other: "-",
         total_unimproved_surface: "-"
     }
-];
+],
 
-console.log(datos);
+
 
 // Función para calcular la media de los valores de un campo numérico para un determinado valor en el campo de información geográfica
-function calcularMediaCampo(country, caracteristica) {
+calcularMediaCampo :function calcularMediaCampo(country, caracteristica) {
     // Filtrar los datos para obtener solo las filas correspondientes a la ciudad especificada
     const datosCiudad = datos.filter(dato => dato.country === country);
     
@@ -363,7 +363,4 @@ function calcularMediaCampo(country, caracteristica) {
 
 
 // Calcular y mostrar la media
-datos.forEach(element => {
-    const media = calcularMediaCampo(element.country, "total_improved_total");
-    console.log(`La media de mejora total de ${element.country} es: ${media}`);
-});
+}
