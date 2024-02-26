@@ -363,7 +363,3 @@ function calcularMediaCampo(country, caracteristica) {
 
 
 // Calcular y mostrar la media
-datos.forEach(element => {
-    const media = calcularMediaCampo(element.country, "total_improved_total");
-    console.log(`La media de mejora total de ${element.country} es: ${media}`);
-});
