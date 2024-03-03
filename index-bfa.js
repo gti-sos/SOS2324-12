@@ -23,6 +23,9 @@ module.exports = {
 let array = []
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",3,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
+array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
+array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
+array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",4,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",5,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",6,2015,50.0,"WFP"])
 array.push([1,"Afghanistan",272,"Badakhshan",266,"Fayzabad",55,"Bread",87,"AFN",15,"Retail",5,"KG",7,2015,50.0,"WFP"])

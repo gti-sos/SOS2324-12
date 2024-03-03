@@ -570,7 +570,7 @@ module.exports = (app) => {
     }),
 
     //PUT => Update resource by ISO_CODE && YEAR
-    app.put(API_BASE_JMR + "/:iso_code", + "/:year", (req,res) =>{
+    app.put(API_BASE_JMR + "/:iso_code" + "/:year",(req,res) =>{
         const ISO = req.params.iso_code;
         const AÑO = parseInt(req.params.year);
         let newdata = req.body;
@@ -599,7 +599,7 @@ module.exports = (app) => {
     }),
 
     // DELETE => Delete specific data
-    app.delete(API_BASE_JMR + "/:iso_code", + "/:year", (req,res) => {
+    app.delete(API_BASE_JMR + "/:iso_code" + "/:year", (req,res) => {
       const ISO = req.params.iso_code;
       const AÑO = parseInt(req.params.year);
         const nuevosDatos = data.filter(entry => entry.iso_code !== ISO && entry.year !== AÑO);

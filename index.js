@@ -3,6 +3,7 @@ let express = require("express");
 let bodyParser = require("body-parser");
 let API_JMS = require("./api/index-JMS");
 let API_JMR = require("./api/index-JMR");
+let API_BFA = require("./api-global-food-prices/index");
 const { datos_ejemplo, mean_price_by_city } = require('./samples/JMS');
 const { mean_price_bread_country } = require('./samples/BFA');
 const { datos2, calcularMediaCampo } = require('./samples/JMR');
@@ -15,6 +16,7 @@ const PORT = (process.env.PORT || 10000);
 // API
 API_JMS(app);
 API_JMR(app);
+API_BFA(app)
 
 app.listen(PORT, () =>
 {
