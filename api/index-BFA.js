@@ -326,22 +326,39 @@ module.exports = (app) => {
     }),
 
     //PUT => Update resource by listing_id
-    app.put(API_BASE_BFA + "/:id", (req,res) =>{
-        const ID = parseInt(req.params.id);
+    app.put(API_BASE_BFA + "/:adm0_id", (req,res) =>{
+        const adm0_id = parseInt(req.params.adm0_id);
+        //const adm1_id = parseInt(req.params.adm1_id);
+        //const mkt_id = parseInt(req.params.mkt_id);
+        //const cm_id = parseInt(req.params.cm_id);
+        //const pt_id = parseInt(req.params.pt_id);
+        //const um_id = parseInt(req.params.um_id);
+        //const mp_month = parseInt(req.params.mp_month);
+        //const mp_year = parseInt(req.params.mp_year);
         let newdata = req.body;
+        let newadm0_id = newdata.adm0_id;
 
         // Encuentra el objeto con el índice dado
-        const obj = data[ID]
+        const objIndex = data.findIndex((e) =>
+        e.adm0_id === adm0_id
+        //e.adm1_id === adm1_id &&
+        //e.mkt_id === mkt_id &&
+        //e.cm_id === cm_id &&
+        //e.pt_id === pt_id &&
+        //e.um_id === um_id &&
+        //e.mp_month === mp_month &&
+        //e.mp_year === mp_year
+    );
 
-        if(obj === undefined){
+        if(objIndex === -1){
             // El elemento con el ID dado no existe, devolver un error 404 NOT FOUND
             res.sendStatus(404, "NOT FOUND");
-        } else if (!newdata || Object.keys(newdata).length === 0){
+        } else if (!newdata || Object.keys(newdata).length === 0 || newadm0_id != adm0_id){
             // Los datos proporcionados son inválidos o el ID no coincide, devolver un error 400 BAD REQUEST
             res.sendStatus(400, "BAD REQUEST");
         } else {
             // Reemplazar el dato existente con los nuevos datos
-            data[ID] = newdata;
+            data[objIndex] = newdata;
             res.sendStatus(200, "OK");
         }
     }),
