@@ -306,11 +306,11 @@ module.exports = (app) => {
             && old.mkt_id === newdata.mkt_id
             && old.cm_id === newdata.cm_id
             && old.mp_month === newdata.mp_month
-            && old.mkt_id === newdata.mp_year);
+            && old.mp_year === newdata.mp_year);
         if(equal){
             // POST not allowed due to resource already existing
             res.sendStatus(409, "CONFLICT");
-        } else if (!newdata || Object.keys(newdata).length === 0){
+        } else if (!newdata || Object.keys(newdata).length != Object.keys(data[0]).length){
             // If not valid JSON received
             res.sendStatus(400, "BAD REQUEST");
         } else {
@@ -321,8 +321,7 @@ module.exports = (app) => {
     }),
 
     // PUT => Can't update root directory
-    app.put(API_BASE_BFA + "/", (req,res)=> {
-        let newdata = req.body;
+    app.put(API_BASE_BFA, (req,res)=> {
         res.sendStatus(405,"METHOD NOW ALLOWED");
     }),
 
@@ -331,18 +330,18 @@ module.exports = (app) => {
         const ID = parseInt(req.params.id);
         let newdata = req.body;
 
-        // Encuentra el índice del elemento con el ID dado en la lista de datos
-        const index = data.findIndex(p => p.listing_id === ID);
+        // Encuentra el objeto con el índice dado
+        const obj = data[ID]
 
-        if(index === -1){
+        if(obj === undefined){
             // El elemento con el ID dado no existe, devolver un error 404 NOT FOUND
             res.sendStatus(404, "NOT FOUND");
-        } else if (!newdata || Object.keys(newdata).length === 0 || newdata.listing_id !== ID){
+        } else if (!newdata || Object.keys(newdata).length === 0){
             // Los datos proporcionados son inválidos o el ID no coincide, devolver un error 400 BAD REQUEST
             res.sendStatus(400, "BAD REQUEST");
         } else {
             // Reemplazar el dato existente con los nuevos datos
-            data[index] = newdata;
+            data[ID] = newdata;
             res.sendStatus(200, "OK");
         }
     }),
@@ -357,11 +356,12 @@ module.exports = (app) => {
     // DELETE => Delete specific data
     app.delete(API_BASE_BFA + "/:id", (req,res) => {
         const ID = parseInt(req.params.id);
-        const nuevosDatos = data.filter(entry => entry.listing_id !== ID);
+       // const nuevosDatos = data.filter(entry => entry.listing_id !== ID);
 
-        if(nuevosDatos.length < data.length){
+
+        if(ID < data.length){
             //Delete data from specified filter
-            data = nuevosDatos;
+            data.splice(ID, 1)
             res.sendStatus(200, "OK");
         } else {
             //Try to acces not existing resource
