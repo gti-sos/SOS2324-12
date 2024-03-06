@@ -942,38 +942,37 @@ module.exports = (app,db) => {
 
   // POST => Create a new listing
   app.post(API_BASE_JMS + "/", (req, res) => {
-    const newdata = req.body;
 
-    // Verificar si los datos recibidos son válidos
-    if (!newdata || Object.keys(newdata).length === 0) {
-      return res.sendStatus(400).send("BAD REQUEST");
+    const newData =  req.body;
+    const expectedFields = ["listing_id","name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
+    ];
+    const receivedFields = Object.keys(newData);
+    const isValidData = expectedFields.every(field => receivedFields.includes(field));
+
+    if (!isValidData) {
+        res.sendStatus(400, "Bad Request"); // Datos inválidos
     } else {
-      // Verificar si el recurso ya existe en la base de datos
-      db.findOne({ 
-        name: newdata.name,
-        latitude: newdata.latitude,
-        longitude: newdata.longitude,
-        listing_id: newdata.listing_id
-      }, (err, existingData) => {
-        if (err) {
-          res.sendStatus(500, "Internal Error"); // Error interno del servidor
-      } else {
-          if (existingData) {
-              res.sendStatus(409, "Conflict"); //Datos existentes
-          } else {
-              // Si no existe, insertar el nuevo documento
-              db.insert(newdata, (err, insertedData) => {
-                  if (err) {
-                      res.sendStatus(500, "Internal Error"); // Error interno del servidor
-                  } else {
-                      res.sendStatus(201, "Created");
-                  }
-              });
-          }
-      }
-    });
+        // Verificar si ya existe un documento con el mismo cci en la base de datos
+        db.findOne({ listing_id: newData.listing_id, latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
+            if (err) {
+                res.sendStatus(500, "Internal Error"); // Error interno del servidor
+            } else {
+                if (existingData) {
+                    res.sendStatus(409, "Conflict"); //Datos existentes
+                } else {
+                    // Si no existe, insertar el nuevo documento
+                    db.insert(newData, (err, insertedData) => {
+                        if (err) {
+                            res.sendStatus(500, "Internal Error"); // Error interno del servidor
+                        } else {
+                            res.sendStatus(201, "Created");
+                        }
+                    });
+                }
+            }
+        });
     }
-  }),
+});
 
     // PUT => Can't update root directory
     app.put(API_BASE_JMS + "/", (req,res)=> {
