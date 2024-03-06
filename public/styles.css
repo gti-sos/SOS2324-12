@@ -5,17 +5,24 @@
     box-sizing: border-box;
 }
 
+.centered-image {
+    display: block; /* Convertir en bloque */
+    margin: 0 auto; /* Centrar horizontalmente */
+    width: 7%; /* Establecer el ancho máximo al tamaño máximo de su contenedor */
+    height: 7%; /* Mantener la proporción de aspecto */
+}
+
 /* Estilos generales */
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f9f9f9;
+    background-image: url("waves.gif");
     color: #333;
     line-height: 1.6;
 }
 
 /* Estilos para el contenedor principal de la página */
 .page-container {
-    margin: 20px; /* Márgenes alrededor de toda la página */
+    margin: 70px; /* Márgenes alrededor de toda la página */
 }
 
 /* Estilos para el contenedor del contenido */
@@ -27,7 +34,7 @@ body {
 }
 
 h1 {
-    color: #1e90ff; /* Azul oscuro */
+    color: #076050; /* Azul oscuro */
     font-size: 28px;
     margin-bottom: 20px;
     text-align: center; /* Centrar el texto */
@@ -119,3 +126,4 @@ a:hover {
     grid-gap: 20px;
     text-align: center;
 }
+
