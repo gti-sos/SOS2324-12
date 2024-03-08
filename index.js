@@ -6,6 +6,7 @@ let API_BFA = require("./api/index-BFA");
 let dataStore = require("nedb");
 
 let db_airbnb = new dataStore();
+let db_food = new dataStore();
 
 
 let app = express();
@@ -25,8 +26,8 @@ API_JMS(app,db_airbnb);
 //
 API_JMR(app);
 
-//
-API_BFA(app)
+//global-food-prices-listings
+API_BFA(app, db_food)
 
 
 app.listen(PORT, () =>
