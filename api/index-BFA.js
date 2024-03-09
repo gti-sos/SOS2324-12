@@ -22128,7 +22128,7 @@ module.exports = (app, db) => {
     // GET => REDIRECT al portal de documentación
 
     app.get(API_BASE_BFA + "/docs", (req, res) => {
-        res.redirect("https://documenter.getpostman.com/view/33042302/2sA2xe5uSh");
+        res.redirect("https://documenter.getpostman.com/view/33014489/2sA2xh3D3W");
       });
     
 
@@ -22163,11 +22163,13 @@ module.exports = (app, db) => {
 
     app.get(API_BASE_BFA + "/", (req, res) => {
         const { from, to, limit, offset, ...queryParams } = req.query;
+        console.log(queryParams)
     
         // Verifica si hay parámetros 'from' y 'to'
         if (from !== undefined && to !== undefined) {
             const fromYear = parseInt(from);
             const toYear = parseInt(to);
+            console.log(fromYear, toYear);
             if (isNaN(fromYear) || isNaN(toYear)) {
                 return res.status(400).send("Invalid year format. Please provide valid year values.");
             }
@@ -22179,7 +22181,7 @@ module.exports = (app, db) => {
                 }
     
                 const filteredListings = listings.filter(listing => {
-                    const listingYear = new Date(listing.mp_year).getFullYear();
+                    const listingYear = listing.mp_year;
                     return listingYear >= fromYear && listingYear <= toYear;
                 });
     
@@ -22217,6 +22219,7 @@ module.exports = (app, db) => {
     
             // Aplicar paginación si los parámetros limit y offset están presentes
             let paginatedListings = listings;
+            console.log(listings)
             if (limit !== undefined) {
                 const limitNum = parseInt(limit);
                 if (offset !== undefined) {
@@ -22235,6 +22238,23 @@ module.exports = (app, db) => {
             res.status(200).send(responseBody);
         }
     });
+
+    // GET => Get data by food
+
+    app.get(API_BASE_BFA + "/food/:food", (req, res) => {
+      const food = req.params.food;
+      db.find({ cm_name: food }, (err, listings) => {
+          if (err) {
+              res.sendStatus(500, "INTERNAL ERROR");
+          } else {
+              if (listings.length === 0) {
+                  res.sendStatus(404, "NOT FOUND");
+              } else {
+                  res.status(200).send(JSON.stringify(listings.map((listing => { delete listing._id; return listing; }))));
+              }
+          }
+      });
+    }),
 
       // POST => Create a new listing
   app.post(API_BASE_BFA + "/", (req, res) => {
@@ -22299,7 +22319,7 @@ module.exports = (app, db) => {
             newData.mp_month != mp_month ||
             newData.mp_year != mp_year)
 
-      if (!newData || Object.keys(data).length === 0 || claves_alteradas) {
+      if (!newData || Object.keys(newData).length === 0 || claves_alteradas) {
           res.sendStatus(400, "BAD REQUEST"); // Datos inválidos
       } else {
           db.update({ adm0_id: newData.adm0_id, adm1_id: newData.adm1_id, mkt_id: newData.mkt_id, cm_id: newData.cm_id, cur_id: newData.cur_id, pt_id: newData.pt_id, um_id: newData.um_id, mp_month: newData.mp_month, mp_year: newData.mp_year }, newData, { }, (err) => {
