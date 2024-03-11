@@ -848,6 +848,17 @@ module.exports = (app,db) => {
       } else {
           // Hay parámetros de consulta, filtrar por esos parámetros
           db.find(queryParams, handleDbResponse);
+          if (queryParams.listing_id) queryParams.listing_id = parseInt(queryParams.listing_id);
+          if (queryParams.host_response_rate) queryParams.host_response_rate = parseFloat(queryParams.host_response_rate);
+          if (queryParams.host_acceptance_rate) queryParams.host_acceptance_rate = parseFloat(queryParams.host_acceptance_rate);
+          if (queryParams.latitude) queryParams.latitude = parseFloat(queryParams.latitude);
+          if (queryParams.longitude) queryParams.longitude = parseFloat(queryParams.longitude);
+          if (queryParams.guest_number) queryParams.guest_number = parseInt(queryParams.guest_number);
+          if (queryParams.bedroom_number) queryParams.bedroom_number = parseInt(queryParams.bedroom_number);
+          if (queryParams.price) queryParams.price = parseFloat(queryParams.price);
+          if (queryParams.minimum_nights_number) queryParams.minimum_nights_number = parseInt(queryParams.minimum_nights_number);
+          if (queryParams.maximum_nights_number) queryParams.maximum_nights_number = parseInt(queryParams.maximum_nights_number);
+
       }
   
       function handleDbResponse(err, listings) {
