@@ -22163,13 +22163,11 @@ module.exports = (app, db) => {
 
     app.get(API_BASE_BFA + "/", (req, res) => {
         const { from, to, limit, offset, ...queryParams } = req.query;
-        console.log(queryParams)
     
         // Verifica si hay parámetros 'from' y 'to'
         if (from !== undefined && to !== undefined) {
             const fromYear = parseInt(from);
             const toYear = parseInt(to);
-            console.log(fromYear, toYear);
             if (isNaN(fromYear) || isNaN(toYear)) {
                 return res.status(400).send("Invalid year format. Please provide valid year values.");
             }
@@ -22219,7 +22217,6 @@ module.exports = (app, db) => {
     
             // Aplicar paginación si los parámetros limit y offset están presentes
             let paginatedListings = listings;
-            console.log(listings)
             if (limit !== undefined) {
                 const limitNum = parseInt(limit);
                 if (offset !== undefined) {
