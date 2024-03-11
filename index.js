@@ -13,7 +13,7 @@ let db_food = new dataStore();
 let app = express();
 app.use(bodyParser.json());
 
-const PORT = 22222;
+const PORT = (process.env.PORT || 10000); 
 
 // Group Static Information 
 

@@ -4,7 +4,7 @@
 	"values": [
 		{
 			"key": "SERVER",
-			"value": "localhost:22222/api/v1/airbnb-listings",
+			"value": "http://localhost:10000/api/v1/airbnb-listings",
 			"type": "default",
 			"enabled": true
 		}
