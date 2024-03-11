@@ -4,7 +4,7 @@
   "description": "F03",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npx newman run ./tests/airbnb-listings/api.json -e ./tests/airbnb-listings/environments/local.json",
     "start": "node index"
   },
   "author": "",
