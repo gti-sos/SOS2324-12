@@ -1,0 +1,1873 @@
+{
+	"info": {
+		"_postman_id": "fe0f1f15-245e-4ea9-8aac-e93113d59008",
+		"name": "airbnb-listings API",
+		"description": "SOS2324-12 Project\n\nDeveloped by José Martínez Suárez",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33042302"
+	},
+	"item": [
+		{
+			"name": "Delete all data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is either 200 or 204\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "The request deletes all data in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings) using the DELETE method. StartFragmentA successful DELETE request typically returns a `200 OK`or `204 No Content` response code."
+			},
+			"response": [
+				{
+					"name": "Delete all data",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "860bfef0e35ea605b847246d11bb77f2;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:49:40 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		},
+		{
+			"name": "Load Initial Data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is either 201 or 200\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 200]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/loadInitialData",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"loadInitialData"
+					]
+				},
+				"description": "Loads initial data if database is empty. A successful GET response will have a `200 OK`or `201 Created`status."
+			},
+			"response": [
+				{
+					"name": "Load Initial Data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/loadInitialData",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"loadInitialData"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "353ae8a6d53f8f49951b56a7b0b57638"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:45:18 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "7"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Created"
+				}
+			]
+		},
+		{
+			"name": "Get all data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "See all data stored in database. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "Get all data",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"39d5-aM15MtFaNAKH8s4R1ogTkOOyHSs\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "4f4477dd75d2473c30306ba55b0e0fc7;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:46:08 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"listing_id\": 48024945,\n        \"name\": \"Wonderful apartment \\\"Porte de Versailles\",\n        \"host_since\": \"03/02/2017\",\n        \"host_location\": \"Switzerland\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.96,\n        \"host_acceptance_rate\": 0.81,\n        \"neighbourhood\": \"Observatoire\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.83254,\n        \"longitude\": 2.31738,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Essentials\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Crib\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"High chair\",\n            \"TV\",\n            \"Iron\",\n            \"Refrigerator\",\n            \"Dishes and silverware\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 43,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 43199304,\n        \"name\": \"Bright and Charming Flat for 2 in Great Location\",\n        \"host_since\": \"11/03/2020\",\n        \"host_location\": \"Malaysia\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.45,\n        \"host_acceptance_rate\": 0.93,\n        \"neighbourhood\": \"Reuilly\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.83679,\n        \"longitude\": 2.39888,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Paid parking off premises\",\n            \"Shampoo\",\n            \"Dishes and silverware\",\n            \"TV\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Bed linens\",\n            \"Refrigerator\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Wifi\",\n            \"Cooking basics\",\n            \"Elevator\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 83,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45448589,\n        \"name\": \"Garden condo w patio in New York artistic Bushwick\",\n        \"host_since\": \"08/11/2019\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.58,\n        \"host_acceptance_rate\": 0.08,\n        \"neighbourhood\": \"Bushwick\",\n        \"city\": \"New York\",\n        \"latitude\": 40.69793,\n        \"longitude\": -73.92801,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Nespresso machine\",\n            \"Refrigerator\",\n            \"Single level home\",\n            \"Dining table\",\n            \"Free street parking\",\n            \"Washer – In building\",\n            \"Kitchen\",\n            \"Iron\",\n            \"Hangers\",\n            \"Dryer – In building\",\n            \"Central air conditioning\",\n            \"Smoke alarm\",\n            \"Dedicated workspace\",\n            \"Private fenced garden or backyard\",\n            \"Fire extinguisher\",\n            \"Shower gel\",\n            \"Hot water\",\n            \"40\\\" HDTV with Apple TV, Netflix, standard cable, Amazon Prime Video\",\n            \"Cleaning products\",\n            \"Long term stays allowed\",\n            \"Shikai - natural plant based shampoo\",\n            \"Extra pillows and blankets\",\n            \"Hair dryer\",\n            \"Bed linens\",\n            \"Stainless steel gas stove\",\n            \"Essentials\",\n            \"Dishes and silverware\",\n            \"Dishwasher\",\n            \"Clothing storage: walk-in closet and dresser\",\n            \"Puracy - natural plant based conditioner\",\n            \"Cable TV\",\n            \"Wifi – 300 Mbps\",\n            \"Patio or balcony\",\n            \"Cooking basics\",\n            \"First aid kit\",\n            \"Outdoor dining area\",\n            \"Freezer\",\n            \"Central heating\",\n            \"Toaster\",\n            \"Private entrance\",\n            \"Puracy natural plant based body soap\",\n            \"Laundromat nearby\",\n            \"Stainless steel oven\",\n            \"Outdoor furniture\",\n            \"Wine glasses\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 199,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 10068653,\n        \"name\": \"DESIGNER DOWNTOWN 1 BEDROOM\",\n        \"host_since\": \"01/07/2013\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.52,\n        \"host_acceptance_rate\": 0.58,\n        \"neighbourhood\": \"East Village\",\n        \"city\": \"New York\",\n        \"latitude\": 40.72232,\n        \"longitude\": -73.98513,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Refrigerator\",\n            \"Shampoo\",\n            \"Air conditioning\",\n            \"Baking sheet\",\n            \"Kitchen\",\n            \"Coffee maker\",\n            \"Oven\",\n            \"Iron\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Washer\",\n            \"Dedicated workspace\",\n            \"Dryer\",\n            \"Shower gel\",\n            \"Hot water\",\n            \"Long term stays allowed\",\n            \"Extra pillows and blankets\",\n            \"Hair dryer\",\n            \"Bed linens\",\n            \"Essentials\",\n            \"Dishes and silverware\",\n            \"TV\",\n            \"Wifi\",\n            \"Cable TV\",\n            \"Heating\",\n            \"Patio or balcony\",\n            \"Cooking basics\",\n            \"Stove\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 179,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 2455506,\n        \"name\": \"Appartement lumineux rue de Levis\",\n        \"host_since\": \"25/02/2014\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.16,\n        \"host_acceptance_rate\": 0.38,\n        \"neighbourhood\": \"Batignolles-Monceau\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.88418,\n        \"longitude\": 2.31163,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Kitchen\",\n            \"Washer\",\n            \"Dryer\",\n            \"Wifi\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 90,\n        \"minimum_nights_number\": 7,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45835725,\n        \"name\": \"Bright 1-BDR apartment centrally located\",\n        \"host_since\": \"17/10/2014\",\n        \"host_location\": \"Canada\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.9,\n        \"host_acceptance_rate\": 0.3,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87197,\n        \"longitude\": 2.35209,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Iron\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Washer\",\n            \"Dedicated workspace\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 50,\n        \"minimum_nights_number\": 2,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 7693040,\n        \"name\": \"Park Facing, Spacious 1 BR APT\",\n        \"host_since\": \"06/11/2012\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.53,\n        \"host_acceptance_rate\": 0.24,\n        \"neighbourhood\": \"Crown Heights\",\n        \"city\": \"New York\",\n        \"latitude\": 40.66542,\n        \"longitude\": -73.96062,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Smoke alarm\",\n            \"Essentials\",\n            \"Washer\",\n            \"Dryer\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Wifi\",\n            \"Elevator\",\n            \"Long term stays allowed\",\n            \"Carbon monoxide alarm\",\n            \"Kitchen\"\n        ],\n        \"price\": 110,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 45553305,\n        \"name\": \"Superb studio close to Montmartre\",\n        \"host_since\": \"23/09/2020\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.23,\n        \"host_acceptance_rate\": 0.33,\n        \"neighbourhood\": \"Buttes-Montmartre\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.89405,\n        \"longitude\": 2.34785,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Essentials\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 56,\n        \"minimum_nights_number\": 2,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 43091725,\n        \"name\": \"Perfect retreat for a working professional\",\n        \"host_since\": \"03/07/2015\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.81,\n        \"host_acceptance_rate\": 0.18,\n        \"neighbourhood\": \"Sheepshead Bay\",\n        \"city\": \"New York\",\n        \"latitude\": 40.58551,\n        \"longitude\": -73.94439,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 1,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Extra pillows and blankets\",\n            \"Hair dryer\",\n            \"Bed linens\",\n            \"Iron\",\n            \"Hangers\",\n            \"Essentials\",\n            \"Washer\",\n            \"TV\",\n            \"Smoke alarm\",\n            \"Dryer\",\n            \"Dedicated workspace\",\n            \"Heating\",\n            \"Wifi\",\n            \"Dishes and silverware\",\n            \"Private entrance\",\n            \"Hot water\",\n            \"Air conditioning\",\n            \"Long term stays allowed\",\n            \"Kitchen\",\n            \"Cooking basics\"\n        ],\n        \"price\": 120,\n        \"minimum_nights_number\": 60,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 37440389,\n        \"name\": \"Paris 15\",\n        \"host_since\": \"17/11/2017\",\n        \"host_location\": \"Lebanon\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.12,\n        \"host_acceptance_rate\": 0.64,\n        \"neighbourhood\": \"Vaugirard\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.84355,\n        \"longitude\": 2.28782,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 3,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Iron\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Washer\",\n            \"Hair dryer\",\n            \"Elevator\",\n            \"Wifi\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Long term stays allowed\",\n            \"TV\",\n            \"Breakfast\"\n        ],\n        \"price\": 120,\n        \"minimum_nights_number\": 5,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 47921846,\n        \"name\": \"Appartement 2 piÃ¨ces proche canal st martin /Gare\",\n        \"host_since\": \"27/09/2016\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.69,\n        \"host_acceptance_rate\": 0.7,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87854,\n        \"longitude\": 2.36212,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Private entrance\",\n            \"Shampoo\",\n            \"Heating\",\n            \"TV\",\n            \"Iron\",\n            \"Lockbox\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Essentials\",\n            \"Washer\",\n            \"Carbon monoxide alarm\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Free parking on premises\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 75,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45494285,\n        \"name\": \"1 BR Apt, 1 block from Central Park, Heart of UWS\",\n        \"host_since\": \"10/11/2013\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.7,\n        \"host_acceptance_rate\": 0.5,\n        \"neighbourhood\": \"Upper West Side\",\n        \"city\": \"New York\",\n        \"latitude\": 40.78298,\n        \"longitude\": -73.97891,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Lockbox\",\n            \"Smoke alarm\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Washer\",\n            \"TV\",\n            \"Dedicated workspace\",\n            \"Dryer\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Wifi\",\n            \"Dishes and silverware\",\n            \"Air conditioning\",\n            \"Long term stays allowed\",\n            \"Carbon monoxide alarm\",\n            \"Kitchen\"\n        ],\n        \"price\": 200,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 44110139,\n        \"name\": \"Amazing apartment - 4P/1BR - Canal Saint Martin\",\n        \"host_since\": \"21/04/2020\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.2,\n        \"host_acceptance_rate\": 0.96,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87406,\n        \"longitude\": 2.37112,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Dishwasher\",\n            \"Essentials\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Iron\",\n            \"Refrigerator\",\n            \"Dishes and silverware\",\n            \"Private entrance\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Shower gel\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 105,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45776006,\n        \"name\": \"Designer Apartment in Batignolles\",\n        \"host_since\": \"12/07/2019\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.43,\n        \"host_acceptance_rate\": 0.11,\n        \"neighbourhood\": \"Batignolles-Monceau\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.88682,\n        \"longitude\": 2.3116,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Dishwasher\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Iron\",\n            \"Dryer\",\n            \"Refrigerator\",\n            \"Oven\",\n            \"Dishes and silverware\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\",\n            \"Elevator\"\n        ],\n        \"price\": 95,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 44843504,\n        \"name\": \"Beautiful clean Gramercy 1bd room! Brand new!\",\n        \"host_since\": \"03/08/2015\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.56,\n        \"host_acceptance_rate\": 0.57,\n        \"neighbourhood\": \"Kips Bay\",\n        \"city\": \"New York\",\n        \"latitude\": 40.73946,\n        \"longitude\": -73.97997,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"First aid kit\",\n            \"Hair dryer\",\n            \"Iron\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Washer\",\n            \"TV\",\n            \"Smoke alarm\",\n            \"Dryer\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Fire extinguisher\",\n            \"Dedicated workspace\",\n            \"Wifi\",\n            \"Hot water\",\n            \"Air conditioning\",\n            \"Long term stays allowed\",\n            \"Carbon monoxide alarm\",\n            \"Kitchen\"\n        ],\n        \"price\": 125,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 37027049,\n        \"name\": \"Appartement Paris 19 - Balcon et vue sur Paris\",\n        \"host_since\": \"30/11/2012\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.09,\n        \"host_acceptance_rate\": 0.19,\n        \"neighbourhood\": \"Buttes-Chaumont\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87769,\n        \"longitude\": 2.37268,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Iron\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hair dryer\",\n            \"Washer\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\",\n            \"Hot water\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Elevator\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 80,\n        \"minimum_nights_number\": 10,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 39447656,\n        \"name\": \"Sunny Brown Stone Apartment\",\n        \"host_since\": \"05/03/2015\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.91,\n        \"host_acceptance_rate\": 0.8,\n        \"neighbourhood\": \"Clinton Hill\",\n        \"city\": \"New York\",\n        \"latitude\": 40.68308,\n        \"longitude\": -73.96547,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Iron\",\n            \"Essentials\",\n            \"Smoke alarm\",\n            \"TV\",\n            \"Host greets you\",\n            \"Wifi\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Air conditioning\",\n            \"Long term stays allowed\",\n            \"Kitchen\"\n        ],\n        \"price\": 85,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 47792594,\n        \"name\": \"Opera/Haussmann: Luxueux appartement d'architecte\",\n        \"host_since\": \"19/01/2021\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.52,\n        \"host_acceptance_rate\": 0.87,\n        \"neighbourhood\": \"Opera\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87302,\n        \"longitude\": 2.33444,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Shampoo\",\n            \"Heating\",\n            \"Lockbox\",\n            \"Iron\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Essentials\",\n            \"Washer\",\n            \"Dryer\",\n            \"Air conditioning\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Cooking basics\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 152,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45308579,\n        \"name\": \"Spacious studio with walk-in in closet\",\n        \"host_since\": \"08/03/2019\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.45,\n        \"host_acceptance_rate\": 0.37,\n        \"neighbourhood\": \"Chelsea\",\n        \"city\": \"New York\",\n        \"latitude\": 40.73909,\n        \"longitude\": -73.99882,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"First aid kit\",\n            \"Hair dryer\",\n            \"Iron\",\n            \"Essentials\",\n            \"Gym\",\n            \"Washer\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Wifi\",\n            \"Dryer\",\n            \"Heating\",\n            \"Shampoo\",\n            \"Hangers\",\n            \"Elevator\",\n            \"Smoke alarm\",\n            \"Air conditioning\",\n            \"Hot water\",\n            \"Long term stays allowed\",\n            \"Carbon monoxide alarm\",\n            \"Kitchen\"\n        ],\n        \"price\": 245,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Create new data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"listing_id\": 47411421,\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "The request is to create new data in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings). It intends to add new data to the existing dataset of Airbnb listings. A successful POST request typically returns a `201 Created` response code."
+			},
+			"response": [
+				{
+					"name": "Create new data",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listing_id\": 47411421,\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "Created",
+					"code": 201,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"7-rM9AyJuqT6iOan/xHh+AW+7K/T8\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "609fa46090b59f89137d4f016a82a65b;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:35 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "7"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Created"
+				}
+			]
+		},
+		{
+			"name": "GET Data by year period",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/?from=2018&to=2020",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "2018"
+						},
+						{
+							"key": "to",
+							"value": "2020"
+						}
+					]
+				},
+				"description": "The request retrieves data from the \"airbnb-listings\" API endpoint hosted at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/](https://sos2324-12.appspot.com/api/v1/airbnb-listings/). It includes query parameters \"from\" set to 2018 and \"to\" set to 2020. This likely indicates a search for Airbnb listings data within the specified time frame, aiming to retrieve listings posted between 2018 and 2020. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "GET Data by year period",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/?from=2018&to=2020",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2018"
+								},
+								{
+									"key": "to",
+									"value": "2020"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"f20-8LN5bgrsIsYSE+dYkCW4julU97M\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "1e9010ae0db2a6467f262a85ce54ec56;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:46:21 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"listing_id\": 43199304,\n        \"name\": \"Bright and Charming Flat for 2 in Great Location\",\n        \"host_since\": \"11/03/2020\",\n        \"host_location\": \"Malaysia\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.45,\n        \"host_acceptance_rate\": 0.93,\n        \"neighbourhood\": \"Reuilly\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.83679,\n        \"longitude\": 2.39888,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Paid parking off premises\",\n            \"Shampoo\",\n            \"Dishes and silverware\",\n            \"TV\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Bed linens\",\n            \"Refrigerator\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Wifi\",\n            \"Cooking basics\",\n            \"Elevator\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 83,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45448589,\n        \"name\": \"Garden condo w patio in New York artistic Bushwick\",\n        \"host_since\": \"08/11/2019\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.58,\n        \"host_acceptance_rate\": 0.08,\n        \"neighbourhood\": \"Bushwick\",\n        \"city\": \"New York\",\n        \"latitude\": 40.69793,\n        \"longitude\": -73.92801,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Nespresso machine\",\n            \"Refrigerator\",\n            \"Single level home\",\n            \"Dining table\",\n            \"Free street parking\",\n            \"Washer – In building\",\n            \"Kitchen\",\n            \"Iron\",\n            \"Hangers\",\n            \"Dryer – In building\",\n            \"Central air conditioning\",\n            \"Smoke alarm\",\n            \"Dedicated workspace\",\n            \"Private fenced garden or backyard\",\n            \"Fire extinguisher\",\n            \"Shower gel\",\n            \"Hot water\",\n            \"40\\\" HDTV with Apple TV, Netflix, standard cable, Amazon Prime Video\",\n            \"Cleaning products\",\n            \"Long term stays allowed\",\n            \"Shikai - natural plant based shampoo\",\n            \"Extra pillows and blankets\",\n            \"Hair dryer\",\n            \"Bed linens\",\n            \"Stainless steel gas stove\",\n            \"Essentials\",\n            \"Dishes and silverware\",\n            \"Dishwasher\",\n            \"Clothing storage: walk-in closet and dresser\",\n            \"Puracy - natural plant based conditioner\",\n            \"Cable TV\",\n            \"Wifi – 300 Mbps\",\n            \"Patio or balcony\",\n            \"Cooking basics\",\n            \"First aid kit\",\n            \"Outdoor dining area\",\n            \"Freezer\",\n            \"Central heating\",\n            \"Toaster\",\n            \"Private entrance\",\n            \"Puracy natural plant based body soap\",\n            \"Laundromat nearby\",\n            \"Stainless steel oven\",\n            \"Outdoor furniture\",\n            \"Wine glasses\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 199,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 45776006,\n        \"name\": \"Designer Apartment in Batignolles\",\n        \"host_since\": \"12/07/2019\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.43,\n        \"host_acceptance_rate\": 0.11,\n        \"neighbourhood\": \"Batignolles-Monceau\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.88682,\n        \"longitude\": 2.3116,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Dishwasher\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Iron\",\n            \"Dryer\",\n            \"Refrigerator\",\n            \"Oven\",\n            \"Dishes and silverware\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\",\n            \"Elevator\"\n        ],\n        \"price\": 95,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45308579,\n        \"name\": \"Spacious studio with walk-in in closet\",\n        \"host_since\": \"08/03/2019\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.45,\n        \"host_acceptance_rate\": 0.37,\n        \"neighbourhood\": \"Chelsea\",\n        \"city\": \"New York\",\n        \"latitude\": 40.73909,\n        \"longitude\": -73.99882,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"First aid kit\",\n            \"Hair dryer\",\n            \"Iron\",\n            \"Essentials\",\n            \"Gym\",\n            \"Washer\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Wifi\",\n            \"Dryer\",\n            \"Heating\",\n            \"Shampoo\",\n            \"Hangers\",\n            \"Elevator\",\n            \"Smoke alarm\",\n            \"Air conditioning\",\n            \"Hot water\",\n            \"Long term stays allowed\",\n            \"Carbon monoxide alarm\",\n            \"Kitchen\"\n        ],\n        \"price\": 245,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GET data by any param",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}?city=Paris",
+					"host": [
+						"{{SERVER}}"
+					],
+					"query": [
+						{
+							"key": "city",
+							"value": "Paris"
+						}
+					]
+				},
+				"description": "The request fetches data from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings). It includes the query parameter \"city\" set to \"Paris.\" This indicates a search for Airbnb listings data specifically related to the city of Paris. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "GET data by any param",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}?city=Paris",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"query": [
+								{
+									"key": "city",
+									"value": "Paris"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"1eeb-FHkTtqLiDuQKap5pA+nhMTJPFWQ\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "98ef5636ef706ce815f5a61257e751ac;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:46:35 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"listing_id\": 48024945,\n        \"name\": \"Wonderful apartment \\\"Porte de Versailles\",\n        \"host_since\": \"03/02/2017\",\n        \"host_location\": \"Switzerland\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.96,\n        \"host_acceptance_rate\": 0.81,\n        \"neighbourhood\": \"Observatoire\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.83254,\n        \"longitude\": 2.31738,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Essentials\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Crib\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"High chair\",\n            \"TV\",\n            \"Iron\",\n            \"Refrigerator\",\n            \"Dishes and silverware\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 43,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 43199304,\n        \"name\": \"Bright and Charming Flat for 2 in Great Location\",\n        \"host_since\": \"11/03/2020\",\n        \"host_location\": \"Malaysia\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.45,\n        \"host_acceptance_rate\": 0.93,\n        \"neighbourhood\": \"Reuilly\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.83679,\n        \"longitude\": 2.39888,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Paid parking off premises\",\n            \"Shampoo\",\n            \"Dishes and silverware\",\n            \"TV\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Bed linens\",\n            \"Refrigerator\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Wifi\",\n            \"Cooking basics\",\n            \"Elevator\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 83,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 2455506,\n        \"name\": \"Appartement lumineux rue de Levis\",\n        \"host_since\": \"25/02/2014\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.16,\n        \"host_acceptance_rate\": 0.38,\n        \"neighbourhood\": \"Batignolles-Monceau\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.88418,\n        \"longitude\": 2.31163,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Kitchen\",\n            \"Washer\",\n            \"Dryer\",\n            \"Wifi\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 90,\n        \"minimum_nights_number\": 7,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45835725,\n        \"name\": \"Bright 1-BDR apartment centrally located\",\n        \"host_since\": \"17/10/2014\",\n        \"host_location\": \"Canada\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.9,\n        \"host_acceptance_rate\": 0.3,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87197,\n        \"longitude\": 2.35209,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Iron\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Washer\",\n            \"Dedicated workspace\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 50,\n        \"minimum_nights_number\": 2,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 45553305,\n        \"name\": \"Superb studio close to Montmartre\",\n        \"host_since\": \"23/09/2020\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.23,\n        \"host_acceptance_rate\": 0.33,\n        \"neighbourhood\": \"Buttes-Montmartre\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.89405,\n        \"longitude\": 2.34785,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Essentials\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\"\n        ],\n        \"price\": 56,\n        \"minimum_nights_number\": 2,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 37440389,\n        \"name\": \"Paris 15\",\n        \"host_since\": \"17/11/2017\",\n        \"host_location\": \"Lebanon\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.12,\n        \"host_acceptance_rate\": 0.64,\n        \"neighbourhood\": \"Vaugirard\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.84355,\n        \"longitude\": 2.28782,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 3,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Iron\",\n            \"Shampoo\",\n            \"Heating\",\n            \"Washer\",\n            \"Hair dryer\",\n            \"Elevator\",\n            \"Wifi\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Long term stays allowed\",\n            \"TV\",\n            \"Breakfast\"\n        ],\n        \"price\": 120,\n        \"minimum_nights_number\": 5,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 47921846,\n        \"name\": \"Appartement 2 piÃ¨ces proche canal st martin /Gare\",\n        \"host_since\": \"27/09/2016\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.69,\n        \"host_acceptance_rate\": 0.7,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87854,\n        \"longitude\": 2.36212,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Private entrance\",\n            \"Shampoo\",\n            \"Heating\",\n            \"TV\",\n            \"Iron\",\n            \"Lockbox\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Essentials\",\n            \"Washer\",\n            \"Carbon monoxide alarm\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Free parking on premises\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 75,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 44110139,\n        \"name\": \"Amazing apartment - 4P/1BR - Canal Saint Martin\",\n        \"host_since\": \"21/04/2020\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a few hours\",\n        \"host_response_rate\": 0.2,\n        \"host_acceptance_rate\": 0.96,\n        \"neighbourhood\": \"Enclos-St-Laurent\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87406,\n        \"longitude\": 2.37112,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Dishwasher\",\n            \"Essentials\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Iron\",\n            \"Refrigerator\",\n            \"Dishes and silverware\",\n            \"Private entrance\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Shower gel\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 105,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 45776006,\n        \"name\": \"Designer Apartment in Batignolles\",\n        \"host_since\": \"12/07/2019\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.43,\n        \"host_acceptance_rate\": 0.11,\n        \"neighbourhood\": \"Batignolles-Monceau\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.88682,\n        \"longitude\": 2.3116,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 4,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Dishwasher\",\n            \"Essentials\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\",\n            \"TV\",\n            \"Iron\",\n            \"Dryer\",\n            \"Refrigerator\",\n            \"Oven\",\n            \"Dishes and silverware\",\n            \"Heating\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Coffee maker\",\n            \"Washer\",\n            \"Microwave\",\n            \"Cooking basics\",\n            \"Shampoo\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\",\n            \"Elevator\"\n        ],\n        \"price\": 95,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    },\n    {\n        \"listing_id\": 37027049,\n        \"name\": \"Appartement Paris 19 - Balcon et vue sur Paris\",\n        \"host_since\": \"30/11/2012\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within a day\",\n        \"host_response_rate\": 0.09,\n        \"host_acceptance_rate\": 0.19,\n        \"neighbourhood\": \"Buttes-Chaumont\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87769,\n        \"longitude\": 2.37268,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Heating\",\n            \"TV\",\n            \"Iron\",\n            \"Kitchen\",\n            \"Essentials\",\n            \"Hair dryer\",\n            \"Washer\",\n            \"Bed linens\",\n            \"Carbon monoxide alarm\",\n            \"Hot water\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Elevator\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 80,\n        \"minimum_nights_number\": 10,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    },\n    {\n        \"listing_id\": 47792594,\n        \"name\": \"Opera/Haussmann: Luxueux appartement d'architecte\",\n        \"host_since\": \"19/01/2021\",\n        \"host_location\": \"France\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.52,\n        \"host_acceptance_rate\": 0.87,\n        \"neighbourhood\": \"Opera\",\n        \"city\": \"Paris\",\n        \"latitude\": 48.87302,\n        \"longitude\": 2.33444,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Shampoo\",\n            \"Heating\",\n            \"Lockbox\",\n            \"Iron\",\n            \"Kitchen\",\n            \"Hair dryer\",\n            \"Essentials\",\n            \"Washer\",\n            \"Dryer\",\n            \"Air conditioning\",\n            \"Hot water\",\n            \"Hangers\",\n            \"Smoke alarm\",\n            \"Wifi\",\n            \"Cooking basics\",\n            \"Long term stays allowed\",\n            \"Dedicated workspace\"\n        ],\n        \"price\": 152,\n        \"minimum_nights_number\": 1,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"TRUE\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "GET data by year",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/year/2020",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"year",
+						"2020"
+					]
+				},
+				"description": "The request fetches data from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2020](https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2020). It retrieves Airbnb listings data specifically for the year 2020. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "GET data by year",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/year/2020",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"year",
+								"2020"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"88f-TmOqYy65z5b9phCzDyjGnQDG0ao\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "96adf7766eba9f3f9c8ad692bf586d6f;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:46:45 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"listing_id\":43199304,\"name\":\"Bright and Charming Flat for 2 in Great Location\",\"host_since\":\"11/03/2020\",\"host_location\":\"Malaysia\",\"host_response_time\":\"within an hour\",\"host_response_rate\":0.45,\"host_acceptance_rate\":0.93,\"neighbourhood\":\"Reuilly\",\"city\":\"Paris\",\"latitude\":48.83679,\"longitude\":2.39888,\"property_type\":\"Entire apartment\",\"room_type\":\"Entire place\",\"guest_number\":2,\"bedroom_number\":1,\"amenities_list\":[\"Paid parking off premises\",\"Shampoo\",\"Dishes and silverware\",\"TV\",\"Kitchen\",\"Essentials\",\"Hair dryer\",\"Coffee maker\",\"Bed linens\",\"Refrigerator\",\"Hot water\",\"Hangers\",\"Wifi\",\"Cooking basics\",\"Elevator\",\"Long term stays allowed\"],\"price\":83,\"minimum_nights_number\":1,\"maximum_nights_number\":1125,\"instant_bookable\":\"TRUE\"},{\"listing_id\":45553305,\"name\":\"Superb studio close to Montmartre\",\"host_since\":\"23/09/2020\",\"host_location\":\"France\",\"host_response_time\":\"within a day\",\"host_response_rate\":0.23,\"host_acceptance_rate\":0.33,\"neighbourhood\":\"Buttes-Montmartre\",\"city\":\"Paris\",\"latitude\":48.89405,\"longitude\":2.34785,\"property_type\":\"Entire apartment\",\"room_type\":\"Entire place\",\"guest_number\":2,\"bedroom_number\":1,\"amenities_list\":[\"Heating\",\"TV\",\"Essentials\",\"Smoke alarm\",\"Wifi\",\"Long term stays allowed\"],\"price\":56,\"minimum_nights_number\":2,\"maximum_nights_number\":1125,\"instant_bookable\":\"TRUE\"},{\"listing_id\":44110139,\"name\":\"Amazing apartment - 4P/1BR - Canal Saint Martin\",\"host_since\":\"21/04/2020\",\"host_location\":\"France\",\"host_response_time\":\"within a few hours\",\"host_response_rate\":0.2,\"host_acceptance_rate\":0.96,\"neighbourhood\":\"Enclos-St-Laurent\",\"city\":\"Paris\",\"latitude\":48.87406,\"longitude\":2.37112,\"property_type\":\"Entire apartment\",\"room_type\":\"Entire place\",\"guest_number\":4,\"bedroom_number\":1,\"amenities_list\":[\"Dishwasher\",\"Essentials\",\"Hot water\",\"Hangers\",\"Smoke alarm\",\"Wifi\",\"Long term stays allowed\",\"Dedicated workspace\",\"TV\",\"Iron\",\"Refrigerator\",\"Dishes and silverware\",\"Private entrance\",\"Heating\",\"Kitchen\",\"Hair dryer\",\"Coffee maker\",\"Washer\",\"Microwave\",\"Cooking basics\",\"Shampoo\",\"Shower gel\",\"Bed linens\",\"Carbon monoxide alarm\"],\"price\":105,\"minimum_nights_number\":1,\"maximum_nights_number\":1125,\"instant_bookable\":\"TRUE\"}]"
+				}
+			]
+		},
+		{
+			"name": "Access not existing resource [error 404]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/year/2067",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"year",
+						"2067"
+					]
+				},
+				"description": "The request attempts to access a resource that does not exist on the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2067](https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2067), resulting in an error response with status code 404 (Not Found)."
+			},
+			"response": [
+				{
+					"name": "Access not existing resource [error 404]",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/year/2067",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"year",
+								"2067"
+							]
+						}
+					},
+					"status": "Not Found",
+					"code": 404,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"9-0gXL1ngzMqISxa6S1zx3F4wtLyg\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "3e87ea98001fa6c9b03857191a4b344c;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:00 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "9"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Not Found"
+				}
+			]
+		},
+		{
+			"name": "Get data by limit and offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/?limit=1&offset=2",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "1"
+						},
+						{
+							"key": "offset",
+							"value": "2"
+						}
+					]
+				},
+				"description": "The request is aimed at retrieving data from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/](https://sos2324-12.appspot.com/api/v1/airbnb-listings/) with a limit of one resource and starting from the third resource (offset = 2). It intends to paginate through the data. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "Get data by limit and offset",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/?limit=1&offset=2",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5f9-K+mcWL9IGYJzq752hhDX6/mTWVA\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "9daaffdf90aa6ca03ad9b3f432cc5117"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:10 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"listing_id\": 45448589,\n        \"name\": \"Garden condo w patio in New York artistic Bushwick\",\n        \"host_since\": \"08/11/2019\",\n        \"host_location\": \"United States\",\n        \"host_response_time\": \"within an hour\",\n        \"host_response_rate\": 0.58,\n        \"host_acceptance_rate\": 0.08,\n        \"neighbourhood\": \"Bushwick\",\n        \"city\": \"New York\",\n        \"latitude\": 40.69793,\n        \"longitude\": -73.92801,\n        \"property_type\": \"Entire apartment\",\n        \"room_type\": \"Entire place\",\n        \"guest_number\": 2,\n        \"bedroom_number\": 1,\n        \"amenities_list\": [\n            \"Nespresso machine\",\n            \"Refrigerator\",\n            \"Single level home\",\n            \"Dining table\",\n            \"Free street parking\",\n            \"Washer – In building\",\n            \"Kitchen\",\n            \"Iron\",\n            \"Hangers\",\n            \"Dryer – In building\",\n            \"Central air conditioning\",\n            \"Smoke alarm\",\n            \"Dedicated workspace\",\n            \"Private fenced garden or backyard\",\n            \"Fire extinguisher\",\n            \"Shower gel\",\n            \"Hot water\",\n            \"40\\\" HDTV with Apple TV, Netflix, standard cable, Amazon Prime Video\",\n            \"Cleaning products\",\n            \"Long term stays allowed\",\n            \"Shikai - natural plant based shampoo\",\n            \"Extra pillows and blankets\",\n            \"Hair dryer\",\n            \"Bed linens\",\n            \"Stainless steel gas stove\",\n            \"Essentials\",\n            \"Dishes and silverware\",\n            \"Dishwasher\",\n            \"Clothing storage: walk-in closet and dresser\",\n            \"Puracy - natural plant based conditioner\",\n            \"Cable TV\",\n            \"Wifi – 300 Mbps\",\n            \"Patio or balcony\",\n            \"Cooking basics\",\n            \"First aid kit\",\n            \"Outdoor dining area\",\n            \"Freezer\",\n            \"Central heating\",\n            \"Toaster\",\n            \"Private entrance\",\n            \"Puracy natural plant based body soap\",\n            \"Laundromat nearby\",\n            \"Stainless steel oven\",\n            \"Outdoor furniture\",\n            \"Wine glasses\",\n            \"Carbon monoxide alarm\"\n        ],\n        \"price\": 199,\n        \"minimum_nights_number\": 30,\n        \"maximum_nights_number\": 1125,\n        \"instant_bookable\": \"FALSE\"\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get data by year and host_location",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/2020/France",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"2020",
+						"France"
+					]
+				},
+				"description": "The request aims to retrieve data from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/](https://sos2324-12.appspot.com/api/v1/airbnb-listings/) for the year 2020 and the host location set as \"France\". It seeks to filter the data based on the specified year and host location. A successful GET request typically returns a `200 OK.`"
+			},
+			"response": [
+				{
+					"name": "Get data by year and host_location",
+					"originalRequest": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/2020/France",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"2020",
+								"France"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "Vary",
+							"value": "Accept-Encoding"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"5a5-o3a3CvP5pYePglT6O/GxEHFJFfE\""
+						},
+						{
+							"key": "Content-Encoding",
+							"value": "gzip"
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "05fa4d3b6a60309dec424ffb3756b18f;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:21 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "private"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked"
+						}
+					],
+					"cookie": [],
+					"body": "[{\"listing_id\":45553305,\"name\":\"Superb studio close to Montmartre\",\"host_since\":\"23/09/2020\",\"host_location\":\"France\",\"host_response_time\":\"within a day\",\"host_response_rate\":0.23,\"host_acceptance_rate\":0.33,\"neighbourhood\":\"Buttes-Montmartre\",\"city\":\"Paris\",\"latitude\":48.89405,\"longitude\":2.34785,\"property_type\":\"Entire apartment\",\"room_type\":\"Entire place\",\"guest_number\":2,\"bedroom_number\":1,\"amenities_list\":[\"Heating\",\"TV\",\"Essentials\",\"Smoke alarm\",\"Wifi\",\"Long term stays allowed\"],\"price\":56,\"minimum_nights_number\":2,\"maximum_nights_number\":1125,\"instant_bookable\":\"TRUE\"},{\"listing_id\":44110139,\"name\":\"Amazing apartment - 4P/1BR - Canal Saint Martin\",\"host_since\":\"21/04/2020\",\"host_location\":\"France\",\"host_response_time\":\"within a few hours\",\"host_response_rate\":0.2,\"host_acceptance_rate\":0.96,\"neighbourhood\":\"Enclos-St-Laurent\",\"city\":\"Paris\",\"latitude\":48.87406,\"longitude\":2.37112,\"property_type\":\"Entire apartment\",\"room_type\":\"Entire place\",\"guest_number\":4,\"bedroom_number\":1,\"amenities_list\":[\"Dishwasher\",\"Essentials\",\"Hot water\",\"Hangers\",\"Smoke alarm\",\"Wifi\",\"Long term stays allowed\",\"Dedicated workspace\",\"TV\",\"Iron\",\"Refrigerator\",\"Dishes and silverware\",\"Private entrance\",\"Heating\",\"Kitchen\",\"Hair dryer\",\"Coffee maker\",\"Washer\",\"Microwave\",\"Cooking basics\",\"Shampoo\",\"Shower gel\",\"Bed linens\",\"Carbon monoxide alarm\"],\"price\":105,\"minimum_nights_number\":1,\"maximum_nights_number\":1125,\"instant_bookable\":\"TRUE\"}]"
+				}
+			]
+		},
+		{
+			"name": "Already existing [error 409]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {\r",
+							"    pm.response.to.have.status(409);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"listing_id\": 45308579,\r\n        \"name\": \"Spacious studio with walk-in in closet\",\r\n        \"host_since\": \"08/03/2019\",\r\n        \"host_location\": \"United States\",\r\n        \"host_response_time\": \"within an hour\",\r\n        \"host_response_rate\": 0.45,\r\n        \"host_acceptance_rate\": 0.37,\r\n        \"neighbourhood\": \"Chelsea\",\r\n        \"city\": \"New York\",\r\n        \"latitude\": 40.73909,\r\n        \"longitude\": -73.99882,\r\n        \"property_type\": \"Entire apartment\",\r\n        \"room_type\": \"Entire place\",\r\n        \"guest_number\": 2,\r\n        \"bedroom_number\": 1,\r\n        \"amenities_list\": [\r\n            \"First aid kit\",\r\n            \"Hair dryer\",\r\n            \"Iron\",\r\n            \"Essentials\",\r\n            \"Gym\",\r\n            \"Washer\",\r\n            \"Dedicated workspace\",\r\n            \"TV\",\r\n            \"Wifi\",\r\n            \"Dryer\",\r\n            \"Heating\",\r\n            \"Shampoo\",\r\n            \"Hangers\",\r\n            \"Elevator\",\r\n            \"Smoke alarm\",\r\n            \"Air conditioning\",\r\n            \"Hot water\",\r\n            \"Long term stays allowed\",\r\n            \"Carbon monoxide alarm\",\r\n            \"Kitchen\"\r\n        ],\r\n        \"price\": 245,\r\n        \"minimum_nights_number\": 30,\r\n        \"maximum_nights_number\": 1125,\r\n        \"instant_bookable\": \"TRUE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "The request is attempting to create new data in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings). However, the data being sent already exists in the dataset, resulting in a conflict error (HTTP status code 409)."
+			},
+			"response": [
+				{
+					"name": "Already existing [error 409]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"listing_id\": 45308579,\r\n        \"name\": \"Spacious studio with walk-in in closet\",\r\n        \"host_since\": \"08/03/2019\",\r\n        \"host_location\": \"United States\",\r\n        \"host_response_time\": \"within an hour\",\r\n        \"host_response_rate\": 0.45,\r\n        \"host_acceptance_rate\": 0.37,\r\n        \"neighbourhood\": \"Chelsea\",\r\n        \"city\": \"New York\",\r\n        \"latitude\": 40.73909,\r\n        \"longitude\": -73.99882,\r\n        \"property_type\": \"Entire apartment\",\r\n        \"room_type\": \"Entire place\",\r\n        \"guest_number\": 2,\r\n        \"bedroom_number\": 1,\r\n        \"amenities_list\": [\r\n            \"First aid kit\",\r\n            \"Hair dryer\",\r\n            \"Iron\",\r\n            \"Essentials\",\r\n            \"Gym\",\r\n            \"Washer\",\r\n            \"Dedicated workspace\",\r\n            \"TV\",\r\n            \"Wifi\",\r\n            \"Dryer\",\r\n            \"Heating\",\r\n            \"Shampoo\",\r\n            \"Hangers\",\r\n            \"Elevator\",\r\n            \"Smoke alarm\",\r\n            \"Air conditioning\",\r\n            \"Hot water\",\r\n            \"Long term stays allowed\",\r\n            \"Carbon monoxide alarm\",\r\n            \"Kitchen\"\r\n        ],\r\n        \"price\": 245,\r\n        \"minimum_nights_number\": 30,\r\n        \"maximum_nights_number\": 1125,\r\n        \"instant_bookable\": \"TRUE\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "Conflict",
+					"code": 409,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"8-OfewgPiFJ3o3XA5wgKRYk2ZHNlU\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "b226848a8816e70f12070748ba7de00a;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:46 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "8"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Conflict"
+				}
+			]
+		},
+		{
+			"name": "Not expected JSON [error 400]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"listing_id\": 45308579,\r\n        \"manolo\": \"Spacious studio with walk-in in closet\",\r\n        \"host_since\": \"08/03/2019\",\r\n        \"host_location\": \"United States\",\r\n        \"host_response_time\": \"within an hour\",\r\n        \"host_response_rate\": 0.45,\r\n        \"host_acceptance_rate\": 0.37,\r\n        \"neighbourhood\": \"Chelsea\",\r\n        \"city\": \"New York\",\r\n        \"latitude\": 40.73909,\r\n        \"longitude\": -73.99882,\r\n        \"property_type\": \"Entire apartment\",\r\n        \"room_type\": \"Entire place\",\r\n        \"guest_number\": 2,\r\n        \"bedroom_number\": 1,\r\n        \"amenities_list\": [\r\n            \"First aid kit\",\r\n            \"Hair dryer\",\r\n            \"Iron\",\r\n            \"Essentials\",\r\n            \"Gym\",\r\n            \"Washer\",\r\n            \"Dedicated workspace\",\r\n            \"TV\",\r\n            \"Wifi\",\r\n            \"Dryer\",\r\n            \"Heating\",\r\n            \"Shampoo\",\r\n            \"Hangers\",\r\n            \"Elevator\",\r\n            \"Smoke alarm\",\r\n            \"Air conditioning\",\r\n            \"Hot water\",\r\n            \"Long term stays allowed\",\r\n            \"Carbon monoxide alarm\",\r\n            \"Kitchen\"\r\n        ],\r\n        \"price\": 245,\r\n        \"minimum_nights_number\": 30,\r\n        \"maximum_nights_number\": 1125,\r\n        \"instant_bookable\": \"TRUE\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "The request is attempting to create new data in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings). However, the JSON data format provided in the request body is not as expected, leading to a bad request error (HTTP status code 400)."
+			},
+			"response": [
+				{
+					"name": "Not expected JSON [error 400]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"listing_id\": 45308579,\r\n        \"manolo\": \"Spacious studio with walk-in in closet\",\r\n        \"host_since\": \"08/03/2019\",\r\n        \"host_location\": \"United States\",\r\n        \"host_response_time\": \"within an hour\",\r\n        \"host_response_rate\": 0.45,\r\n        \"host_acceptance_rate\": 0.37,\r\n        \"neighbourhood\": \"Chelsea\",\r\n        \"city\": \"New York\",\r\n        \"latitude\": 40.73909,\r\n        \"longitude\": -73.99882,\r\n        \"property_type\": \"Entire apartment\",\r\n        \"room_type\": \"Entire place\",\r\n        \"guest_number\": 2,\r\n        \"bedroom_number\": 1,\r\n        \"amenities_list\": [\r\n            \"First aid kit\",\r\n            \"Hair dryer\",\r\n            \"Iron\",\r\n            \"Essentials\",\r\n            \"Gym\",\r\n            \"Washer\",\r\n            \"Dedicated workspace\",\r\n            \"TV\",\r\n            \"Wifi\",\r\n            \"Dryer\",\r\n            \"Heating\",\r\n            \"Shampoo\",\r\n            \"Hangers\",\r\n            \"Elevator\",\r\n            \"Smoke alarm\",\r\n            \"Air conditioning\",\r\n            \"Hot water\",\r\n            \"Long term stays allowed\",\r\n            \"Carbon monoxide alarm\",\r\n            \"Kitchen\"\r\n        ],\r\n        \"price\": 245,\r\n        \"minimum_nights_number\": 30,\r\n        \"maximum_nights_number\": 1125,\r\n        \"instant_bookable\": \"TRUE\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b-EFiDB1U+dmqzx9Mo2UjcZ1SJPO8\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "5a12859a7b2b5a866a55eeb48000478d;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:47:59 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "11"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Bad Request"
+				}
+			]
+		},
+		{
+			"name": "Update all data (Method Not Allowed)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}",
+					"host": [
+						"{{SERVER}}"
+					]
+				},
+				"description": "The request is attempting to update all data in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings) using the PUT method. However, updating all data in a single request is not allowed, resulting in a \"Method Not Allowed\" error (HTTP status code 405)."
+			},
+			"response": [
+				{
+					"name": "Update all data (Method Not Allowed)",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"12-UGJMK66P4abaBlq0vKHJaCKuGCA\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "df4694ac1d9e7d9c5e72c162eece51f6;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:48:11 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "18"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Method Not Allowed"
+				}
+			]
+		},
+		{
+			"name": "Update data by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"listing_id\": 2455506, \"name\" : \"UPDATED NAME\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/2455506",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"2455506"
+					]
+				},
+				"description": "The request is attempting to update the data associated with the ID \"2455506\" in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506](https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506) using the PUT method. The server allows updating data by ID, and the operation is successful without returning an error response."
+			},
+			"response": [
+				{
+					"name": "Update data by ID",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"listing_id\": 2455506, \"name\" : \"UPDATED NAME\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/2455506",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"2455506"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "3122a7058d4cd2f065a23cdf34f90941;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:48:26 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		},
+		{
+			"name": "Update data by ID [error 400]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"listing_id\": 2455406, \"name\" : \"UPDATED NAME\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/2455506",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"2455506"
+					]
+				},
+				"description": "The request is attempting to update the data associated with the ID \"2455506\" in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506](https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506) using the PUT method. However, the server returned a 400 Bad Request error, indicating that there was an issue with the request format or data (listing_id doesn't match)."
+			},
+			"response": [
+				{
+					"name": "Update data by ID [error 400]",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"listing_id\": 2455406, \"name\" : \"UPDATED NAME\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/2455506",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"2455506"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"b-EFiDB1U+dmqzx9Mo2UjcZ1SJPO8\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "52cc1abdfd56de5eff084e50c021b50d"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:48:36 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "11"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "Bad Request"
+				}
+			]
+		},
+		{
+			"name": "Update data by latitude and longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"latitude\": 40.58551, \"longitude\" : -73.94439, \"name\" : \"UPDATED BY LAT AND LONG\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{SERVER}}/40.58551/-73.94439",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"40.58551",
+						"-73.94439"
+					]
+				},
+				"description": "The request successfully updated the data associated with the latitude 40.58551 and longitude -73.94439 in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/40.58551/-73.94439](https://sos2324-12.appspot.com/api/v1/airbnb-listings/40.58551/-73.94439) using the PUT method."
+			},
+			"response": [
+				{
+					"name": "Update data by latitude and longitude",
+					"originalRequest": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"latitude\": 40.58551, \"longitude\" : -73.94439, \"name\" : \"UPDATED BY LAT AND LONG\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/40.58551/-73.94439",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"40.58551",
+								"-73.94439"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "810af3ab81179d703e18053cb5d7f6bf;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:48:48 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		},
+		{
+			"name": "Delete Data by ID",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is either 200 or 204\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/37440389",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"37440389"
+					]
+				},
+				"description": "The request deletes the data with the ID \"37440389\" from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings) using the DELETE method."
+			},
+			"response": [
+				{
+					"name": "Delete Data by ID",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/37440389",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"37440389"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "342a721e339b6c40093da5b26cb5cfa9"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:48:57 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		},
+		{
+			"name": "Delete data by latitude and longitude",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is either 200 or 204\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/48.83254/2.31738",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"48.83254",
+						"2.31738"
+					]
+				},
+				"description": "The request deletes the data with the latitude \"48.83254\" and longitude \"2.31738\" from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings) using the DELETE method."
+			},
+			"response": [
+				{
+					"name": "Delete data by latitude and longitude",
+					"originalRequest": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/48.83254/2.31738",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"48.83254",
+								"2.31738"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "b6ae479414693214d21a3d3f01e67710;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:49:13 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "2"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "OK"
+				}
+			]
+		},
+		{
+			"name": "Post Not Allowed [error 405]",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 405\", function () {\r",
+							"    pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{SERVER}}/France",
+					"host": [
+						"{{SERVER}}"
+					],
+					"path": [
+						"France"
+					]
+				},
+				"description": "The request attempted to create new data at the endpoint [https://sos2324-12.appspot.com/api/v1/airbnb-listings/France](https://sos2324-12.appspot.com/api/v1/airbnb-listings/France) using the POST method. However, the server responded with an error 405, indicating that this request is not allowed."
+			},
+			"response": [
+				{
+					"name": "Post Not Allowed [error 405]",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/France",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"France"
+							]
+						}
+					},
+					"status": "Method Not Allowed",
+					"code": 405,
+					"_postman_previewlanguage": "html",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/html; charset=utf-8"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "Express"
+						},
+						{
+							"key": "ETag",
+							"value": "W/\"68-fzRXRGF2JLEADBUMHlgyHSurU0Y\""
+						},
+						{
+							"key": "X-Cloud-Trace-Context",
+							"value": "c376540b49440091d4e60ae0da5c4fa8;o=1"
+						},
+						{
+							"key": "Date",
+							"value": "Thu, 07 Mar 2024 12:49:28 GMT"
+						},
+						{
+							"key": "Server",
+							"value": "Google Frontend"
+						},
+						{
+							"key": "Content-Length",
+							"value": "104"
+						},
+						{
+							"key": "Alt-Svc",
+							"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+						}
+					],
+					"cookie": [],
+					"body": "METHOD NOT ALLOWED. Please use this endpoint to create a new resource without specifying an ID or param."
+				}
+			]
+		}
+	]
+}

@@ -818,6 +818,11 @@ module.exports = (app,db) => {
                   return listingYear >= fromYear && listingYear <= toYear;
               });
   
+              // Verificar si se encontraron resultados
+              if (filteredListings.length === 0) {
+                  return res.status(404).send("No listings found within the specified range.");
+              }
+  
               // Aplicar paginación si los parámetros limit y offset están presentes
               let paginatedListings = filteredListings;
               if (limit !== undefined) {
@@ -850,6 +855,11 @@ module.exports = (app,db) => {
               return res.status(500).send("Internal Server Error");
           }
   
+          // Verificar si se encontraron resultados
+          if (listings.length === 0) {
+              return res.status(404).send("No listings found.");
+          }
+  
           // Aplicar paginación si los parámetros limit y offset están presentes
           let paginatedListings = listings;
           if (limit !== undefined) {
@@ -869,7 +879,8 @@ module.exports = (app,db) => {
           });
           res.status(200).send(responseBody);
       }
-  });
+  }),
+  
   
     // GET => loadInitialData (al hacer un GET cree 10 o más datos en el array de NodeJS si está vacío)
     app.get(API_BASE_JMS+"/loadInitialData",(req,res) => {
@@ -1022,9 +1033,11 @@ module.exports = (app,db) => {
             return;
         } else {
             if (numRemoved >= 1) {
+                console.log("All data has been deleted");
                 res.sendStatus(200, "Ok"); // Todos los datos han sido eliminados correctamente
             } else {
-                res.sendStatus(404, "Not found"); // No se encontraron datos para eliminar
+                console.log("No data found for deletion");
+                res.sendStatus(204, "No content"); // No se encontraron datos para eliminar
             }
         }
     });
@@ -1040,7 +1053,7 @@ module.exports = (app,db) => {
               res.sendStatus(500).send("INTERNAL ERROR");
           } else if (numRemoved === 0) {
               // No se encontró ningún documento con el listing_id especificado, devolver un error 404 NOT FOUND
-              res.sendStatus(404, "NOT FOUND");
+              res.sendStatus(204, "NO CONTENT");
           } else {
               // Se eliminó correctamente el documento
               res.sendStatus(200, "OK");
@@ -1059,7 +1072,7 @@ module.exports = (app,db) => {
             res.sendStatus(500).send("INTERNAL ERROR");
         } else if (numRemoved === 0) {
             // No se encontró ningún documento con la latitud y longitud especificadas, devolver un error 404 NOT FOUND
-            res.sendStatus(404, "NOT FOUND");
+            res.sendStatus(204, "NO CONTENT");
         } else {
             // Se eliminó correctamente el documento
             res.sendStatus(200, "OK");
