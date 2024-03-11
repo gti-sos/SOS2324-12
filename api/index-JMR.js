@@ -776,7 +776,7 @@ module.exports = (app,db) => {
     // Permite buscar por cualquier parametro con ?parametro=valor
     // Permite paginacion con limit y offset
 
-    app.get(API_BASE_JMS + "/", (req, res) => {
+    app.get(API_BASE_JMR + "/", (req, res) => {
         const { from, to, limit, offset, ...queryParams } = req.query;
 
     

@@ -24,10 +24,10 @@ app.use("/", express.static("./public"));
 //airbnb-listings
 API_JMS(app,db_airbnb);
 
-//
+//world-consumption-of-drinking-water-data
 API_JMR(app,db_water);
 
-//global-food-prices-listings
+//global-food-prices
 API_BFA(app, db_food)
 
 
