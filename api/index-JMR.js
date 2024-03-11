@@ -795,7 +795,7 @@ module.exports = (app,db) => {
             }
 
             const filteredListings = listings.filter(listing => {
-                const listingYear = listings.year;
+                const listingYear = parseInt(listing.year);
                 return listingYear >= fromYear && listingYear <= toYear;
             });
 
@@ -823,6 +823,21 @@ module.exports = (app,db) => {
         db.find({}, handleDbResponse);
     } else {
         // Hay parámetros de consulta, filtrar por esos parámetros
+        if (queryParams.year) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.urban_improved_other) queryParams.urban_improved_other = parseInt(queryParams.urban_improved_other);
+        if (queryParams.urban_improved_piped) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.urban_improved_total) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.urban_unimproved_other) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.rural_improved_other) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.rural_improved_piped) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.rural_improved_total) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.rural_unimproved_other) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.rural_unimproved_surface) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.total_improved_other) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.total_improved_piped) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.total_improved_total) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.total_unimproved_other) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.total_unimproved_surface) queryParams.year = parseInt(queryParams.year);
         db.find(queryParams, handleDbResponse);
     }
 
@@ -902,13 +917,13 @@ module.exports = (app,db) => {
     // GET => Get data by YEAR
 
     app.get(API_BASE_JMR + "/year/:year", (req, res) => {
-        const year = req.params.year;
+        const año = req.params.year;
         // Verificar si el año tiene un formato válido (cuatro dígitos)
-        if (!(/^\d{4}$/.test(year))) {
+        if (!(/^\d{4}$/.test(año))) {
         return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
         };
-        const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
-        db.find({ year: { $regex: yearRegex } }, (err, listings) => {
+        const yearInt = parseInt(año);
+        db.find({ year: yearInt }, (err, listings) => {
             if (err) {
                 res.sendStatus(500, "INTERNAL ERROR");
             } else {
@@ -931,7 +946,7 @@ module.exports = (app,db) => {
         // Parsear el año de la consulta a entero
         const yearInt = parseInt(year);
         // Crear una expresión regular para buscar en el campo host_since
-        db.find({ iso_code: iso, year: year }, (err, listings) => {
+        db.find({ iso_code: iso, year: yearInt }, (err, listings) => {
             if (err) {
                 res.sendStatus(500, "INTERNAL ERROR");
             } else {
@@ -947,7 +962,7 @@ module.exports = (app,db) => {
     // POST => Crea un nuevo análisis de datos
 
     app.post(API_BASE_JMR + "/", (req,res) => {
-        let newdata = req.body;
+        let newData = req.body;
         const expectedFields = ["iso_code","country","year","urban_improved_total","urban_improved_piped","urban_improved_other","urban_unimproved_other","rural_improved_total","rural_improved_piped","rural_improved_other","rural_unimproved_other","rural_unimproved_surface","total_improved_total","total_improved_piped","total_improved_other","total_unimproved_other","total_unimproved_surface"
     ];
     const receivedFields = Object.keys(newData);
