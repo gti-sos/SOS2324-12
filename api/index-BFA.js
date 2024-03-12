@@ -22208,6 +22208,18 @@ module.exports = (app, db) => {
         } else {
             // Hay parámetros de consulta, filtrar por esos parámetros
             db.find(queryParams, handleDbResponse);
+            if (queryParams.adm0_id) queryParams.adm0_id = parseInt(queryParams.adm0_id);
+            if (queryParams.adm1_id) queryParams.adm1_id = parseInt(queryParams.adm1_id);
+            if (queryParams.mkt_id) queryParams.mkt_id = parseInt(queryParams.mkt_id);
+            if (queryParams.cm_id) queryParams.cm_id = parseInt(queryParams.cm_id);
+            if (queryParams.cur_id) queryParams.cur_id = parseInt(queryParams.cur_id);
+            if (queryParams.pt_id) queryParams.pt_id = parseInt(queryParams.pt_id);
+            if (queryParams.um_id) queryParams.um_id = parseInt(queryParams.um_id);
+            if (queryParams.mp_month) queryParams.mp_month = parseInt(queryParams.mp_month);
+            if (queryParams.mp_year) queryParams.mp_year = parseInt(queryParams.mp_year);
+            if (queryParams.mp_price) queryParams.mp_price = parseFloat(queryParams.mp_price);
+
+
         }
     
         function handleDbResponse(err, listings) {
