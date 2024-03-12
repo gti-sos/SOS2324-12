@@ -825,19 +825,19 @@ module.exports = (app,db) => {
         // Hay parámetros de consulta, filtrar por esos parámetros
         if (queryParams.year) queryParams.year = parseInt(queryParams.year);
         if (queryParams.urban_improved_other) queryParams.urban_improved_other = parseInt(queryParams.urban_improved_other);
-        if (queryParams.urban_improved_piped) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.urban_improved_total) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.urban_unimproved_other) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.rural_improved_other) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.rural_improved_piped) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.rural_improved_total) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.rural_unimproved_other) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.rural_unimproved_surface) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.total_improved_other) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.total_improved_piped) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.total_improved_total) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.total_unimproved_other) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.total_unimproved_surface) queryParams.year = parseInt(queryParams.year);
+        if (queryParams.urban_improved_piped) queryParams.urban_improved_piped = parseInt(queryParams.urban_improved_piped);
+        if (queryParams.urban_improved_total) queryParams.urban_improved_total = parseInt(queryParams.urban_improved_total);
+        if (queryParams.urban_unimproved_other) queryParams.urban_unimproved_other = parseInt(queryParams.urban_unimproved_other);
+        if (queryParams.rural_improved_other) queryParams.rural_improved_other = parseInt(queryParams.rural_improved_other);
+        if (queryParams.rural_improved_piped) queryParams.rural_improved_piped = parseInt(queryParams.rural_improved_piped);
+        if (queryParams.rural_improved_total) queryParams.rural_improved_total = parseInt(queryParams.rural_improved_total);
+        if (queryParams.rural_unimproved_other) queryParams.rural_unimproved_other = parseInt(queryParams.rural_unimproved_other);
+        if (queryParams.rural_unimproved_surface) queryParams.rural_unimproved_surface = parseInt(queryParams.rural_unimproved_surface);
+        if (queryParams.total_improved_other) queryParams.total_improved_other = parseInt(queryParams.total_improved_other);
+        if (queryParams.total_improved_piped) queryParams.total_improved_piped = parseInt(queryParams.total_improved_piped);
+        if (queryParams.total_improved_total) queryParams.total_improved_total = parseInt(queryParams.total_improved_total);
+        if (queryParams.total_unimproved_other) queryParams.total_unimproved_other = parseInt(queryParams.total_unimproved_other);
+        if (queryParams.total_unimproved_surface) queryParams.total_unimproved_surface = parseInt(queryParams.total_unimproved_surface);
         db.find(queryParams, handleDbResponse);
     }
 
