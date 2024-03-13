@@ -798,7 +798,7 @@ module.exports = (app,db) => {
 
     app.get(API_BASE_JMS + "/", (req, res) => {
       const { from, to, limit, offset, ...queryParams } = req.query;
-  
+
       // Verifica si hay parámetros 'from' y 'to'
       if (from !== undefined && to !== undefined) {
           const fromYear = parseInt(from);
@@ -806,23 +806,23 @@ module.exports = (app,db) => {
           if (isNaN(fromYear) || isNaN(toYear)) {
               return res.status(400).send("Invalid year format. Please provide valid year values.");
           }
-  
+
           // Filtra los resultados dentro del rango de años especificado
           db.find({}, (err, listings) => {
               if (err) {
                   return res.status(500).send("Internal Server Error");
               }
-  
+
               const filteredListings = listings.filter(listing => {
                   const listingYear = new Date(listing.host_since).getFullYear();
                   return listingYear >= fromYear && listingYear <= toYear;
               });
-  
+
               // Verificar si se encontraron resultados
               if (filteredListings.length === 0) {
                   return res.status(404).send("No listings found within the specified range.");
               }
-  
+
               // Aplicar paginación si los parámetros limit y offset están presentes
               let paginatedListings = filteredListings;
               if (limit !== undefined) {
@@ -834,12 +834,19 @@ module.exports = (app,db) => {
                       paginatedListings = filteredListings.slice(0, limitNum);
                   }
               }
-  
+
               // Eliminar el campo _id de los resultados y enviar la respuesta
-              const responseBody = paginatedListings.map((listing) => {
+              let responseBody = paginatedListings.map((listing) => {
                   delete listing._id;
                   return listing;
               });
+
+              // Verificar si hay un solo elemento en el array de respuesta
+              if (responseBody.length === 1) {
+                  // Si hay un solo elemento, devolverlo como un objeto JSON
+                  responseBody = responseBody[0];
+              }
+
               res.status(200).send(responseBody);
           });
       } else if (Object.keys(queryParams).length === 0) {
@@ -858,19 +865,18 @@ module.exports = (app,db) => {
           if (queryParams.price) queryParams.price = parseFloat(queryParams.price);
           if (queryParams.minimum_nights_number) queryParams.minimum_nights_number = parseInt(queryParams.minimum_nights_number);
           if (queryParams.maximum_nights_number) queryParams.maximum_nights_number = parseInt(queryParams.maximum_nights_number);
-
       }
-  
+
       function handleDbResponse(err, listings) {
           if (err) {
               return res.status(500).send("Internal Server Error");
           }
-  
+
           // Verificar si se encontraron resultados
           if (listings.length === 0) {
               return res.status(404).send("No listings found.");
           }
-  
+
           // Aplicar paginación si los parámetros limit y offset están presentes
           let paginatedListings = listings;
           if (limit !== undefined) {
@@ -882,37 +888,44 @@ module.exports = (app,db) => {
                   paginatedListings = listings.slice(0, limitNum);
               }
           }
-  
+
           // Eliminar el campo _id de los resultados y enviar la respuesta
-          const responseBody = paginatedListings.map((listing) => {
+          let responseBody = paginatedListings.map((listing) => {
               delete listing._id;
               return listing;
           });
+
+          // Verificar si hay un solo elemento en el array de respuesta
+          if (responseBody.length === 1) {
+              // Si hay un solo elemento, devolverlo como un objeto JSON
+              responseBody = responseBody[0];
+          }
+
           res.status(200).send(responseBody);
       }
-  }),
-  
+    }),
+
   
     // GET => loadInitialData (al hacer un GET cree 10 o más datos en el array de NodeJS si está vacío)
     app.get(API_BASE_JMS+"/loadInitialData",(req,res) => {
       db.find({},(err,listings) => {
         if(err){
-          res.sendStatus(500, "INTERNAL ERROR");
+          res.res.status(500).send("Internal Server Error");
         }; 
         if (listings.length === 0) {
           db.insert(initialData, (err,listings) =>{
             if(err){
               console.error("Error al insertar datos iniciales:", err);
-              res.sendStatus(500, "INTERNAL ERROR");
+              res.status(500).send("Internal Server Error");
             } else {
               console.log("Database is empty.");
               console.log("Adding initial data.");
-              res.sendStatus(201, "DATA CREATED");
+              res.status(201).send("Data Created");
             }
           });
         } else {
           console.log("Database already contains data, initial data won't be loaded again.");
-          res.sendStatus(200, "OK");
+          res.status(200).send("Database already contains data, initial data won't be loaded again.");
         }
       }); 
     }),
@@ -920,47 +933,138 @@ module.exports = (app,db) => {
     // GET => Search data by year
     app.get(API_BASE_JMS + "/year/:year", (req, res) => {
       const year = req.params.year;
+      const limit = parseInt(req.query.limit) || 10; // Límite predeterminado de 10 resultados
+      const offset = parseInt(req.query.offset) || 0; // Desplazamiento predeterminado de 0
+
       // Verificar si el año tiene un formato válido (cuatro dígitos)
       if (!(/^\d{4}$/.test(year))) {
-      return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
+        return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
       };
+
       const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
-      db.find({ host_since: { $regex: yearRegex } }, (err, listings) => {
+      
+      db.find({ host_since: { $regex: yearRegex } })
+        .skip(offset) // Aplicar desplazamiento
+        .limit(limit) // Aplicar límite
+        .exec((err, listings) => {
           if (err) {
-              res.sendStatus(500, "INTERNAL ERROR");
+            res.status(500).send("Internal Error");
           } else {
-              if (listings.length === 0) {
-                  res.sendStatus(404, "NOT FOUND");
+            if (listings.length === 0) {
+              res.status(404).send("Not Found");
+            } else {
+              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
+              if (listings.length === 1) {
+                const responseBody = listings[0];
+                delete responseBody._id;
+                return res.status(200).send(responseBody);
               } else {
-                  res.status(200).send(JSON.stringify(listings.map((listing => { delete listing._id; return listing; }))));
+                // Si hay más de un elemento, devolver el array normalmente
+                const responseBody = listings.map((listing => { delete listing._id; return listing; }));
+                return res.status(200).send(responseBody);
               }
+            }
           }
-      });
+        });
     }),
 
-    // GET => Buscar por host_location y year
+
+    // GET => Buscar por host_location y year with pagination
     app.get(API_BASE_JMS + "/:year/:host_location", (req, res) => {
       const { year, host_location } = req.params;
       // Verificar si el año tiene un formato válido (cuatro dígitos)
       if (!(/^\d{4}$/.test(year))) {
-      return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
+          return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
       };
+
       // Parsear el año de la consulta a entero
       const yearInt = parseInt(year);
+
+      // Parsear los parámetros de paginación
+      const limit = parseInt(req.query.limit) || 10; // Valor predeterminado: 10
+      const offset = parseInt(req.query.offset) || 0; // Valor predeterminado: 0
+
       // Crear una expresión regular para buscar en el campo host_since
       const regex = new RegExp(`^\\d{2}/\\d{2}/${yearInt}$`);
-      db.find({ host_location: host_location, host_since: { $regex: regex } }, (err, listings) => {
-          if (err) {
-              res.sendStatus(500, "INTERNAL ERROR");
-          } else {
-              if (listings.length === 0) {
-                  res.sendStatus(404, "RESOURCE NOT FOUND");
+      db.find({ host_location: host_location, host_since: { $regex: regex } })
+          .limit(limit)
+          .skip(offset)
+          .exec((err, listings) => {
+              if (err) {
+                res.status(500).send("Internal Error");
               } else {
-                  res.status(200).send(JSON.stringify(listings.map((listing => { delete listing._id; return listing; }))));
+                  if (listings.length === 0) {
+                    res.status(404).send("Not Found");
+                  } else {
+                    // Si solo hay un elemento en el array, devolverlo como un objeto JSON
+                    if (listings.length === 1) {
+                      const responseBody = listings[0];
+                      delete responseBody._id;
+                      return res.status(200).send(responseBody);
+                    } else {
+                      // Si hay más de un elemento, devolver el array normalmente
+                      const responseBody = listings.map((listing => { delete listing._id; return listing; }));
+                      return res.status(200).send(responseBody);
+                    }
+                  }
               }
-          }
-      });
+          });
     }),
+
+
+    // GET => Búsqueda por precio minimo y maximo
+    // Se debe especificar min_price y max_price
+    app.get(API_BASE_JMS + "/price", (req, res) => {
+      const { min_price, max_price, limit, offset } = req.query;
+
+      // Verificar si se proporcionan los parámetros mínimos y máximos de precio
+      if (!min_price || !max_price) {
+          return res.status(400).send("Bad Request. Please provide both min_price and max_price parameters.");
+      }
+
+      // Parsear los parámetros de paginación
+      const limitNum = parseInt(limit) || 10; // Valor predeterminado: 10
+      const offsetNum = parseInt(offset) || 0; // Valor predeterminado: 0
+
+      // Convertir los precios a números
+      const minPriceNum = parseFloat(min_price);
+      const maxPriceNum = parseFloat(max_price);
+
+      // Verificar si los precios son números válidos
+      if (isNaN(minPriceNum) || isNaN(maxPriceNum)) {
+          return res.status(400).send("Bad Request. Please provide valid numerical values for min_price and max_price.");
+      }
+
+      // Realizar la consulta a la base de datos para filtrar por precio
+      db.find({ price: { $gte: minPriceNum, $lte: maxPriceNum } })
+          .limit(limitNum)
+          .skip(offsetNum)
+          .exec((err, listings) => {
+              if (err) {
+                  return res.status(500).send("Internal Server Error");
+              }
+
+              // Verificar si se encontraron resultados
+              if (listings.length === 0) {
+                  return res.status(404).send("No listings found within the specified price range.");
+              }
+
+              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
+              if (listings.length === 1) {
+                const responseBody = listings[0];
+                delete responseBody._id;
+                return res.status(200).send(responseBody);
+              } else {
+                // Si hay más de un elemento, devolver el array normalmente
+                const responseBody = listings.map((listing) => {
+                    delete listing._id;
+                    return listing;
+                });
+                return res.status(200).send(responseBody);
+              }
+          });
+    }),
+
 
   // POST => Create a new listing
   app.post(API_BASE_JMS + "/", (req, res) => {
@@ -972,33 +1076,33 @@ module.exports = (app,db) => {
     const isValidData = expectedFields.every(field => receivedFields.includes(field));
 
     if (!isValidData) {
-        res.sendStatus(400, "Bad Request"); // Datos inválidos
+      res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
     } else {
         // Verificar si ya existe un documento con el mismo cci en la base de datos
         db.findOne({ listing_id: newData.listing_id, latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
             if (err) {
-                res.sendStatus(500, "Internal Error"); // Error interno del servidor
+              res.status(500).send("Internal Error"); // Error interno del servidor
             } else {
                 if (existingData) {
-                    res.sendStatus(409, "Conflict"); //Datos existentes
+                  res.status(409).send("Conflict, data already exists");  //Datos existentes
                 } else {
                     // Si no existe, insertar el nuevo documento
                     db.insert(newData, (err, insertedData) => {
                         if (err) {
-                            res.sendStatus(500, "Internal Error"); // Error interno del servidor
+                          res.status(500).send("Internal Error"); // Error interno del servidor
                         } else {
-                            res.sendStatus(201, "Created");
+                          res.status(201).send("Created");
                         }
                     });
                 }
             }
         });
     }
-});
+  }),
 
     // PUT => Can't update root directory
     app.put(API_BASE_JMS + "/", (req,res)=> {
-        res.sendStatus(405,"METHOD NOW ALLOWED");
+      res.status(405).send("Method Not Allowed");
     }),
 
     // PUT => Update resource by listing_id
@@ -1008,13 +1112,13 @@ module.exports = (app,db) => {
       let data = req.body;
 
       if (!data || Object.keys(data).length === 0 || data.listing_id !== listing_id) {
-          res.sendStatus(400, "BAD REQUEST"); // Datos inválidos
+        res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
       } else {
           db.update({ listing_id: listing_id }, data, { }, (err) => {
               if (err) {
-                  res.sendStatus(500, "Internal Server Error"); // Error interno del servidor
+                res.status(500).send("Internal Error"); // Error interno del servidor
               }
-              res.sendStatus(200, "Ok"); //Actualizacion correcta
+              res.status(200).send("OK, data updated"); //Actualizacion correcta
           });
       }
   }),
@@ -1025,13 +1129,13 @@ module.exports = (app,db) => {
         let data = req.body;
   
         if (!data || Object.keys(data).length === 0 || data.latitude !== latitude || data.longitude !== longitude) {
-            res.sendStatus(400, "BAD REQUEST"); // Datos inválidos
+          res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
         } else {
             db.update({ latitude: latitude, longitude: longitude }, data, { }, (err) => {
                 if (err) {
-                    res.sendStatus(500, "Internal Server Error"); // Error interno del servidor
+                  res.status(500).send("Internal Error"); // Error interno del servidor
                 }
-                res.sendStatus(200, "Ok"); //Actualizacion correcta
+                res.status(200).send("OK, data updated"); //Actualizacion correcta
             });
         }
     }),
@@ -1040,15 +1144,15 @@ module.exports = (app,db) => {
     app.delete(API_BASE_JMS + "/", (req, res) => {
       db.remove({}, { multi: true }, (err, numRemoved) => { // Borrar todo la base de datos
         if (err) {
-            res.sendStatus(500, "Internal Error"); // Error interno del servidor
+          res.status(500).send("Internal Error"); // Error interno del servidor
             return;
         } else {
             if (numRemoved >= 1) {
                 console.log("All data has been deleted");
-                res.sendStatus(200, "Ok"); // Todos los datos han sido eliminados correctamente
+                res.status(200).send("OK, All data has been deleted"); // Todos los datos han sido eliminados correctamente
             } else {
                 console.log("No data found for deletion");
-                res.sendStatus(204, "No content"); // No se encontraron datos para eliminar
+                res.status(204).send("Database is empty"); // No se encontraron datos para eliminar
             }
         }
     });
@@ -1061,13 +1165,13 @@ module.exports = (app,db) => {
       // Eliminar el documento con el listing_id especificado de la base de datos
       db.remove({ listing_id: ID }, {}, (err, numRemoved) => {
           if (err) {
-              res.sendStatus(500).send("INTERNAL ERROR");
+            res.status(500).send("Internal Error");
           } else if (numRemoved === 0) {
-              // No se encontró ningún documento con el listing_id especificado, devolver un error 404 NOT FOUND
-              res.sendStatus(204, "NO CONTENT");
+              // No se encontró ningún documento con el listing_id especificado, devolver un error 204 NOT FOUND
+              res.status(204).send("Listing not found");
           } else {
               // Se eliminó correctamente el documento
-              res.sendStatus(200, "OK");
+              res.status(200).send("Listing deleted");
           }
       });
     }),
@@ -1080,16 +1184,34 @@ module.exports = (app,db) => {
     // Eliminar el documento con la latitud y longitud especificadas de la base de datos
     db.remove({ latitude: latitude, longitude: longitude }, {}, (err, numRemoved) => {
         if (err) {
-            res.sendStatus(500).send("INTERNAL ERROR");
+            res.status(500).send("Internal Error");
         } else if (numRemoved === 0) {
             // No se encontró ningún documento con la latitud y longitud especificadas, devolver un error 404 NOT FOUND
-            res.sendStatus(204, "NO CONTENT");
+            res.status(204).send("Listing not found");
         } else {
             // Se eliminó correctamente el documento
-            res.sendStatus(200, "OK");
+            res.status(200).send("OK, listing deleted");
         }
     });
     }),
+
+    // DELETE => Eliminar por rango de precios
+    app.delete(API_BASE_JMS + "/price/:min/:max", (req, res) => {
+      const minPrice = parseFloat(req.params.min);
+      const maxPrice = parseFloat(req.params.max);
+
+      // Eliminar todos los documentos cuyo precio esté dentro del rango especificado
+      db.remove({ price: { $gte: minPrice, $lte: maxPrice } }, { multi: true }, (err, numRemoved) => {
+          if (err) {
+              res.status(500).send("Internal Error");
+          } else if (numRemoved === 0) {
+              res.status(204).send("No content found");
+          } else {
+              res.status(200).send("OK, listing(s) deleted");
+          }
+      });
+    }),
+
 
     // POST => Method not allowed
     app.post(API_BASE_JMS + "/:id", (req, res) => {
