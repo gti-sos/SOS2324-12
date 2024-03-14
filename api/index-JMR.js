@@ -1035,18 +1035,18 @@ module.exports = (app,db) => {
       });
     }),
 
-    // DELETE => Delete specific data
+    // DELETE => Delete specific data by iso and year
 
     app.delete(API_BASE_JMR + "/:iso_code/:year", (req, res) => {
         const iso = req.params.iso_code;
         const año = req.params.year;
     
-        // Eliminar el documento con la latitud y longitud especificadas de la base de datos
+        // Eliminar el documento con la iso_code y year especificadas de la base de datos
         db.remove({ iso_code: iso, year: año }, {}, (err, numRemoved) => {
             if (err) {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
-                // No se encontró ningún documento con la latitud y longitud especificadas, devolver un error 404 NOT FOUND
+                // No se encontró ningún documento con la iso_code y year especificadas, devolver un error 404 NOT FOUND
                 res.sendStatus(404, "NOT FOUND");
             } else {
                 // Se eliminó correctamente el documento
@@ -1055,7 +1055,42 @@ module.exports = (app,db) => {
         });
         }),
 
+        // DELETE => Delete specific data by urban_improved_total and urban_improved_piped
 
+    app.delete(API_BASE_JMR + "/:urban_improved_total/:urban_improved_piped", (req, res) => {
+        const total = req.params.urban_improved_total;
+        const piped = req.params.urban_improved_piped;
+    
+        // Eliminar el documento con la urban_improved_total y urban_improved_piped especificadas de la base de datos
+        db.remove({ iso_code: total, year: piped }, {}, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500).send("INTERNAL ERROR");
+            } else if (numRemoved === 0) {
+                // No se encontró ningún documento con la urban_improved_total y urban_improved_piped especificadas, devolver un error 404 NOT FOUND
+                res.sendStatus(404, "NOT FOUND");
+            } else {
+                // Se eliminó correctamente el documento
+                res.sendStatus(200, "OK");
+            }
+        });
+        }),
+
+        // DELETE => Eliminar por rango de urban_improved_other
+    app.delete(API_BASE_JMS + "/urban_improved_other/:min/:max", (req, res) => {
+        const minimo = parseFloat(req.params.min);
+        const maximo = parseFloat(req.params.max);
+  
+        // Eliminar todos los documentos cuyo urban_improved_other esté dentro del rango especificado
+        db.remove({ price: { $gte: minimo, $lte: maximo } }, { multi: true }, (err, numRemoved) => {
+            if (err) {
+                res.status(500).send("Internal Error");
+            } else if (numRemoved === 0) {
+                res.status(204).send("No content found");
+            } else {
+                res.status(200).send("OK, listing(s) deleted");
+            }
+        });
+      }),
 
     // POST => Method not allowed
     app.post(API_BASE_JMR + "/:iso_code", (req, res) => {
