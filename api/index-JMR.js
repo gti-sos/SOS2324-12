@@ -1032,7 +1032,7 @@ module.exports = (app,db) => {
       });
     }),
 
-    // DELETE => Delete specific data by iso and year
+    // DELETE => Delete specific data by iso and country
 
     app.delete(API_BASE_JMR + "/:iso_code/:country", (req, res) => {
         const iso = req.params.iso_code;
@@ -1046,7 +1046,7 @@ module.exports = (app,db) => {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
                 // No se encontró ningún documento con la iso_code y year especificadas, devolver un error 404 NOT FOUND
-                res.sendStatus(204, "NOT FOUND");
+                res.sendStatus(404, "NOT FOUND");
             } else {
                 // Se eliminó correctamente el documento
                 res.sendStatus(200, "OK");
@@ -1061,7 +1061,7 @@ module.exports = (app,db) => {
         const piped = req.params.urban_improved_piped;
     
         // Eliminar el documento con la urban_improved_total y urban_improved_piped especificadas de la base de datos
-        db.remove({ iso_code: total, year: piped }, {}, (err, numRemoved) => {
+        db.remove({ urban_improved_total: total, urban_improved_piped: piped }, {}, (err, numRemoved) => {
             if (err) {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
