@@ -1,0 +1,718 @@
+{
+	"info": {
+		"_postman_id": "f3fcccda-ce43-4940-9908-ed382388bb1f",
+		"name": "GLOBAL-FOOD-PRICES-API-LOCAL",
+		"description": "Basic methods to use global food prices api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33014489"
+	},
+	"item": [
+		{
+			"name": "GET initial",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {",
+							"  pm.response.to.have.status(201);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/loadInitialData",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"loadInitialData"
+					]
+				},
+				"description": "Charge the initial data"
+			},
+			"response": []
+		},
+		{
+			"name": "GET initial OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/loadInitialData",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"loadInitialData"
+					]
+				},
+				"description": "Charge the initial data"
+			},
+			"response": []
+		},
+		{
+			"name": "GET data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/loadInitialData",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"loadInitialData"
+					]
+				},
+				"description": "Get all data"
+			},
+			"response": []
+		},
+		{
+			"name": "GET by food",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/food/Bread",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"food",
+						"Bread"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by queryParams",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/?adm0_name=Afghanistan&adm1_name=Badakhshan&cm_name=Bread",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "adm0_name",
+							"value": "Afghanistan"
+						},
+						{
+							"key": "adm1_name",
+							"value": "Badakhshan"
+						},
+						{
+							"key": "cm_name",
+							"value": "Bread"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET limit and offset",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test for response status and array length",
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"The length of the array in the response is equal to the limit parameter\", function () {",
+							"  var limit = pm.request.url.query.get('limit');",
+							"  var responseData = pm.response.json();",
+							"  pm.expect(responseData.length).to.equal(parseInt(limit));",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/?adm0_name=Afghanistan&adm1_name=Badakhshan&cm_name=Bread&limit=20&offset=3",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "adm0_name",
+							"value": "Afghanistan"
+						},
+						{
+							"key": "adm1_name",
+							"value": "Badakhshan"
+						},
+						{
+							"key": "cm_name",
+							"value": "Bread"
+						},
+						{
+							"key": "limit",
+							"value": "20"
+						},
+						{
+							"key": "offset",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET from to",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/?adm0_name=Afghanistan&adm1_name=Badakhshan&cm_name=Bread&from=2000&to=2015",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						""
+					],
+					"query": [
+						{
+							"key": "adm0_name",
+							"value": "Afghanistan"
+						},
+						{
+							"key": "adm1_name",
+							"value": "Badakhshan"
+						},
+						{
+							"key": "cm_name",
+							"value": "Bread"
+						},
+						{
+							"key": "from",
+							"value": "2000"
+						},
+						{
+							"key": "to",
+							"value": "2015"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new ok",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 201\", function () {\r",
+							"  pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"adm0_id\": 10,\r\n        \"adm0_name\": \"Test\",\r\n        \"adm1_id\": 50,\r\n        \"adm1_name\": \"Test\",\r\n        \"mkt_id\": 38,\r\n        \"mkt_name\": \"Test\",\r\n        \"cm_id\": 535,\r\n        \"cm_name\": \"Test\",\r\n        \"cur_id\": 93,\r\n        \"cur_name\": \"Test\",\r\n        \"pt_id\": 83,\r\n        \"pt_name\": \"Test\",\r\n        \"um_id\": 5,\r\n        \"um_name\": \"KG\",\r\n        \"mp_month\": 5,\r\n        \"mp_year\": 2020,\r\n        \"mp_price\": 50.0,\r\n        \"mp_commoditysource\": \"WFP\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}",
+					"host": [
+						"{{local}}{{myApi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 409\", function () {",
+							"  pm.response.to.have.status(409);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"adm0_id\": 10,\r\n        \"adm0_name\": \"Test\",\r\n        \"adm1_id\": 50,\r\n        \"adm1_name\": \"Test\",\r\n        \"mkt_id\": 38,\r\n        \"mkt_name\": \"Test\",\r\n        \"cm_id\": 535,\r\n        \"cm_name\": \"Test\",\r\n        \"cur_id\": 93,\r\n        \"cur_name\": \"Test\",\r\n        \"pt_id\": 83,\r\n        \"pt_name\": \"Test\",\r\n        \"um_id\": 5,\r\n        \"um_name\": \"KG\",\r\n        \"mp_month\": 5,\r\n        \"mp_year\": 2020,\r\n        \"mp_price\": 50.0,\r\n        \"mp_commoditysource\": \"WFP\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}",
+					"host": [
+						"{{local}}{{myApi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new notallowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 405\", function () {\r",
+							"  pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"adm0_id\": 1,\r\n        \"adm0_name\": \"Afghanistan\",\r\n        \"adm1_id\": 272,\r\n        \"adm1_name\": \"Badakhshan\",\r\n        \"mkt_id\": 266,\r\n        \"mkt_name\": \"Fayzabad\",\r\n        \"cm_id\": 55,\r\n        \"cm_name\": \"Bread\",\r\n        \"cur_id\": 87,\r\n        \"cur_name\": \"AFN\",\r\n        \"pt_id\": 15,\r\n        \"pt_name\": \"Retail\",\r\n        \"um_id\": 5,\r\n        \"um_name\": \"KG\",\r\n        \"mp_month\": 4,\r\n        \"mp_year\": 2015,\r\n        \"mp_price\": 50.0,\r\n        \"mp_commoditysource\": \"WFP\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/Fayzabad",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"Fayzabad"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST new badrequest",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"adm1_id\": 272,\r\n        \"adm1_name\": \"Badakhshan\",\r\n        \"mkt_id\": 266,\r\n        \"mkt_name\": \"Fayzabad\",\r\n        \"cm_id\": 55,\r\n        \"cm_name\": \"Bread\",\r\n        \"cur_id\": 87,\r\n        \"cur_name\": \"AFN\",\r\n        \"pt_id\": 15,\r\n        \"pt_name\": \"Retail\",\r\n        \"um_id\": 5,\r\n        \"um_name\": \"KG\",\r\n        \"mp_month\": 4,\r\n        \"mp_year\": 2015,\r\n        \"mp_price\": 50.0,\r\n        \"mp_commoditysource\": \"WFP\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}",
+					"host": [
+						"{{local}}{{myApi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT notallowed",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 405\", function () {\r",
+							"  pm.response.to.have.status(405);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}",
+					"host": [
+						"{{local}}{{myApi}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT byId",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adm0_id\": 1,\r\n    \"adm0_name\": \"CHANGED VALUE\",\r\n    \"adm1_id\": 272,\r\n    \"adm1_name\": \"Badakhshan\",\r\n    \"mkt_id\": 266,\r\n    \"mkt_name\": \"cambiado\",\r\n    \"cm_id\": 55,\r\n    \"cm_name\": \"Bread\",\r\n    \"cur_id\": 87,\r\n    \"cur_name\": \"AFN\",\r\n    \"pt_id\": 15,\r\n    \"pt_name\": \"Retail\",\r\n    \"um_id\": 5,\r\n    \"um_name\": \"KG\",\r\n    \"mp_month\": 4,\r\n    \"mp_year\": 2015,\r\n    \"mp_price\": 50,\r\n    \"mp_commoditysource\": \"WFP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/1/272/266/55/87/15/5/4/2015",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"1",
+						"272",
+						"266",
+						"55",
+						"87",
+						"15",
+						"5",
+						"4",
+						"2015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PUT byId badkeys",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {\r",
+							"  pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"adm0_id\": 2,\r\n    \"adm0_name\": \"Key adm0_id changed\",\r\n    \"adm1_id\": 272,\r\n    \"adm1_name\": \"Badakhshan\",\r\n    \"mkt_id\": 266,\r\n    \"mkt_name\": \"cambiado\",\r\n    \"cm_id\": 55,\r\n    \"cm_name\": \"Bread\",\r\n    \"cur_id\": 87,\r\n    \"cur_name\": \"AFN\",\r\n    \"pt_id\": 15,\r\n    \"pt_name\": \"Retail\",\r\n    \"um_id\": 5,\r\n    \"um_name\": \"KG\",\r\n    \"mp_month\": 4,\r\n    \"mp_year\": 2015,\r\n    \"mp_price\": 50,\r\n    \"mp_commoditysource\": \"WFP\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{local}}{{myApi}}/1/272/266/55/87/15/5/4/2015",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"1",
+						"272",
+						"266",
+						"55",
+						"87",
+						"15",
+						"5",
+						"4",
+						"2015"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"  pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/1/275/267/55/87/15/5/4/2017",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"1",
+						"275",
+						"267",
+						"55",
+						"87",
+						"15",
+						"5",
+						"4",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/1/275/267/55/87/15/5/4/2017",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"1",
+						"275",
+						"267",
+						"55",
+						"87",
+						"15",
+						"5",
+						"4",
+						"2017"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE all",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"  pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
