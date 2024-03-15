@@ -999,13 +999,13 @@ module.exports = (app,db) => {
 
     app.put(API_BASE_JMR + "/:iso_code/:year", (req, res) => {
         const iso = req.params.iso_code;
-        const año = parseInt(req.params.year);
+        const year = parseInt(req.params.year);
         let data = req.body;
   
-        if (!data || Object.keys(data).length === 0 || data.iso_code !== iso || data.year !== año) {
-            res.sendStatus(400, "BAD REQUEST"); // Datos inválidos
+        if (!data || Object.keys(data).length === 0 || data.iso_code !== iso || data.year !== year) {
+            res.sendStatus(400, "BAD REQUEST,please provide valid data"); // Datos inválidos
         } else {
-            db.update({ iso_code: iso, year: año }, data, { }, (err) => {
+            db.update({ iso_code: iso, year: year }, data, { }, (err) => {
                 if (err) {
                     res.sendStatus(500, "Internal Server Error"); // Error interno del servidor
                 }
@@ -1080,7 +1080,7 @@ module.exports = (app,db) => {
         const maximo = parseFloat(req.params.max);
   
         // Eliminar todos los documentos cuyo urban_improved_other esté dentro del rango especificado
-        db.remove({ price: { $gte: minimo, $lte: maximo } }, { multi: true }, (err, numRemoved) => {
+        db.remove({ urban_improved_other: { $gte: minimo, $lte: maximo } }, { multi: true }, (err, numRemoved) => {
             if (err) {
                 res.status(500).send("Internal Error");
             } else if (numRemoved === 0) {
