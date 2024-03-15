@@ -1076,7 +1076,7 @@ module.exports = (app,db) => {
         }),
 
         // DELETE => Eliminar por rango de urban_improved_other
-    app.delete(API_BASE_JMS + "/urban_improved_other/:min/:max", (req, res) => {
+    app.delete(API_BASE_JMR + "/urban_improved_other/:min/:max", (req, res) => {
         const minimo = parseFloat(req.params.min);
         const maximo = parseFloat(req.params.max);
   
