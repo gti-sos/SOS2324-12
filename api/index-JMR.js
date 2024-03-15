@@ -999,7 +999,7 @@ module.exports = (app,db) => {
 
     app.put(API_BASE_JMR + "/:iso_code/:year", (req, res) => {
         const iso = req.params.iso_code;
-        const año = req.params.year;
+        const año = parseInt(req.params.year);
         let data = req.body;
   
         if (!data || Object.keys(data).length === 0 || data.iso_code !== iso || data.year !== año) {
@@ -1057,8 +1057,8 @@ module.exports = (app,db) => {
         // DELETE => Delete specific data by urban_improved_total and urban_improved_piped
 
     app.delete(API_BASE_JMR + "/:urban_improved_total/:urban_improved_piped", (req, res) => {
-        const total = req.params.urban_improved_total;
-        const piped = req.params.urban_improved_piped;
+        const total = parseInt(req.params.urban_improved_total);
+        const piped = parseInt(req.params.urban_improved_piped);
     
         // Eliminar el documento con la urban_improved_total y urban_improved_piped especificadas de la base de datos
         db.remove({ urban_improved_total: total, urban_improved_piped: piped }, {}, (err, numRemoved) => {
