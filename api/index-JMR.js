@@ -936,17 +936,12 @@ module.exports = (app,db) => {
         });
       }),
 
-      // GET => Buscar por iso_code y year
-    app.get(API_BASE_JMR + "/:year/:iso_code", (req, res) => {
-        const { year, iso } = req.params;
-        // Verificar si el año tiene un formato válido (cuatro dígitos)
-        if (!(/^\d{4}$/.test(year))) {
-        return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
-        };
-        // Parsear el año de la consulta a entero
-        const yearInt = parseInt(year);
+      // GET => Buscar por iso_code y country
+    app.get(API_BASE_JMR + "/:iso_code/:country", (req, res) => {
+        const pais = req.params.country;
+        const iso = req.params.iso_code;
         // Crear una expresión regular para buscar en el campo host_since
-        db.find({ iso_code: iso, year: yearInt }, (err, listings) => {
+        db.find({ iso_code: iso, country: pais }, (err, listings) => {
             if (err) {
                 res.sendStatus(500, "INTERNAL ERROR");
             } else {
@@ -958,6 +953,8 @@ module.exports = (app,db) => {
             }
         });
       }),
+      
+
 
     // POST => Crea un nuevo análisis de datos
 
