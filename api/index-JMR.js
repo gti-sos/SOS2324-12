@@ -1034,17 +1034,19 @@ module.exports = (app,db) => {
 
     // DELETE => Delete specific data by iso and year
 
-    app.delete(API_BASE_JMR + "/:iso_code/:year", (req, res) => {
+    app.delete(API_BASE_JMR + "/:iso_code/:country", (req, res) => {
         const iso = req.params.iso_code;
-        const año = req.params.year;
+        const pais = req.params.country;
+
+        //const yearInt = parseInt(año);
     
         // Eliminar el documento con la iso_code y year especificadas de la base de datos
-        db.remove({ iso_code: iso, year: año }, {}, (err, numRemoved) => {
+        db.remove({ iso_code: iso, country: pais }, {}, (err, numRemoved) => {
             if (err) {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
                 // No se encontró ningún documento con la iso_code y year especificadas, devolver un error 404 NOT FOUND
-                res.sendStatus(404, "NOT FOUND");
+                res.sendStatus(204, "NOT FOUND");
             } else {
                 // Se eliminó correctamente el documento
                 res.sendStatus(200, "OK");
