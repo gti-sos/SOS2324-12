@@ -1046,7 +1046,7 @@ module.exports = (app,db) => {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
                 // No se encontró ningún documento con la iso_code y year especificadas, devolver un error 404 NOT FOUND
-                res.sendStatus(404, "NOT FOUND");
+                res.sendStatus(204, "NOT FOUND");
             } else {
                 // Se eliminó correctamente el documento
                 res.sendStatus(200, "OK");
