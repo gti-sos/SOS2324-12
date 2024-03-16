@@ -1,0 +1,906 @@
+{
+	"info": {
+		"_postman_id": "62396fde-d9ee-4b6e-a6b3-5195583bfc00",
+		"name": "GCLOUD COLLECTION",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33042137"
+	},
+	"item": [
+		{
+			"name": "Removing Data",
+			"item": [
+				{
+					"name": "Delete all data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 200 or 204\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+									"\t\t\t\t\t\t\t\t\t});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Retrieving data",
+			"item": [
+				{
+					"name": "Load Initial Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 201 or 200\", function () {\r",
+									"\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201, 200]);\r",
+									"\t\t\t\t\t\t\t\t\t});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/loadInitialData",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"loadInitialData"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve initial data from the specified {{GCLOUD}} server. The last execution returned a response with a status code of 200 and a Content-Type of text/xml. The response body was null."
+					},
+					"response": []
+				},
+				{
+					"name": "Get all data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"\tpm.response.to.have.status(200);\r",
+									"\t});\r",
+									"pm.test(\"There is at least 1 resource\", function () {\r",
+									"\tvar jsonData = pm.response.json();\r",
+									"\tpm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"\t});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						},
+						"description": "\nThis endpoint makes an HTTP GET request to {{GCLOUD}}. The last execution returned a response with a status code of 200 and a Content-Type of text/xml.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "filter by year using from to",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test para verificar el código de estado 200\\r\",\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"pm.response.to.have.status(200);\r",
+									"});\r",
+									"// Test para verificar que hay al menos 1 dato en la respuesta\\r\r",
+									"pm.test(\"There are at least 1 data\", function () {\r",
+									"var jsonData = pm.response.json();\r",
+									"pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"});\r",
+									"// Test para verificar que los años en host_since están entre 2018 y 2020\\r\r",
+									"pm.test(\"Years are between 2012 and 2017\", function () {\r",
+									"var jsonData = pm.response.json();\r",
+									"jsonData.forEach(function(item) {\r",
+									"var year = parseInt(item.year)\r",
+									"pm.expect(year).to.be.within(2012, 2017); // Verificar que el año está entre 2018 y 2020\r",
+									"})\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/?from=2012&to=2017",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "from",
+									"value": "2012"
+								},
+								{
+									"key": "to",
+									"value": "2017"
+								}
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve data for the year 2015. The response is in XML format with a status code of 200."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data by parameter ?field",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Test para verificar el código de estado 200\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Test para verificar que hay al menos 1 dato en la respuesta\r",
+									"pm.test(\"There are at least 1 data\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"});\r",
+									"\r",
+									"// Test para verificar que el campo 'country' es 'Chile' en todos los objetos de la respuesta\r",
+									"pm.test(\"Field 'country' is 'Chile' in all response objects\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"\r",
+									"    // Verificar que 'country' es 'Chile' en cada objeto de la respuesta\r",
+									"    jsonData.forEach(function(item) {\r",
+									"        pm.expect(item.country).to.eql(\"Chile\");\r",
+									"    });\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/?country=Chile",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "country",
+									"value": "Chile"
+								}
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve data for the year 2015. The response is in XML format with a status code of 200."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data by year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Response body is not empty\", function () {\r",
+									"    pm.expect(pm.response.json()).to.not.be.empty;\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Year matches requested year\", function () {\r",
+									"    var url = pm.request.url.toString(); // Convertir la URL a una cadena\r",
+									"    var year = url.match(/\\/year\\/(\\d+)/)[1]; // Extraer el año de la URL\r",
+									"    \r",
+									"    if (!year) {\r",
+									"        pm.expect.fail(\"Invalid year in URL\");\r",
+									"    }\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    jsonData.forEach(function(item) {\r",
+									"        var itemYear = item.year.toString(); // Convertir el año del objeto JSON a cadena\r",
+									"        pm.expect(itemYear).to.eql(year); // Comprobar si el año de la URL coincide con el año en el objeto JSON\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/year/2015",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"year",
+								"2015"
+							]
+						},
+						"description": "This endpoint makes an HTTP GET request to retrieve data for the year 2015. The response is in XML format with a status code of 200."
+					},
+					"response": []
+				},
+				{
+					"name": "Get data by limit and offset",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Verificar que la respuesta tenga el código de estado 200 OK\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"// Convertir la respuesta a formato JSON\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"// Verificar que la respuesta sea un array\r",
+									"pm.test(\"Response is an array\", function () {\r",
+									"    pm.expect(jsonData).to.be.an('array');\r",
+									"});\r",
+									"\r",
+									"// Verificar que la longitud de la respuesta sea igual al límite especificado\r",
+									"pm.test(\"Response length is equal to the limit\", function () {\r",
+									"    pm.expect(jsonData).to.have.lengthOf(parseInt(pm.request.url.query.get('limit')));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/?limit=1&offset=2",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "limit",
+									"value": "1"
+								},
+								{
+									"key": "offset",
+									"value": "2"
+								}
+							]
+						},
+						"description": "StartFragmentThe request attempts to access a resource that does not exist on the \"water\" API endpoint located at [https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data\"/year/2067](https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data%22/year/2067), resulting in an error response with status code 404 (Not Found).EndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Data by ISO",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test('There are at least 1 data', function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"})\r",
+									"\r",
+									"pm.test(\"ISO code matches requested iso_code\", function () {\r",
+									"    var url = pm.request.url.toString(); // Convertir la URL a una cadena\r",
+									"    var isoCode = url.match(/\\/ISO\\/([^\\/]+)/)[1]; // Extraer el iso_code de la URL\r",
+									"    \r",
+									"    if (!isoCode) {\r",
+									"        pm.expect.fail(\"Invalid iso_code in URL\");\r",
+									"    }\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var found = false;\r",
+									"    jsonData.forEach(function(item) {\r",
+									"        if (item.iso_code === isoCode) {\r",
+									"            found = true;\r",
+									"        }\r",
+									"    });\r",
+									"    \r",
+									"    pm.expect(found).to.be.true;\r",
+									"});\r",
+									"\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/ISO/TCD",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"ISO",
+								"TCD"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Access not existing resource [error 404]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Access not existing resource [error 404]\", function () {\r",
+									"    pm.response.to.have.status(404); // Verificar que la respuesta tenga el estado 404\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/year/2067",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"year",
+								"2067"
+							]
+						},
+						"description": "StartFragmentThe request attempts to access a resource that does not exist on the \"water\" API endpoint located at [https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data\"/year/2067](https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data%22/year/2067), resulting in an error response with status code 404 (Not Found).EndFragment"
+					},
+					"response": []
+				},
+				{
+					"name": "Get data by ISO and country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r",
+									"pm.test('There are at least 1 data', function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
+									"})\r",
+									"pm.test(\"Get data by iso_code and country\", function () {\r",
+									"    var url = pm.request.url.toString(); // Convertir la URL de la solicitud a una cadena de texto\r",
+									"    var parts = url.split(\"/\"); // Dividir la URL en partes usando \"/\" como delimitador\r",
+									"\r",
+									"    // Obtener el ISO code y el país de las partes de la URL\r",
+									"    var isoCode = parts[parts.length - 2]; // El código ISO es el penúltimo elemento de la URL\r",
+									"    var country = parts[parts.length - 1]; // El país es el último elemento de la URL\r",
+									"\r",
+									"    var jsonData = pm.response.json();\r",
+									"    var found = false;\r",
+									"\r",
+									"    for (var i = 0; i < jsonData.length; i++) {\r",
+									"        if (jsonData[i].iso_code === isoCode && jsonData[i].country === country) {\r",
+									"            found = true;\r",
+									"            break;\r",
+									"        }\r",
+									"    }\r",
+									"\r",
+									"    pm.expect(found).to.be.true; // Verificar que se encontraron datos para el código ISO y país especificados\r",
+									"});\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/TCD/Chad",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"TCD",
+								"Chad"
+							]
+						},
+						"description": "StartFragmentThe request attempts to access a resource that does not exist on the \"water\" API endpoint located at [https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data\"/year/2067](https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data%22/year/2067), resulting in an error response with status code 404 (Not Found).EndFragment"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Removing specific data",
+			"item": [
+				{
+					"name": "Delete Data by ISO and country",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 200 or 204\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/BGR/Bulgaria",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"BGR",
+								"Bulgaria"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Data by urban_improved_total and urban_improved_piped",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 200 or 204\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/urban/97/91",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"urban",
+								"97",
+								"91"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete min max urban_improved_other",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 200 or 204\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/urban_improved_other/20/32",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"urban_improved_other",
+								"20",
+								"32"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "[error 204] /urban_improved_other/min/max",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 204\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([204]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/8600/70895",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"8600",
+								"70895"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Creating new data",
+			"item": [
+				{
+					"name": "Create new data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.response.to.have.status(201);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"iso_code\": \"TUV\",\r\n        \"country\": \"Tuvalu\",\r\n        \"year\": 2015,\r\n        \"urban_improved_total\": 98,\r\n        \"urban_improved_piped\": 97,\r\n        \"urban_improved_other\": 1,\r\n        \"urban_unimproved_other\": 2,\r\n        \"rural_improved_total\": \"-\",\r\n        \"rural_improved_piped\": \"-\",\r\n        \"rural_improved_other\": \"-\",\r\n        \"rural_unimproved_other\": \"-\",\r\n        \"rural_unimproved_surface\": \"-\",\r\n        \"total_improved_total\": 97,\r\n        \"total_improved_piped\": 97,\r\n        \"total_improved_other\": 0,\r\n        \"total_unimproved_other\": 3,\r\n        \"total_unimproved_surface\": \"-\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Already existing [error 409]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 409\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n        \"iso_code\": \"TUV\",\r\n        \"country\": \"Tuvalu\",\r\n        \"year\": 2015,\r\n        \"urban_improved_total\": 98,\r\n        \"urban_improved_piped\": 97,\r\n        \"urban_improved_other\": 1,\r\n        \"urban_unimproved_other\": 2,\r\n        \"rural_improved_total\": \"-\",\r\n        \"rural_improved_piped\": \"-\",\r\n        \"rural_improved_other\": \"-\",\r\n        \"rural_unimproved_other\": \"-\",\r\n        \"rural_unimproved_surface\": \"-\",\r\n        \"total_improved_total\": 97,\r\n        \"total_improved_piped\": 97,\r\n        \"total_improved_other\": 0,\r\n        \"total_unimproved_other\": 3,\r\n        \"total_unimproved_surface\": \"-\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Not expected JSON [error 400]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 400\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n{\r\n        \"iso_code\": \"AFG\",\r\n        \"country\": \"Afghanistan\",\r\n        \"year\": 1990,\r\n        \"urban_improved_total\": \"-\",\r\n        \"urban_improved_piped\": 3,\r\n        \"urban_improved_other\": \"-\",\r\n        \"urban_unimproved_other\": \"-\",\r\n        \"rural_improved_total\": \"-\",\r\n        \"rural_improved_piped\": \"-\",\r\n        \"rural_improved_other\": 0,\r\n        \"rural_unimproved_other\": \"-\",\r\n        \"rural_unimproved_surface\": \"-\",\r\n        \"total_improved_total\": \"-\",\r\n        \"total_improved_piped\": 1,\r\n        \"total_improved_other\": \"-\",\r\n        \"total_unimproved_other\": \"-\",\r\n        \"total_unimproved_surface\": \"-\"\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Not Allowed[405]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 405\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([405]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}/CHN",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"CHN"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Updating data",
+			"item": [
+				{
+					"name": "Update all data (Method Not Allowed)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 405\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([405]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update data by ISO and year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 200\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"urban_improved_total\":97, \"iso_code\": \"CHL\", \"year\": 1990}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/CHL/1990",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"CHL",
+								"1990"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update data by ISO and year error 400",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code 400\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([400]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"urban_improved_total\":97, \"iso_code\": \"CHL\", \"year\": 1990}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{GCLOUD}}/COL/1990",
+							"host": [
+								"{{GCLOUD}}"
+							],
+							"path": [
+								"COL",
+								"1990"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Return initial state",
+			"item": [
+				{
+					"name": "Delete all data Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{GCLOUD}}",
+							"host": [
+								"{{GCLOUD}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

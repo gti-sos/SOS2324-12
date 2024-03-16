@@ -1026,7 +1026,7 @@ module.exports = (app,db) => {
               if (numRemoved >= 1) {
                   res.sendStatus(200, "Ok"); // Todos los datos han sido eliminados correctamente
               } else {
-                  res.sendStatus(404, "Not found"); // No se encontraron datos para eliminar
+                  res.sendStatus(204, "Not found"); // No se encontraron datos para eliminar
               }
           }
       });
@@ -1056,7 +1056,7 @@ module.exports = (app,db) => {
 
         // DELETE => Delete specific data by urban_improved_total and urban_improved_piped
 
-    app.delete(API_BASE_JMR + "/:urban_improved_total/:urban_improved_piped", (req, res) => {
+    app.delete(API_BASE_JMR + "/urban/:urban_improved_total/:urban_improved_piped", (req, res) => {
         const total = parseInt(req.params.urban_improved_total);
         const piped = parseInt(req.params.urban_improved_piped);
     
@@ -1066,7 +1066,7 @@ module.exports = (app,db) => {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
                 // No se encontró ningún documento con la urban_improved_total y urban_improved_piped especificadas, devolver un error 404 NOT FOUND
-                res.sendStatus(404, "NOT FOUND");
+                res.sendStatus(204, "NOT FOUND");
             } else {
                 // Se eliminó correctamente el documento
                 res.sendStatus(200, "OK");
