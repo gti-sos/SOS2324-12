@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "62396fde-d9ee-4b6e-a6b3-5195583bfc00",
-		"name": "SERVER COLLECTION",
+		"name": "local COLLECTION",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33042137"
 	},
@@ -30,9 +30,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
@@ -64,15 +64,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/loadInitialData",
+							"raw": "{{local}}/loadInitialData",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"loadInitialData"
 							]
 						},
-						"description": "This endpoint makes an HTTP GET request to retrieve initial data from the specified {{SERVER}} server. The last execution returned a response with a status code of 200 and a Content-Type of text/xml. The response body was null."
+						"description": "This endpoint makes an HTTP GET request to retrieve initial data from the specified {{local}} local. The last execution returned a response with a status code of 200 and a Content-Type of text/xml. The response body was null."
 					},
 					"response": []
 				},
@@ -100,12 +100,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						},
-						"description": "\nThis endpoint makes an HTTP GET request to {{SERVER}}. The last execution returned a response with a status code of 200 and a Content-Type of text/xml.\n"
+						"description": "\nThis endpoint makes an HTTP GET request to {{local}}. The last execution returned a response with a status code of 200 and a Content-Type of text/xml.\n"
 					},
 					"response": []
 				},
@@ -143,9 +143,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/?from=2012&to=2017",
+							"raw": "{{local}}/?from=2012&to=2017",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								""
@@ -202,9 +202,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/?country=Chile",
+							"raw": "{{local}}/?country=Chile",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								""
@@ -263,9 +263,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/year/2015",
+							"raw": "{{local}}/year/2015",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"year",
@@ -310,9 +310,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/?limit=1&offset=2",
+							"raw": "{{local}}/?limit=1&offset=2",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								""
@@ -379,9 +379,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/ISO/TCD",
+							"raw": "{{local}}/ISO/TCD",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"ISO",
@@ -411,9 +411,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/year/2067",
+							"raw": "{{local}}/year/2067",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"year",
@@ -471,9 +471,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/TCD/Chad",
+							"raw": "{{local}}/TCD/Chad",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"TCD",
@@ -509,9 +509,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/BGR/Bulgaria",
+							"raw": "{{local}}/BGR/Bulgaria",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"BGR",
@@ -541,9 +541,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/urban/97/91",
+							"raw": "{{local}}/urban/97/91",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"urban",
@@ -574,9 +574,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/urban_improved_other/20/32",
+							"raw": "{{local}}/urban_improved_other/20/32",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"urban_improved_other",
@@ -607,9 +607,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/8600/70895",
+							"raw": "{{local}}/8600/70895",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"8600",
@@ -653,9 +653,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
@@ -690,9 +690,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
@@ -727,9 +727,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
@@ -755,9 +755,9 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/CHN",
+							"raw": "{{local}}/CHN",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"CHN"
@@ -791,9 +791,9 @@
 						"method": "PUT",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
@@ -828,9 +828,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER}}/CHL/1990",
+							"raw": "{{local}}/CHL/1990",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"CHL",
@@ -869,9 +869,9 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER}}/COL/1990",
+							"raw": "{{local}}/COL/1990",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							],
 							"path": [
 								"COL",
@@ -906,9 +906,9 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}",
+							"raw": "{{local}}",
 							"host": [
-								"{{SERVER}}"
+								"{{local}}"
 							]
 						}
 					},
