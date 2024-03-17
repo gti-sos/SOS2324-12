@@ -1,15 +1,15 @@
 {
-	"id": "0332ba0b-3e8e-4c6a-9bd0-3b2b10983ca4",
-	"name": "LOCAL",
+	"id": "e3ef4533-10d3-4f6e-bee0-3e2c23d8c752",
+	"name": "Local",
 	"values": [
 		{
-			"key": "SERVER",
+			"key": "local",
 			"value": "http://localhost:10000/api/v1/world-consumption-of-drinking-water-data",
 			"type": "default",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2024-03-11T09:34:37.955Z",
-	"_postman_exported_using": "Postman/10.23.12-240308-0814"
+	"_postman_exported_at": "2024-03-16T23:55:11.669Z",
+	"_postman_exported_using": "Postman/10.24.3-240314-0648"
 }
