@@ -966,7 +966,15 @@ module.exports = (app,db) => {
                 if (listings.length === 0) {
                     res.sendStatus(404, "RESOURCE NOT FOUND");
                 } else {
-                    res.status(200).send(JSON.stringify(listings.map((listing => { delete listing._id; return listing; }))));
+                    if (listings.length === 1) {
+                        const responseBody = listings[0];
+                        delete responseBody._id;
+                        return res.status(200).send(responseBody);
+                      } else {
+                        // Si hay más de un elemento, devolver el array normalmente
+                        const responseBody = listings.map((listing => { delete listing._id; return listing; }));
+                        return res.status(200).send(responseBody);
+                      }
                 }
             }
         });
