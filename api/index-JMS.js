@@ -820,7 +820,7 @@ module.exports = (app,db) => {
 
               // Verificar si se encontraron resultados
               if (filteredListings.length === 0) {
-                  return res.status(404).send("No listings found within the specified range.");
+                  return res.status(404).send("[]");
               }
 
               // Aplicar paginación si los parámetros limit y offset están presentes
@@ -868,7 +868,7 @@ module.exports = (app,db) => {
 
           // Verificar si se encontraron resultados
           if (listings.length === 0) {
-              return res.status(404).send("No listings found.");
+              return res.status(404).send("[]");
           }
 
           // Aplicar paginación si los parámetros limit y offset están presentes
@@ -939,7 +939,7 @@ module.exports = (app,db) => {
             res.status(500).send("Internal Error");
           } else {
             if (listings.length === 0) {
-              res.status(404).send("Not Found");
+              res.status(404).send("[]");
             } else {
               // Si solo hay un elemento en el array, devolverlo como un objeto JSON
               if (listings.length === 1) {
@@ -982,7 +982,7 @@ module.exports = (app,db) => {
                 res.status(500).send("Internal Error");
               } else {
                   if (listings.length === 0) {
-                    res.status(404).send("Not Found");
+                    res.status(404).send("[]");
                   } else {
                     // Si solo hay un elemento en el array, devolverlo como un objeto JSON
                     if (listings.length === 1) {
@@ -1034,7 +1034,7 @@ module.exports = (app,db) => {
 
               // Verificar si se encontraron resultados
               if (listings.length === 0) {
-                  return res.status(404).send("No listings found within the specified price range.");
+                  return res.status(404).send("[]");
               }
 
               // Si solo hay un elemento en el array, devolverlo como un objeto JSON
