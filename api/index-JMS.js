@@ -841,12 +841,6 @@ module.exports = (app,db) => {
                   return listing;
               });
 
-              // Verificar si hay un solo elemento en el array de respuesta
-              if (responseBody.length === 1) {
-                  // Si hay un solo elemento, devolverlo como un objeto JSON
-                  responseBody = responseBody[0];
-              }
-
               res.status(200).send(responseBody);
           });
       } else if (Object.keys(queryParams).length === 0) {
@@ -894,12 +888,6 @@ module.exports = (app,db) => {
               delete listing._id;
               return listing;
           });
-
-          // Verificar si hay un solo elemento en el array de respuesta
-          if (responseBody.length === 1) {
-              // Si hay un solo elemento, devolverlo como un objeto JSON
-              responseBody = responseBody[0];
-          }
 
           res.status(200).send(responseBody);
       }
