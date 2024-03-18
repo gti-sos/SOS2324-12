@@ -72,7 +72,7 @@
 								"loadInitialData"
 							]
 						},
-						"description": "This endpoint makes an HTTP GET request to retrieve initial data from the specified {{local}} local. The last execution returned a response with a status code of 200 and a Content-Type of text/xml. The response body was null."
+						"description": "This endpoint makes an HTTP GET request to retrieve initial data from the specified {{local}} server. The last execution returned a response with a status code of 200 and a Content-Type of text/xml. The response body was null."
 					},
 					"response": []
 				},
@@ -438,29 +438,7 @@
 									"pm.test('There are at least 1 data', function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-									"})\r",
-									"pm.test(\"Get data by iso_code and country\", function () {\r",
-									"    var url = pm.request.url.toString(); // Convertir la URL de la solicitud a una cadena de texto\r",
-									"    var parts = url.split(\"/\"); // Dividir la URL en partes usando \"/\" como delimitador\r",
-									"\r",
-									"    // Obtener el ISO code y el país de las partes de la URL\r",
-									"    var isoCode = parts[parts.length - 2]; // El código ISO es el penúltimo elemento de la URL\r",
-									"    var country = parts[parts.length - 1]; // El país es el último elemento de la URL\r",
-									"\r",
-									"    var jsonData = pm.response.json();\r",
-									"    var found = false;\r",
-									"\r",
-									"    for (var i = 0; i < jsonData.length; i++) {\r",
-									"        if (jsonData[i].iso_code === isoCode && jsonData[i].country === country) {\r",
-									"            found = true;\r",
-									"            break;\r",
-									"        }\r",
-									"    }\r",
-									"\r",
-									"    pm.expect(found).to.be.true; // Verificar que se encontraron datos para el código ISO y país especificados\r",
-									"});\r",
-									"\r",
-									""
+									"})\r"
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -483,12 +461,80 @@
 						"description": "StartFragmentThe request attempts to access a resource that does not exist on the \"water\" API endpoint located at [https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data\"/year/2067](https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data%22/year/2067), resulting in an error response with status code 404 (Not Found).EndFragment"
 					},
 					"response": []
+				},
+				{
+					"name": "Get data by ISO and year Copy",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test('Status code is 200', function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})\r",
+									"\r"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/1/TCD/2015",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"1",
+								"TCD",
+								"2015"
+							]
+						},
+						"description": "StartFragmentThe request attempts to access a resource that does not exist on the \"water\" API endpoint located at [https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data\"/year/2067](https://sos2324-12.appspot.com//api/v1/world-consumption-of-drinking-water-data%22/year/2067), resulting in an error response with status code 404 (Not Found).EndFragment"
+					},
+					"response": []
 				}
 			]
 		},
 		{
 			"name": "Removing specific data",
 			"item": [
+				{
+					"name": "Delete Data by ISO and year",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is either 200 or 204\", function () {\r",
+									"pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/1/BGR/1990",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"1",
+								"BGR",
+								"1990"
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "Delete Data by ISO and country",
 					"event": [
