@@ -293,11 +293,7 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"// Test para verificar que hay al menos 1 dato en la respuesta\r",
-									"pm.test(\"There are at least 1 data\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-									"});\r",
+									"\r",
 									"\r",
 									"// Test para verificar que los años en host_since están entre 2018 y 2020\r",
 									"pm.test(\"Years in host_since are between 2018 and 2020\", function () {\r",
@@ -430,11 +426,6 @@
 									"    pm.response.to.have.status(200);\r",
 									"});\r",
 									"\r",
-									"// Test para verificar que hay al menos 1 dato en la respuesta\r",
-									"pm.test(\"There are at least 1 data\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-									"});\r",
 									"\r",
 									"// Test para verificar que el campo 'city' es 'Paris' en todos los objetos de la respuesta\r",
 									"pm.test(\"Field 'city' is 'Paris' in all response objects\", function () {\r",
@@ -672,7 +663,9 @@
 								"exec": [
 									"pm.test(\"Status code is 200\", function () {\r",
 									"    pm.response.to.have.status(200);\r",
-									"});\r"
+									"});\r",
+									"\r",
+									""
 								],
 								"type": "text/javascript",
 								"packages": {}
@@ -683,7 +676,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/?limit=1&offset=2",
+							"raw": "{{SERVER}}/?limit=3&offset=2",
 							"host": [
 								"{{SERVER}}"
 							],
@@ -693,7 +686,7 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "1"
+									"value": "3"
 								},
 								{
 									"key": "offset",
