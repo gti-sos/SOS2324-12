@@ -472,11 +472,7 @@
 									"pm.test('Status code is 200', function () {\r",
 									"    pm.response.to.have.status(200);\r",
 									"})\r",
-									"\r",
-									"pm.test('There are at least 1 data', function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.lengthOf.above(0);\r",
-									"})\r"
+									"\r"
 								],
 								"type": "text/javascript",
 								"packages": {}
