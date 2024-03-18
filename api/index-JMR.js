@@ -956,7 +956,7 @@ module.exports = (app,db) => {
 
       // GET => Buscar por iso_code y year
     app.get(API_BASE_JMR + "/1/:iso_code/:year", (req, res) => {
-        const year = req.params.year;
+        const year = parseInt(req.params.year);
         const iso = req.params.iso_code;
         // Crear una expresión regular para buscar en el campo host_since
         db.find({ iso_code: iso, year: year }, (err, listings) => {
