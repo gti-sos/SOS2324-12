@@ -91,12 +91,45 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{server}}{{myApi}}/loadInitialData",
+					"raw": "{{server}}{{myApi}}/",
 					"host": [
 						"{{server}}{{myApi}}"
 					],
 					"path": [
-						"loadInitialData"
+						""
+					]
+				},
+				"description": "Get all data"
+			},
+			"response": []
+		},
+		{
+			"name": "GET not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {\r",
+							"  pm.response.to.have.status(404);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}{{myApi}}/food/prueba",
+					"host": [
+						"{{server}}{{myApi}}"
+					],
+					"path": [
+						"food",
+						"prueba"
 					]
 				},
 				"description": "Get all data"
@@ -168,7 +201,7 @@
 					}
 				},
 				"url": {
-					"raw": "{{server}}{{myApi}}/?adm0_name=Afghanistan&adm1_name=Badakhshan&cm_name=Bread",
+					"raw": "{{server}}{{myApi}}/?adm0_id=1&adm1_id=272&mkt_id=266&cm_id=145&cur_id=87&pt_id=15&um_id=5&mp_month=12&mp_year=2012",
 					"host": [
 						"{{server}}{{myApi}}"
 					],
@@ -177,16 +210,40 @@
 					],
 					"query": [
 						{
-							"key": "adm0_name",
-							"value": "Afghanistan"
+							"key": "adm0_id",
+							"value": "1"
 						},
 						{
-							"key": "adm1_name",
-							"value": "Badakhshan"
+							"key": "adm1_id",
+							"value": "272"
 						},
 						{
-							"key": "cm_name",
-							"value": "Bread"
+							"key": "mkt_id",
+							"value": "266"
+						},
+						{
+							"key": "cm_id",
+							"value": "145"
+						},
+						{
+							"key": "cur_id",
+							"value": "87"
+						},
+						{
+							"key": "pt_id",
+							"value": "15"
+						},
+						{
+							"key": "um_id",
+							"value": "5"
+						},
+						{
+							"key": "mp_month",
+							"value": "12"
+						},
+						{
+							"key": "mp_year",
+							"value": "2012"
 						}
 					]
 				}
@@ -325,6 +382,46 @@
 							"key": "to",
 							"value": "2015"
 						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET by id Copy",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{server}}{{myApi}}/1/275/267/55/87/15/5/4/2017",
+					"host": [
+						"{{server}}{{myApi}}"
+					],
+					"path": [
+						"1",
+						"275",
+						"267",
+						"55",
+						"87",
+						"15",
+						"5",
+						"4",
+						"2017"
 					]
 				}
 			},

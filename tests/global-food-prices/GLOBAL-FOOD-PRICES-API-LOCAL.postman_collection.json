@@ -137,6 +137,39 @@
 			"response": []
 		},
 		{
+			"name": "GET by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Test to check the response status code\r",
+							"pm.test(\"Response status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{local}}{{myApi}}/food/Bread",
+					"host": [
+						"{{local}}{{myApi}}"
+					],
+					"path": [
+						"food",
+						"Bread"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "GET by queryParams",
 			"event": [
 				{

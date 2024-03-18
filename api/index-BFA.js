@@ -22163,6 +22163,7 @@ module.exports = (app, db) => {
 
     app.get(API_BASE_BFA + "/", (req, res) => {
       const { from, to, limit, offset, ...queryParams } = req.query;
+      let arr = []
 
       // Verifica si hay parámetros 'from' y 'to'
       if (from !== undefined && to !== undefined) {
@@ -22200,7 +22201,14 @@ module.exports = (app, db) => {
             delete listing._id;
             return listing;
           });
-          res.status(200).send(responseBody);
+          if (Array.isArray(responseBody)) {
+            res.status(200).send(responseBody);
+          }
+          else {
+            arr.push(responseBody)
+            res.status(200).send(arr)
+          }
+          
         });
       } else if (Object.keys(queryParams).length === 0) {
         // No hay parámetros de consulta, devolver todos los recursos
@@ -22243,14 +22251,26 @@ module.exports = (app, db) => {
         if (paginatedListings.length === 1) {
           const responseBody = paginatedListings[0];
           delete responseBody._id;
-          return res.status(200).send(responseBody);
+          if (Array.isArray(responseBody)) {
+            res.status(200).send(responseBody);
+          }
+          else {
+            arr.push(responseBody)
+            res.status(200).send(arr)
+          }
         } else {
           // Si hay más de un elemento, devolver el array normalmente
           const responseBody = paginatedListings.map((paginatedListing) => {
             delete paginatedListing._id;
             return paginatedListing;
           });
-          return res.status(200).send(responseBody);
+          if (Array.isArray(responseBody)) {
+            res.status(200).send(responseBody);
+          }
+          else {
+            arr.push(responseBody)
+            res.status(200).send(arr)
+          }
         }
       }
     });
@@ -22272,6 +22292,43 @@ module.exports = (app, db) => {
       }
     });
   }),
+
+  // GET => Get concret data 
+
+  app.get(API_BASE_BFA + "/:adm0_id/:adm1_id/:mkt_id/:cm_id/:cur_id/:pt_id/:um_id/:mp_month/:mp_year", (req, res) => {
+    const adm0_id = parseInt(req.params.adm0_id);
+    const adm1_id = parseInt(req.params.adm1_id);
+    const mkt_id = parseInt(req.params.mkt_id);
+    const cm_id = parseInt(req.params.cm_id);
+    const cur_id = parseInt(req.params.cur_id);
+    const pt_id = parseInt(req.params.pt_id);
+    const um_id = parseInt(req.params.um_id);
+    const mp_month = parseInt(req.params.mp_month);
+    const mp_year = parseInt(req.params.mp_year);
+    
+    db.find({ adm0_id: adm0_id, adm1_id: adm1_id, mkt_id: mkt_id, cm_id: cm_id, cur_id: cur_id, pt_id: pt_id, um_id: um_id, mp_month: mp_month, mp_year: mp_year }, handleDbResponse);
+    
+    function handleDbResponse(err, listings) {
+      if (err) {
+        return res.status(500).send("Internal Server Error");
+      }
+
+      // Si solo hay un elemento en el array, devolverlo como un objeto JSON
+      if (listings.length === 1) {
+        const responseBody = listings[0];
+        delete responseBody._id;
+        res.status(200).send(responseBody);
+      } else {
+        // Si hay más de un elemento, devolver el array normalmente
+        const responseBody = listings.map((listing) => {
+          delete listing._id;
+          return listing;
+        });
+        res.status(200).send(responseBody);
+    }
+  }
+  }
+  ),
 
     // POST => Create a new listing
     app.post(API_BASE_BFA + "/", (req, res) => {
