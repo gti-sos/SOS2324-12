@@ -953,6 +953,24 @@ module.exports = (app,db) => {
             }
         });
       }),
+
+      // GET => Buscar por iso_code y year
+    app.get(API_BASE_JMR + "/1/:iso_code/:year", (req, res) => {
+        const year = req.params.year;
+        const iso = req.params.iso_code;
+        // Crear una expresión regular para buscar en el campo host_since
+        db.find({ iso_code: iso, year: year }, (err, listings) => {
+            if (err) {
+                res.sendStatus(500, "INTERNAL ERROR");
+            } else {
+                if (listings.length === 0) {
+                    res.sendStatus(404, "RESOURCE NOT FOUND");
+                } else {
+                    res.status(200).send(JSON.stringify(listings.map((listing => { delete listing._id; return listing; }))));
+                }
+            }
+        });
+      }),
       
 
 
@@ -1042,6 +1060,28 @@ module.exports = (app,db) => {
     
         // Eliminar el documento con la iso_code y year especificadas de la base de datos
         db.remove({ iso_code: iso, country: pais }, {}, (err, numRemoved) => {
+            if (err) {
+                res.sendStatus(500).send("INTERNAL ERROR");
+            } else if (numRemoved === 0) {
+                // No se encontró ningún documento con la iso_code y year especificadas, devolver un error 404 NOT FOUND
+                res.sendStatus(204, "NOT FOUND");
+            } else {
+                // Se eliminó correctamente el documento
+                res.sendStatus(200, "OK");
+            }
+        });
+        }),
+
+        // DELETE => Delete specific data by iso and year
+
+    app.delete(API_BASE_JMR + "/1/:iso_code/:year", (req, res) => {
+        const iso = req.params.iso_code;
+        const year = req.params.year;
+
+        //const yearInt = parseInt(año);
+    
+        // Eliminar el documento con la iso_code y year especificadas de la base de datos
+        db.remove({ iso_code: iso, year: year }, {}, (err, numRemoved) => {
             if (err) {
                 res.sendStatus(500).send("INTERNAL ERROR");
             } else if (numRemoved === 0) {
