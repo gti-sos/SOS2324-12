@@ -783,7 +783,7 @@ let initialData = [
     "instant_bookable": "TRUE"
   }
 ];
-
+//
 module.exports = (app,db) => {
     
   // REDIRECT al portal de documentación
