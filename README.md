@@ -3,7 +3,7 @@
   - [José Joaquín Mena-Bernal Rueda](https://github.com/josmenrue)
   - [Borja Flores Avecilla](https://github.com/borfloave)
   - [José Martínez Suárez](https://github.com/josmarsua)
-- **Project description**: Our information sources focus on analyzing essential areas such as global food and water security, encompassing topics like access to clean drinking water and food consumption patterns. Additionally, we delve into the variability of prices and unique features of Airbnb rentals across diverse cities.
+- **Project description**: Our information sources focus on analyzing essential areas such as global food and water security, encompassing topics like access to clean drinking water and food consumption patterns.. Additionally, we delve into the variability of prices and unique features of Airbnb rentals across diverse cities.
 - **Repository**: [gti-sos/SOS2324-12](https://github.com/gti-sos/SOS2324-12)
 - **URL**: [sos2324-12.appspot.com](https://sos2324-12.appspot.com)
 -  **APIs**:
