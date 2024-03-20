@@ -8,7 +8,7 @@
     DropdownToggle,
     DropdownMenu,
     NavLink
-  } from 'sveltestrap';
+  } from '@sveltestrap/sveltestrap';
 
   let API = '/api/v1';
     if (dev)
