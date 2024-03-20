@@ -43,6 +43,8 @@
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "https://github.com/josmarsua">josmarsua</DropdownItem>
+                <DropdownItem class="menu-item" href = "https://github.com/borfloave">borfloave</DropdownItem>
+                <DropdownItem class="menu-item" href = "https://github.com/josmenrue">josmenrue</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -60,7 +62,9 @@
                 Documentaciones
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings (Jose Martinez)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings (Jose)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices (Borja)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data (Jose Joaquin)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Nav>
