@@ -14,16 +14,14 @@
 
 /* Estilos generales */
 body {
-    font-family: 'Roboto', sans-serif;
     background-image: url("waves.gif");
     color: #333;
     line-height: 1.6;
+    font-family: "Rubik", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
-/* Estilos para el contenedor principal de la página */
-.page-container {
-    margin: 70px; /* Márgenes alrededor de toda la página */
-}
 
 /* Estilos para el contenedor del contenido */
 .content-container {
@@ -31,6 +29,8 @@ body {
     border-radius: 10px; /* Bordes redondeados para el cuadro */
     padding: 20px; /* Espaciado interno dentro del cuadro */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para el cuadro */
+    margin-top: 60px;
+    margin-bottom: 20px;
 }
 
 h1 {
