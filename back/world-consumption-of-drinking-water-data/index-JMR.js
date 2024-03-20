@@ -764,7 +764,7 @@ let initialData = [
 ]
 var data = [];
 
-module.exports = (app,db) => {
+function loadBackend_JMR(app,db) {
 
     // REDIRECT al portal de documentación
   app.get(API_BASE_JMR + "/docs", (req, res) => {
@@ -1145,3 +1145,5 @@ module.exports = (app,db) => {
         res.status(405).send("METHOD NOT ALLOWED. Please use this endpoint to create a new resource without specifying an ID or param.");
         });    
 };
+
+export {loadBackend_JMR};

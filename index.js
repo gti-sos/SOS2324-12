@@ -1,9 +1,10 @@
-let express = require("express");
-let bodyParser = require("body-parser");
-let API_JMS = require("./api/index-JMS");
-let API_JMR = require("./api/index-JMR");
-let API_BFA = require("./api/index-BFA");
-let dataStore = require("nedb");
+import express from "express";
+import bodyParser from "body-parser";
+import {loadBackend_JMS} from "./back/airbnb-listings/index-JMS.js";
+import {loadBackend_JMR} from "./back/world-consumption-of-drinking-water-data/index-JMR.js";
+import {loadBackend_BFA} from "./back/global-food-prices/index-BFA.js";
+import dataStore from "nedb";
+import {handler} from "./front/build/handler.js";
 
 let db_airbnb = new dataStore();
 let db_water = new dataStore();
@@ -15,21 +16,19 @@ app.use(bodyParser.json());
 
 const PORT = (process.env.PORT || 10000); 
 
-// Group Static Information 
-
-app.use("/", express.static("./public"));
 
 // APIs
 
 //airbnb-listings
-API_JMS(app,db_airbnb);
+loadBackend_JMS(app,db_airbnb);
 
 //world-consumption-of-drinking-water-data
-API_JMR(app,db_water);
+loadBackend_JMR(app,db_water);
 
 //global-food-prices
-API_BFA(app, db_food)
+loadBackend_BFA(app,db_food)
 
+app.use(handler);
 
 app.listen(PORT, () =>
 {
