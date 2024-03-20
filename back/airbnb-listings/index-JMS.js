@@ -784,7 +784,7 @@ let initialData = [
   }
 ];
 //
-module.exports = (app,db) => {
+function loadBackend_JMS(app,db){
     
   // REDIRECT al portal de documentación
   app.get(API_BASE_JMS + "/docs", (req, res) => {
@@ -1200,10 +1200,11 @@ module.exports = (app,db) => {
       });
     }),
 
-
     // POST => Method not allowed
     app.post(API_BASE_JMS + "/:id", (req, res) => {
     // Devuelve un estado 405 (Método no permitido) con un mensaje explicativo
     res.status(405).send("METHOD NOT ALLOWED. Please use this endpoint to create a new resource without specifying an ID or param.");
     });
 };
+
+export {loadBackend_JMS};

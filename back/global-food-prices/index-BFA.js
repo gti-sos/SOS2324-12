@@ -22123,7 +22123,7 @@ var initialData = [
   }
 ];
 
-module.exports = (app, db) => {
+function loadBackend_BFA(app, db) {
 
   // GET => REDIRECT al portal de documentación
 
@@ -22452,3 +22452,5 @@ module.exports = (app, db) => {
       res.sendStatus(405, "METHOD NOT ALLOWED");
     });
 };
+
+export {loadBackend_BFA};

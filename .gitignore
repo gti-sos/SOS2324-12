@@ -131,3 +131,6 @@ dist
 
 #gcloud keys
 gc-sa-key.json
+
+#front node_modules
+front/node_modules
