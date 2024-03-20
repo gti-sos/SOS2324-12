@@ -127,3 +127,30 @@ a:hover {
     text-align: center;
 }
 
+.nav-link:hover {
+    background-color: #47c3ed !important;
+    font-weight: bold !important;
+    color: rgb(255, 255, 255);
+}
+.nav-link{
+    font-weight: bold !important;
+    color: rgb(0, 0, 0);
+}
+.menu-item:hover {
+    background-color: #267089 !important;
+    font-weight: bold !important;
+    color: rgb(255, 255, 255);
+}
+.menu-item{
+    font-weight: bold !important;
+    color: rgb(0, 0, 0);
+}
+.fixed-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Asegura que el menú se muestre encima del contenido */
+}
+
+
