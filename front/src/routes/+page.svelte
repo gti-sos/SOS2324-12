@@ -83,6 +83,48 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/">airbnb-listings</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/global-food-prices/" >global-food-prices</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </div>
+                    </CardBody>
+                </Card>
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>APIs documentation</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <div class="api-container">
+                            <Row>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
                                             <Button color="info" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/docs">airbnb-listings</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
@@ -102,6 +144,48 @@
                                     <Card class="api-wrapper">
                                         <CardBody>
                                             <Button color="info" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                            </Row>
+                        </div>
+                    </CardBody>
+                </Card>
+            </Col>
+        </Row>
+        <Row>
+            <Col>
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Frontends</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <div class="api-container">
+                            <Row>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
+                                            <Button color="warning" href="https://sos2324-12.appspot.com/airbnb-listings/">airbnb-listings</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
+                                            <Button color="warning" href="https://sos2324-12.appspot.com/global-food-prices/" >global-food-prices</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
+                                        </CardBody>
+                                    </Card>
+                                </Col>
+                                <Col sm="12" md="4">
+                                    <Card class="api-wrapper">
+                                        <CardBody>
+                                            <Button color="warning" href="https://sos2324-12.appspot.com/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
                                         </CardBody>
