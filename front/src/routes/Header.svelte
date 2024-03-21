@@ -34,6 +34,7 @@
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (Jose Joaquin Mena-Bernal)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -54,6 +55,7 @@
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
+                <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (José Joaquin Mena)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
