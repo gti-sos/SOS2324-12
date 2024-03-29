@@ -13,7 +13,9 @@ let db_food = new dataStore();
 
 
 let app = express();
-app.use(cors);
+
+app.use(cors());
+
 app.use(bodyParser.json());
 
 const PORT = (process.env.PORT || 10000); 
