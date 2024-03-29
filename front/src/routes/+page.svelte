@@ -185,7 +185,7 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="warning" href="/water">/water</Button>
+                                            <Button color="warning" href="https://sos2324-12.appspot.com/world-consumption-of-drinking-water-data/">/world-consumption-of-drinking-water-data</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
                                         </CardBody>

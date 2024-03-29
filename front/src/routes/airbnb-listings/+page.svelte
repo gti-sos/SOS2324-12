@@ -19,7 +19,31 @@ if(dev)
 
 let listings = []; // Data
 let showForm = false;
+let showFilter = false;
 let newListing ={
+    listing_id: "",
+    name: "",
+    host_since: "",
+    host_location: "",
+    host_response_time: "",
+    host_response_rate: "",
+    host_acceptance_rate: "",
+    neighbourhood: "",
+    city: "",
+    latitude: "",
+    longitude: "",
+    property_type: "",
+    room_type: "",
+    guest_number: "",
+    bedroom_number: "",
+    amenities_list: [
+    ],
+    price: "",
+    minimum_nights_number: "",
+    maximum_nights_number: "",
+    instant_bookable: ""
+};
+let selectedFilter ={
     listing_id: "",
     name: "",
     host_since: "",
@@ -45,6 +69,8 @@ let newListing ={
 
 let error_msg = '';
 let success_msg = '';
+let success2_msg = '';
+
 
 // Paginacion
 
@@ -76,53 +102,50 @@ function prevPage(){
 
 onMount(async () => {
     await getListings();
+    // Temporizador para ocultar automáticamente las alertas después de 5 segundos
+    setTimeout(() => {
+        error_msg = "";
+        success_msg = "";
+        success2_msg = "";
+    }, 5000);
 });
 
 async function getListings() {
-    try {
-        //let offset = (currentPage - 1) * pageSize;
-        let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*4}`, {
+    let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*4}`, {
             method: "GET"
         });
-
-        if (response.ok) {
-            let data = await response.json();
-            listings = data;
-            totalItems = data.length;
-            console.log(totalItems);
-            error_msg = "";
-        } else {
-            if (response.status == 404) {
-                error_msg = "No hay datos en la base de datos";
-            } else {
-                error_msg = `Error ${response.status}: ${response.statusText}`;
-            }
-        }
-    } catch (error) {
-        error_msg = error;
+    const status = await response.status;
+    if (status == 200){
+        let data = await response.json();
+        listings = data;
+        totalItems = data.length;
+        success_msg = "Mostrando datos";
+        error_msg = "";
+    } else if (status == 404) {
+        error_msg = "No hay datos cargados en la base de datos o ya no hay más datos"
+        success_msg = "";
+    } else if (status == 500) {
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
     }
 };
 
 
 async function getInitialListings(){
-    try{
-        if(listings.length === 0){
-            let response = await fetch(API + "/loadInitialData", {
+    let response = await fetch(API + "/loadInitialData", {
                 method: "GET"
             });
-        
-            if(response.ok){
-                getListings();
-                success_msg = "Datos iniciales cargados correctamente";
-                error_msg = "";
-            } else {
-                error_msg = "Ya existen datos en la base de datos";
-            }
-        } else {
-            error_msg = "Ya existen datos en la base de datos";
-        }
-    } catch(error) {
-        error_msg = error;
+    const status = await response.status;
+    if (status == 201){
+        getListings();
+        success_msg = "Datos iniciales cargados correctamente";
+        error_msg = "";
+    } else if (status == 200) {
+        error_msg = "La base de datos ya está cargada";
+        success_msg = "";
+    } else if (status == 500){
+        error_msg = "Ha ocurrido un error en el servidor"
+        success_msg = "";
     }
 };
 
@@ -142,71 +165,147 @@ async function searchListing() {
     }
 
     // Construye la URL de búsqueda con los años como parámetros
-    let url = `${API}?from=${from}&to=${to}&limit=${pageSize}&offset=${pagination*4}`;
-
-    try {
-        const response = await fetch(url, {
+    let url = `${API}?from=${from}&to=${to}`;
+    const response = await fetch(url, {
             method: 'GET'
         });
-
-        if (response.ok) {
+    const status = response.status;
+    if (status == 200) {
             const data = await response.json();
             listings = data; 
             success_msg = "Se ha realizado la búsqueda correctamente";
             error_msg = '';
-        } else {
-            error_msg = "Ha ocurrido un error en la búsqueda";
-        }
-    } catch (error) {
-        error_msg = error;
+    } else if (status == 404){
+            error_msg = "No se encontraron resultados";
+            success_msg = "";
+    } else if (status == 500){
+            error_msg = "Ha ocurrido un error en el servidor";
+            success_msg = "";
     }
 };
 
+async function searchListings() {
+    try {
+        // Construye la URL de búsqueda a partir de los filtros proporcionados
+        let searchParams = new URLSearchParams();
+        if (Object.keys(selectedFilter).length === 0) {
+            selectedFilter = {
+                listing_id: '',
+                name: '',
+                host_since: '',
+                host_location: '',
+                host_response_time: '',
+                host_response_rate: '',
+                host_acceptance_rate: '',
+                neighbourhood: '',
+                city: '',
+                latitude: '',
+                longitude: '',
+                property_type: '',
+                room_type: '',
+                guest_number: '',
+                bedroom_number: '',
+                amenities_list: '',
+                price: '',
+                minimum_nights_number: '',
+                maximum_nights_number: '',
+                instant_bookable: ''
+            };
+        }
+        for (const key in selectedFilter) {
+            if (selectedFilter[key] !== '') {
+                searchParams.append(key, selectedFilter[key]);
+            }
+        }
+        let searchUrl = `${API}?${searchParams.toString()}`;
+        console.log(searchUrl);
+        // Realiza la petición GET a la API con la URL de búsqueda generada
+        let response = await fetch(searchUrl, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+
+        // Manejo de la respuesta de la API
+        let status = response.status;
+        console.log(`Response status: ${status}`);
+
+        if (response.status == 200) {
+            // Actualiza los datos después de una búsqueda exitosa
+            let data = await response.json();
+            listings = data;
+            console.log(data);
+        } else {
+            // Manejo de errores
+            if (response.status == 400) {
+                error_msg = 'Error en la estructura de los datos';
+                alert(error_msg);
+            } else if (response.status == 404) {
+                error_msg = 'No se encontraron datos';
+                alert(error_msg);
+            }
+        }
+    } catch (error) {
+        error_msg = error;
+        console.error(error);
+    }
+}
+
+
 async function createListing(){
-    try{
-        let response = await fetch(API,{
+    if (!newListing.listing_id || !newListing.name || !newListing.host_since || 
+    !newListing.host_location || !newListing.host_response_time || !newListing.host_response_rate 
+    || !newListing.host_acceptance_rate || !newListing.neighbourhood || !newListing.city || 
+    !newListing.latitude || !newListing.longitude || !newListing.property_type || !newListing.room_type || 
+    !newListing.guest_number || !newListing.bedroom_number || !newListing.amenities_list || !newListing.price || 
+    !newListing.minimum_nights_number || !newListing.maximum_nights_number || !newListing.instant_bookable) {
+        error_msg = "Por favor, completa todos los campos.";
+        success_msg = "";
+        return;
+    }
+    let response = await fetch(API,{
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(newListing)
         });
-
-        if(response.ok){
-            showForm = false;
-            getListings();
-            success_msg = "Se ha creado correctamente el dato";
-            error_msg = "";
-        } else {
-            if(response.status == 400){
-                error_msg = "Hay un error. Todos los datos deben ser introducidos";
-            } else if (response.status == 405){
-                error_msg = "Este método no está permitido";
-            } else if (response.status == 409){
-                error_msg = "El elemento introducido ya existe";
-            }
-        }
-    }catch(error){
-        error_msg = error;
+    const status = response.status;
+    if (status == 201){
+        success2_msg = "Se ha creado correctamente el dato";
+        error_msg = "";
+        showForm = false;
+        await getListings();
+    } else if (status == 400){
+        error_msg = "Petición invalida. Revisa si has introducido todos los datos";
+        success_msg = "";
+    } else if (status == 405){
+        error_msg = "Este método no está permitido";
+        success_msg = "";
+    } else if (status == 409){
+        error_msg = "El dato introducido ya existe";
+        success_msg = "";
+    } else if (status == 500){
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
     }
 };
 
 async function deleteAll(){
-    try{
-        let response = await fetch(API,{
+    let response = await fetch(API,{
             method: "DELETE"
         });
-        if(response.ok){
-            await getListings();
-            success_msg = "Todos los datos han sido eliminados"
-            error_msg = "";
-        }else{
-            if(response.status == 404){
-            error_msg = "No existen datos en la base de datos";
-            }
-        }
-    } catch(error){
-        error_msg = error;
+    const status = response.status;
+    if (status == 200){
+        success_msg = "Todos los datos han sido eliminados";
+        error_msg = "";
+    } else if (status == 204) {
+        error_msg = "No se encontraron datos para eliminar, es posible que la base de datos esté vacía";
+        success_msg = "";
+    } else if (status == 500) {
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
     }
 };
 
@@ -236,6 +335,10 @@ async function deleteAll(){
     </Row>
 </Container>
 
+
+<Container style="justify-content: center; text-align: center;">
+<Button on:click={() => {showFilter = true;}}>Filtros</Button>
+</Container>
 
 {#if listings && listings.length > 0}
     <!--_______________________________________________Datos_________________________________________________-->
@@ -551,10 +654,9 @@ async function deleteAll(){
     
     {/if}
 
-  
-
+    <!-- Bloque condicional if con modal -->
+    <!-- POR AÑADIR-->
     
-
     {#if error_msg != ""}
     <Alert color="danger">
         <strong>Error:</strong> {error_msg}
@@ -562,6 +664,12 @@ async function deleteAll(){
     {:else if success_msg != ""}
     <Alert color="success">
         <strong>Éxito:</strong> {success_msg}
+    </Alert>
+    
+    {/if}
+    {#if success2_msg != ""}
+    <Alert color="success">
+        <strong>Éxito:</strong> {success2_msg}
     </Alert>
     {/if}
 
