@@ -1,12 +1,10 @@
 <script>
 
-
-https://github.com/gti-sos/SOS2223-19/blob/main/frontend/src/routes/occupation-stats/%2Bpage.svelte
-
-
- import { onMount } from 'svelte';
-  import { dev } from '$app/environment';
-  import { Button, Table, Alert, Icon } from 'sveltestrap';
+import {onMount} from "svelte";
+    import { dev } from '$app/environment';
+    import { Button, Icon, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
+            Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
+            Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
   
   onMount(async () => {
     await getWaterStats();
@@ -211,104 +209,7 @@ let searchres=[];
     }
   }  
 
-<div class="table-container">
-  <Table>
-    <thead>
-      <tr>
-        <td><input bind:value={searchISO} placeholder="Introduce ISO"></td>
-        <td><input bind:value={searchCountry} placeholder="Introduce país"></td>
-        <td><input bind:value={searchYear} placeholder="Introduce el año"></td>
-//        <td><input bind:value={searchurbanimprovedtotal} placeholder="Introduce urbanimprovedtotal"></td>
-//        <td><input bind:value={searchurban_improved_piped} placeholder="Introduce urban_improved_piped"></td>
-//        <td><input bind:value={searchurban_improved_other} placeholder="Introduce urban_improved_other"></td>
-//        <td><input bind:value={searchurban_unimproved_other} placeholder="Introduce urban_unimproved_other"></td>
-//        <td><input bind:value={searchrural_improved_total} placeholder="Introduce rural_improved_total"></td>
-//        <td><input bind:value={searchrural_improved_piped} placeholder="Introduce rural_improved_piped"></td>
-//        <td><input bind:value={searchrural_improved_other} placeholder="Introduce rural_improved_other"></td>
-//        <td><input bind:value={searchrural_unimproved_other} placeholder="Introduce rural_unimproved_other"></td>
-//        <td><input bind:value={searchrural_unimproved_surface} placeholder="Introduce rural_unimproved_surface"></td>
-//        <td><input bind:value={searchtotal_improved_total} placeholder="Introduce total_improved_total"></td>
-//        <td><input bind:value={searchtotal_improved_piped} placeholder="Introduce total_improved_piped"></td>
-//        <td><input bind:value={searchtotal_improved_other} placeholder="Introduce total_improved_other"></td>
-//        <td><input bind:value={searchtotal_unimproved_other} placeholder="Introduce total_unimproved_other"></td>
-//        <td><input bind:value={searchtotal_unimproved_surface} placeholder="Introduce total_unimproved_surface"></td>
 
-        <Button color="primary" outline size="sm" on:click={() => searchData(searchISO, searchCountry, searchYear)}>
-          <Icon name="search" class="icon"/>
-        </Button>
-      </tr>
-      <tr>
-        <th>ISO</th>
-        <th>Pais</th>
-        <th>Año</th>
-        <td>
-          <Button color="primary" outline size="sm" on:click={() => getLoadInitialData()}>
-            <Icon name="arrow-counterclockwise" class="icon" />
-          </Button>
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-        {#each searchres as dato}
-          <tr>
-            <td><a href="/occupation-stats/{dato.iso_code}/{dato.year}">{dato.country}</a></td>
-            <td>{dato.iso_code}</td>
-            <td>{dato.country}</td>
-            <td>{dato.year}</td>
-            <td>{dato.urban_improved_total}</td>
-            <td>{dato.urban_improved_piped}</td>
-            <td>{dato.urban_improved_other}</td>
-            <td>{dato.urban_unimproved_other}</td>
-            <td>{dato.rural_improved_total}</td>
-            <td>{dato.rural_improved_piped}</td>
-            <td>{dato.rural_improved_other}</td>
-            <td>{dato.rural_unimproved_other}</td>
-            <td>{dato.rural_unimproved_surface}</td>
-            <td>{dato.total_improved_total}</td>
-            <td>{dato.total_improved_piped}</td>
-            <td>{dato.total_improved_other}</td>
-            <td>{dato.total_unimproved_other}</td>
-            <td>{dato.total_unimproved_surface}</td>
-            <td>
-              <Button color="danger" outline size="sm" on:click={() => deleteOcuppationStats(dato.province,dato.month)}>
-                <Icon name="x" class="icon" />
-              </Button>
-            </td>
-          </tr>
-        {/each}
-      <tr>
-        <td><input bind:value={newDatosProvince} placeholder="Introduce provincia"></td>
-        <td><input bind:value={newDatosMonth} placeholder="Introduce mes"></td>
-        <td><input bind:value={newDatosTrav} placeholder="Introduce nº de viajeros"></td>
-        <td><input bind:value={newDatosOS} placeholder="Introduce nº de estancias nocturnas"></td>
-        <td><input bind:value={newDatosAS} placeholder="Introduce media de estancias"></td>
-
-        <td>
-          <Button color="success" outline size="sm" on:click={createOcuppationStats}>
-            <Icon name="plus" class="icon"/>
-          </Button>
-          <Button color="danger" outline size="sm" on:click={deleteAllOcuppationStats}>
-            <Icon name="trash" class="icon"/> 
-          </Button>
-        </td>
-      </tr>
-      
-      {#each datos as dato}
-        <tr>
-          <td><a href="/occupation-stats/{dato.province}/{dato.month}">{dato.province}</a></td>
-          <td>{dato.month}</td>
-          <td>{dato.traveler}</td>
-          <td>{dato.overnight_stay}</td>
-          <td>{dato.average_stay}</td>
-          <td>
-            <Button color="danger" outline size="sm" on:click={() => deleteOcuppationStats(dato.province,dato.month)}>
-              <Icon name="x" class="icon" />
-            </Button>
-          </td>
-        </tr>
-      {/each}
-    </tbody>
-  </Table>  
 
 </script>
 
