@@ -36,8 +36,7 @@ let newListing ={
     room_type: "",
     guest_number: "",
     bedroom_number: "",
-    amenities_list: [
-    ],
+    amenities_list: "",
     price: "",
     minimum_nights_number: "",
     maximum_nights_number: "",
@@ -59,8 +58,7 @@ let selectedFilter ={
     room_type: "",
     guest_number: "",
     bedroom_number: "",
-    amenities_list: [
-    ],
+    amenities_list: "",
     price: "",
     minimum_nights_number: "",
     maximum_nights_number: "",
@@ -71,6 +69,11 @@ let error_msg = '';
 let success_msg = '';
 let success2_msg = '';
 
+let size = "lg";
+const toggle = () => {
+    size = "lg";
+    showFilter = !showFilter;
+};
 
 // Paginacion
 
@@ -233,6 +236,7 @@ async function searchListings() {
 
         if (response.status == 200) {
             // Actualiza los datos después de una búsqueda exitosa
+            success_msg = "Mostrando los datos solicitados";
             let data = await response.json();
             listings = data;
             console.log(data);
@@ -240,15 +244,13 @@ async function searchListings() {
             // Manejo de errores
             if (response.status == 400) {
                 error_msg = 'Error en la estructura de los datos';
-                alert(error_msg);
             } else if (response.status == 404) {
                 error_msg = 'No se encontraron datos';
-                alert(error_msg);
             }
         }
     } catch (error) {
         error_msg = error;
-        console.error(error);
+        console.log(error);
     }
 }
 
@@ -319,6 +321,22 @@ async function deleteAll(){
     </Container>
 
     <br/>
+    
+    {#if error_msg != ""}
+    <Alert color="danger">
+        <strong>Error:</strong> {error_msg}
+    </Alert>
+    {:else if success_msg != ""}
+    <Alert color="success">
+        <strong>Éxito:</strong> {success_msg}
+    </Alert>
+    
+    {/if}
+    {#if success2_msg != ""}
+    <Alert color="success">
+        <strong>Éxito:</strong> {success2_msg}
+    </Alert>
+    {/if}
 <!-- Elementos de entrada para los parámetros de búsqueda -->
 <Container style="justify-content: center; text-align: center;">
     <h2> Filtro por años</h2>
@@ -335,14 +353,164 @@ async function deleteAll(){
     </Row>
 </Container>
 
-
+<br>
+<hr>
 <Container style="justify-content: center; text-align: center;">
-<Button on:click={() => {showFilter = true;}}>Filtros</Button>
+<Button color="primary" on:click={() => {showFilter = true;}}>Filtros</Button>
 </Container>
+<br>
+<hr>
 
 {#if listings && listings.length > 0}
     <!--_______________________________________________Datos_________________________________________________-->
 <Container>
+        <!-- Bloque condicional if con modal -->
+    <!-- POR AÑADIR-->
+    {#if showFilter}
+    <Modal isOpen={showFilter} {toggle} {size}>
+        <ModalHeader {toggle}>Filtrar datos</ModalHeader>
+        <ModalBody>
+            <form on:submit|preventDefault={searchListings}>
+                <Container fluid>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="listingId">Listing ID</Label>
+                                <Input type="text" id="listingId" bind:value={selectedFilter.listing_id} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="name">Name</Label>
+                                <Input type="text" id="name" bind:value={selectedFilter.name} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="hostSince">Host Since</Label>
+                                <Input type="text" id="hostSince" bind:value={selectedFilter.host_since} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="hostLocation">Host Location</Label>
+                                <Input type="text" id="hostLocation" bind:value={selectedFilter.host_location} required />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="responseTime">Response Time</Label>
+                                <Input type="text" id="responseTime" bind:value={selectedFilter.response_time} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="responseRate">Response Rate</Label>
+                                <Input type="number" id="responseRate" bind:value={selectedFilter.response_rate} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="acceptanceRate">Acceptance Rate</Label>
+                                <Input type="number" id="acceptanceRate" bind:value={selectedFilter.acceptance_rate} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="neighbourhood">Neighbourhood</Label>
+                                <Input type="text" id="neighbourhood" bind:value={selectedFilter.neighbourhood} required />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="city">City</Label>
+                                <Input type="text" id="city" bind:value={selectedFilter.city} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="latitude">Latitude</Label>
+                                <Input type="number" id="latitude" bind:value={selectedFilter.latitude} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="longitude">Longitude</Label>
+                                <Input type="number" id="longitude" bind:value={selectedFilter.longitude} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="propertyType">Property Type</Label>
+                                <Input type="text" id="propertyType" bind:value={selectedFilter.property_type} required />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="roomType">Room Type</Label>
+                                <Input type="text" id="roomType" bind:value={selectedFilter.room_type} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="guestNumber">Guest Number</Label>
+                                <Input type="number" id="guestNumber" bind:value={selectedFilter.guest_number} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="bedroomNumber">Bedroom Number</Label>
+                                <Input type="number" id="bedroomNumber" bind:value={selectedFilter.bedroom_number} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="amenitiesList">Amenities List</Label>
+                                <Input type="text" id="amenitiesList" bind:value={selectedFilter.amenities_list} required />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <FormGroup>
+                                <Label for="price">Price</Label>
+                                <Input type="number" id="price" bind:value={selectedFilter.price} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="minimumNights">Minimum Nights</Label>
+                                <Input type="number" id="minimumNights" bind:value={selectedFilter.minimum_nights} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="maximumNights">Maximum Nights</Label>
+                                <Input type="number" id="maximumNights" bind:value={selectedFilter.maximum_nights} required />
+                            </FormGroup>
+                        </Col>
+                        <Col>
+                            <FormGroup>
+                                <Label for="instantBookable">Instant Bookable</Label>
+                                <Input type="text" id="instantBookable" bind:checked={selectedFilter.instant_bookable} />
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                </Container>
+            </form>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="primary" on:click={searchListings}>Aplicar filtros</Button>
+          <Button color="secondary" on:click={toggle}>Cerrar</Button>
+        </ModalFooter>
+      </Modal>
+    {/if}
     <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
         {#each listings as listing}
             <Col class='mb-3'>
@@ -654,24 +822,8 @@ async function deleteAll(){
     
     {/if}
 
-    <!-- Bloque condicional if con modal -->
-    <!-- POR AÑADIR-->
-    
-    {#if error_msg != ""}
-    <Alert color="danger">
-        <strong>Error:</strong> {error_msg}
-    </Alert>
-    {:else if success_msg != ""}
-    <Alert color="success">
-        <strong>Éxito:</strong> {success_msg}
-    </Alert>
-    
-    {/if}
-    {#if success2_msg != ""}
-    <Alert color="success">
-        <strong>Éxito:</strong> {success2_msg}
-    </Alert>
-    {/if}
+
+
 
 
 
