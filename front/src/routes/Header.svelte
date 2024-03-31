@@ -35,6 +35,7 @@
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
                 <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (Jose Joaquin Mena-Bernal)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/global-food-prices">global-food-prices (Borja Flores Avecilla)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -56,6 +57,7 @@
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
                 <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (José Joaquin Mena)</DropdownItem>
+                <DropdownItem class="menu-item" href = "/global-food-prices">global-food-prices (Borja Flores Avecilla)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -65,8 +67,8 @@
             </DropdownToggle>
             <DropdownMenu>
                 <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings (Jose)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices (Borja)</DropdownItem>
                 <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data (Jose Joaquin)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices (Borja)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
     </Nav>
