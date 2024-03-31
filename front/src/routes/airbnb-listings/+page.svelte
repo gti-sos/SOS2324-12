@@ -8,7 +8,7 @@
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
 
 // Rutas
-let API = '/api/v1/airbnb-listings';
+let API = '/api/v2/airbnb-listings';
 if(dev)
     API = 'http://localhost:10000'+API;
 
@@ -321,7 +321,24 @@ async function deleteAll(){
     </Container>
 
     <br/>
-    
+<!--______________________________________Botones_____________________________________-->
+<Container class="text-center">
+    <Row>
+        <Col cols={{ xs:4 }}>
+            <Button color="warning" on:click="{getInitialListings}">Cargar Datos Iniciales</Button>
+        </Col>
+        <Col cols={{ xs:4 }}>
+            <Button color="success" on:click={() => {showForm = true;}}>Crear Nuevo Dato</Button>
+        </Col>
+        <Col cols={{ xs:4 }}>
+            <Button color="danger" on:click="{deleteAll}">Borrar Todos los Datos</Button>
+        </Col>
+        <Col>
+            <Button color="primary" on:click={() => {showFilter = true;}}>Filtro por campos</Button>
+        </Col>
+    </Row>
+</Container>
+<br/>  
     {#if error_msg != ""}
     <Alert color="danger">
         <strong>Error:</strong> {error_msg}
@@ -355,17 +372,13 @@ async function deleteAll(){
 
 <br>
 <hr>
-<Container style="justify-content: center; text-align: center;">
-<Button color="primary" on:click={() => {showFilter = true;}}>Filtros</Button>
-</Container>
-<br>
-<hr>
+
 
 {#if listings && listings.length > 0}
     <!--_______________________________________________Datos_________________________________________________-->
 <Container>
         <!-- Bloque condicional if con modal -->
-    <!-- POR AÑADIR-->
+    
     {#if showFilter}
     <Modal isOpen={showFilter} {toggle} {size}>
         <ModalHeader {toggle}>Filtrar datos</ModalHeader>
@@ -823,10 +836,6 @@ async function deleteAll(){
     {/if}
 
 
-
-
-
-
 {:else}
 	<p class="container">No hay datos disponibles</p>
 {/if}
@@ -847,21 +856,7 @@ async function deleteAll(){
 
 <hr>
 <br>
-<!--______________________________________Botones_____________________________________-->
-<Container class="text-center">
-    <Row>
-        <Col cols={{ xs:4 }}>
-            <Button color="warning" on:click="{getInitialListings}">Cargar Datos Iniciales</Button>
-        </Col>
-        <Col cols={{ xs:4 }}>
-            <Button color="success" on:click={() => {showForm = true;}}>Crear Nuevo Dato</Button>
-        </Col>
-        <Col cols={{ xs:4 }}>
-            <Button color="danger" on:click="{deleteAll}">Borrar Todos los Datos</Button>
-        </Col>
-        
-    </Row>
-</Container>
+
 
 
 

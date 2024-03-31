@@ -14,6 +14,10 @@
     if (dev)
         API = 'http://localhost:10000'+API;
 
+  let API_v2 = '/api/v2';
+    if (dev)
+        API_v2 = 'http://localhost:10000'+API_v2;
+
 </script>
 <style>
     @import "/styles.css";
@@ -33,8 +37,9 @@
                 APIS
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (Jose Joaquin Mena-Bernal)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings [v1] (Jose Martinez)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings">airbnb-listings [v2] (Jose Martinez)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data [v1] (Jose Joaquin Mena-Bernal)</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -64,7 +69,8 @@
                 Documentaciones
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings (Jose)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings [v1] (Jose)</DropdownItem>
+                <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings/docs">airbnb-listings [v2] (Jose)</DropdownItem>
                 <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices (Borja)</DropdownItem>
                 <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data (Jose Joaquin)</DropdownItem>
             </DropdownMenu>
