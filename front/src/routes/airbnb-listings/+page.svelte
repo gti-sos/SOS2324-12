@@ -79,7 +79,7 @@ const toggle = () => {
 
 let currentPage = 1;
 //let totalItems = 0;
-const pageSize = 4;
+const pageSize = 10;
 let totalItems = 0;
 let pagination = 0;
 let valor = -1;
@@ -116,7 +116,7 @@ onMount(async () => {
 });
 
 async function getListings() {
-    let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*4}`, {
+    let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*10}`, {
             method: "GET"
         });
     const status = await response.status;
