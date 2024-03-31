@@ -90,12 +90,14 @@ function nextPage(){
     if(pagination!=valor){
         pagination++;
         getListings();
+        window.scrollTo(0, 0);
     }
 }
 function prevPage(){
     if (pagination >= 1){
         pagination--;
         getListings();;
+        window.scrollTo(0, 0);
     }
 }
 
@@ -110,7 +112,7 @@ onMount(async () => {
         error_msg = "";
         success_msg = "";
         success2_msg = "";
-    }, 5000);
+    }, 10000);
 });
 
 async function getListings() {
@@ -124,12 +126,15 @@ async function getListings() {
         totalItems = data.length;
         success_msg = "Mostrando datos";
         error_msg = "";
+        window.scrollTo(0, 0);
     } else if (status == 404) {
         error_msg = "No hay datos cargados en la base de datos o ya no hay más datos"
         success_msg = "";
+        window.scrollTo(0, 0);
     } else if (status == 500) {
         error_msg = "Ha ocurrido un error en el servidor";
         success_msg = "";
+        window.scrollTo(0, 0);
     }
 };
 
@@ -143,12 +148,15 @@ async function getInitialListings(){
         getListings();
         success_msg = "Datos iniciales cargados correctamente";
         error_msg = "";
+        window.scrollTo(0, 0);
     } else if (status == 200) {
         error_msg = "La base de datos ya está cargada";
         success_msg = "";
+        window.scrollTo(0, 0);
     } else if (status == 500){
         error_msg = "Ha ocurrido un error en el servidor"
         success_msg = "";
+        window.scrollTo(0, 0);
     }
 };
 
@@ -164,6 +172,7 @@ async function searchListing() {
     // Verifica si los valores de entrada son números válidos
     if (isNaN(from) || isNaN(to)) {
         error_msg = "Por favor, introduzca años válidos en los campos From y To.";
+        window.scrollTo(0, 0);
         return;
     }
 
@@ -178,12 +187,15 @@ async function searchListing() {
             listings = data; 
             success_msg = "Se ha realizado la búsqueda correctamente";
             error_msg = '';
+            window.scrollTo(0, 0);
     } else if (status == 404){
             error_msg = "No se encontraron resultados";
             success_msg = "";
+            window.scrollTo(0, 0);
     } else if (status == 500){
             error_msg = "Ha ocurrido un error en el servidor";
             success_msg = "";
+            window.scrollTo(0, 0);
     }
 };
 
@@ -275,10 +287,11 @@ async function createListing(){
         });
     const status = response.status;
     if (status == 201){
-        success2_msg = "Se ha creado correctamente el dato";
+        success2_msg = "Se ha creado correctamente el alquiler de nombre "+newListing.name;
         error_msg = "";
         showForm = false;
         await getListings();
+
     } else if (status == 400){
         error_msg = "Petición invalida. Revisa si has introducido todos los datos";
         success_msg = "";
@@ -300,14 +313,40 @@ async function deleteAll(){
         });
     const status = response.status;
     if (status == 200){
-        success_msg = "Todos los datos han sido eliminados";
+        success2_msg = "Todos los datos han sido eliminados";
+        alert("Todos los datos han sido eliminados");
         error_msg = "";
+        window.location.reload();
     } else if (status == 204) {
         error_msg = "No se encontraron datos para eliminar, es posible que la base de datos esté vacía";
         success_msg = "";
+        window.scrollTo(0, 0);
+
     } else if (status == 500) {
         error_msg = "Ha ocurrido un error en el servidor";
         success_msg = "";
+        window.scrollTo(0, 0);
+    }
+};
+
+async function deleteListing(lat,lon){
+    let response = await fetch(API + "/" + lat + "/" + lon,{
+            method: "DELETE"
+        });
+    const status = response.status;
+    if (status == 200){
+        success2_msg = "El recurso con latitud "+lat+" y longitud "+lon+" ha sido eliminado";
+        error_msg = "";
+        getListings();
+        window.scrollTo(0, 0);
+    } else if (status == 204) {
+        error_msg = "No se encontró ningún recurso con la latitud y longitud especificadas";
+        success_msg = "";
+        window.scrollTo(0, 0);
+    } else if (status == 500) {
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
+        window.scrollTo(0, 0);
     }
 };
 
@@ -383,6 +422,7 @@ async function deleteAll(){
     <Modal isOpen={showFilter} {toggle} {size}>
         <ModalHeader {toggle}>Filtrar datos</ModalHeader>
         <ModalBody>
+            
             <form on:submit|preventDefault={searchListings}>
                 <Container fluid>
                     <Row>
@@ -522,8 +562,26 @@ async function deleteAll(){
           <Button color="primary" on:click={searchListings}>Aplicar filtros</Button>
           <Button color="secondary" on:click={toggle}>Cerrar</Button>
         </ModalFooter>
+        <Container>
+            {#if error_msg != ""}
+            <Alert color="danger">
+                <strong>Error:</strong> {error_msg}
+            </Alert>
+            {:else if success_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success_msg}
+            </Alert>
+            
+            {/if}
+            {#if success2_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success2_msg}
+            </Alert>
+            {/if}
+        </Container>
       </Modal>
     {/if}
+    <!-- AQUI SE MUESTRAN LOS DATOS -->
     <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
         {#each listings as listing}
             <Col class='mb-3'>
@@ -553,8 +611,11 @@ async function deleteAll(){
                             <strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>
                             <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
                             <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
-                            
                         </CardText>
+                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}>Borrar</Button>
+                        <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
+                            Editar
+                        </Button>
                     </CardBody>
                 </Card>
             </Col>
@@ -564,274 +625,294 @@ async function deleteAll(){
 
 
     {#if showForm}
-    <hr class='line'/>
-    <Container class='mb-3'>
-        <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="listingId">Listing ID</Label>
-                    <Input
-                        type="text"
-                        id="listingId"
-                        name="listingId"
-                        placeholder="Escribe un listing ID"
-                        bind:value={newListing.listing_id}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="name">Nombre</Label>
-                    <Input
-                        type="text"
-                        id="name"
-                        name="name"
-                        placeholder="Escribe un nombre"
-                        bind:value={newListing.name}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="hostSince">Fecha de registro de anfitrión</Label>
-                    <Input
-                        type="date"
-                        id="hostSince"
-                        name="hostSince"
-                        bind:value={newListing.host_since}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="hostLocation">Ubicación del anfitrión</Label>
-                    <Input
-                        type="text"
-                        id="hostLocation"
-                        name="hostLocation"
-                        placeholder="Escribe una ubicación"
-                        bind:value={newListing.host_location}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="responseTime">Tiempo de respuesta del anfitrión</Label>
-                    <Input
-                        type="text"
-                        id="responseTime"
-                        name="responseTime"
-                        placeholder="Escribe un tiempo de respuesta"
-                        bind:value={newListing.host_response_time}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="responseRate">Tasa de respuesta del anfitrión</Label>
-                    <Input
-                        type="number"
-                        id="responseRate"
-                        name="responseRate"
-                        placeholder="Escribe una tasa de respuesta"
-                        bind:value={newListing.host_response_rate}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="acceptanceRate">Tasa de aceptación del anfitrión</Label>
-                    <Input
-                        type="number"
-                        id="acceptanceRate"
-                        name="acceptanceRate"
-                        placeholder="Escribe una tasa de aceptación"
-                        bind:value={newListing.host_acceptance_rate}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="neighbourhood">Barrio</Label>
-                    <Input
-                        type="text"
-                        id="neighbourhood"
-                        name="neighbourhood"
-                        placeholder="Escribe un barrio"
-                        bind:value={newListing.neighbourhood}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="city">Ciudad</Label>
-                    <Input
-                        type="text"
-                        id="city"
-                        name="city"
-                        placeholder="Escribe una ciudad"
-                        bind:value={newListing.city}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="latitude">Latitud</Label>
-                    <Input
-                        type="number"
-                        id="latitude"
-                        name="latitude"
-                        placeholder="Escribe una latitud"
-                        bind:value={newListing.latitude}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="longitude">Longitud</Label>
-                    <Input
-                        type="number"
-                        id="longitude"
-                        name="longitude"
-                        placeholder="Escribe una longitud"
-                        bind:value={newListing.longitude}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="propertyType">Tipo de propiedad</Label>
-                    <Input
-                        type="text"
-                        id="propertyType"
-                        name="propertyType"
-                        placeholder="Escribe un tipo de propiedad"
-                        bind:value={newListing.property_type}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="roomType">Tipo de habitación</Label>
-                    <Input
-                        type="text"
-                        id="roomType"
-                        name="roomType"
-                        placeholder="Escribe un tipo de habitación"
-                        bind:value={newListing.room_type}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="guestNumber">Número de huéspedes</Label>
-                    <Input
-                        type="number"
-                        id="guestNumber"
-                        name="guestNumber"
-                        placeholder="Escribe un número de huéspedes"
-                        bind:value={newListing.guest_number}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="bedroomNumber">Número de habitaciones</Label>
-                    <Input
-                        type="number"
-                        id="bedroomNumber"
-                        name="bedroomNumber"
-                        placeholder="Escribe un número de habitaciones"
-                        bind:value={newListing.bedroom_number}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="amenitiesList">Lista de comodidades</Label>
-                    <Input
-                        type="text"
-                        id="amenitiesList"
-                        name="amenitiesList"
-                        placeholder="Escribe una lista de comodidades"
-                        bind:value={newListing.amenities_list}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="price">Precio</Label>
-                    <Input
-                        type="number"
-                        id="price"
-                        name="price"
-                        placeholder="Escribe un precio"
-                        bind:value={newListing.price}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="minimumNights">Número mínimo de noches</Label>
-                    <Input
-                        type="number"
-                        id="minimumNights"
-                        name="minimumNights"
-                        placeholder="Escribe un número mínimo de noches"
-                        bind:value={newListing.minimum_nights_number}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="maximumNights">Número máximo de noches</Label>
-                    <Input
-                        type="number"
-                        id="maximumNights"
-                        name="maximumNights"
-                        placeholder="Escribe un número máximo de noches"
-                        bind:value={newListing.maximum_nights_number}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-            <Col class='mb-3'>
-                <FormGroup>
-                    <Label for="instantBookable">¿Reserva instantánea?</Label>
-                    <Input
-                        type="checkbox"
-                        id="instantBookable"
-                        name="instantBookable"
-                        bind:checked={newListing.instant_bookable}
-                        required
-                    />
-                </FormGroup>
-            </Col>
-        </Row>
-        <Row>
-            <Col></Col>
-            <Col><Button color="success" on:click={createListing}>Crear</Button></Col>
-            <Col></Col>
-        </Row>
-    </Container>
+    <Modal isOpen={showForm} {toggle} {size}>
+        <ModalHeader {toggle}>Filtrar datos</ModalHeader>
+        <ModalBody>
+            
+            <Container class='mb-3'>
+                <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="listingId">Listing ID</Label>
+                            <Input
+                                type="text"
+                                id="listingId"
+                                name="listingId"
+                                placeholder="Escribe un listing ID"
+                                bind:value={newListing.listing_id}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="name">Nombre</Label>
+                            <Input
+                                type="text"
+                                id="name"
+                                name="name"
+                                placeholder="Escribe un nombre"
+                                bind:value={newListing.name}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="hostSince">Fecha de registro de anfitrión</Label>
+                            <Input
+                                type="date"
+                                id="hostSince"
+                                name="hostSince"
+                                bind:value={newListing.host_since}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="hostLocation">Ubicación del anfitrión</Label>
+                            <Input
+                                type="text"
+                                id="hostLocation"
+                                name="hostLocation"
+                                placeholder="Escribe una ubicación"
+                                bind:value={newListing.host_location}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="responseTime">Tiempo de respuesta del anfitrión</Label>
+                            <Input
+                                type="text"
+                                id="responseTime"
+                                name="responseTime"
+                                placeholder="Escribe un tiempo de respuesta"
+                                bind:value={newListing.host_response_time}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="responseRate">Tasa de respuesta del anfitrión</Label>
+                            <Input
+                                type="number"
+                                id="responseRate"
+                                name="responseRate"
+                                placeholder="Escribe una tasa de respuesta"
+                                bind:value={newListing.host_response_rate}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="acceptanceRate">Tasa de aceptación del anfitrión</Label>
+                            <Input
+                                type="number"
+                                id="acceptanceRate"
+                                name="acceptanceRate"
+                                placeholder="Escribe una tasa de aceptación"
+                                bind:value={newListing.host_acceptance_rate}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="neighbourhood">Barrio</Label>
+                            <Input
+                                type="text"
+                                id="neighbourhood"
+                                name="neighbourhood"
+                                placeholder="Escribe un barrio"
+                                bind:value={newListing.neighbourhood}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="city">Ciudad</Label>
+                            <Input
+                                type="text"
+                                id="city"
+                                name="city"
+                                placeholder="Escribe una ciudad"
+                                bind:value={newListing.city}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="latitude">Latitud</Label>
+                            <Input
+                                type="number"
+                                id="latitude"
+                                name="latitude"
+                                placeholder="Escribe una latitud"
+                                bind:value={newListing.latitude}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="longitude">Longitud</Label>
+                            <Input
+                                type="number"
+                                id="longitude"
+                                name="longitude"
+                                placeholder="Escribe una longitud"
+                                bind:value={newListing.longitude}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="propertyType">Tipo de propiedad</Label>
+                            <Input
+                                type="text"
+                                id="propertyType"
+                                name="propertyType"
+                                placeholder="Escribe un tipo de propiedad"
+                                bind:value={newListing.property_type}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="roomType">Tipo de habitación</Label>
+                            <Input
+                                type="text"
+                                id="roomType"
+                                name="roomType"
+                                placeholder="Escribe un tipo de habitación"
+                                bind:value={newListing.room_type}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="guestNumber">Número de huéspedes</Label>
+                            <Input
+                                type="number"
+                                id="guestNumber"
+                                name="guestNumber"
+                                placeholder="Escribe un número de huéspedes"
+                                bind:value={newListing.guest_number}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="bedroomNumber">Número de habitaciones</Label>
+                            <Input
+                                type="number"
+                                id="bedroomNumber"
+                                name="bedroomNumber"
+                                placeholder="Escribe un número de habitaciones"
+                                bind:value={newListing.bedroom_number}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="amenitiesList">Lista de comodidades</Label>
+                            <Input
+                                type="text"
+                                id="amenitiesList"
+                                name="amenitiesList"
+                                placeholder="Escribe una lista de comodidades"
+                                bind:value={newListing.amenities_list}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="price">Precio</Label>
+                            <Input
+                                type="number"
+                                id="price"
+                                name="price"
+                                placeholder="Escribe un precio"
+                                bind:value={newListing.price}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="minimumNights">Número mínimo de noches</Label>
+                            <Input
+                                type="number"
+                                id="minimumNights"
+                                name="minimumNights"
+                                placeholder="Escribe un número mínimo de noches"
+                                bind:value={newListing.minimum_nights_number}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="maximumNights">Número máximo de noches</Label>
+                            <Input
+                                type="number"
+                                id="maximumNights"
+                                name="maximumNights"
+                                placeholder="Escribe un número máximo de noches"
+                                bind:value={newListing.maximum_nights_number}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="instantBookable">¿Reserva instantánea?</Label>
+                            <Input
+                                type="checkbox"
+                                id="instantBookable"
+                                name="instantBookable"
+                                bind:checked={newListing.instant_bookable}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                </Row>
+            </Container>
+        </ModalBody>
+        <ModalFooter>
+            <Button color="success" on:click={createListing}>Crear</Button>
+        </ModalFooter>
+        <Container>
+            {#if error_msg != ""}
+            <Alert color="danger">
+                <strong>Error:</strong> {error_msg}
+            </Alert>
+            {:else if success_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success_msg}
+            </Alert>
+            
+            {/if}
+            {#if success2_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success2_msg}
+            </Alert>
+            {/if}
+        </Container>
+    </Modal>
     
     {/if}
 
