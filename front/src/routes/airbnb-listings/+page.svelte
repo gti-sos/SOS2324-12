@@ -62,7 +62,7 @@ let selectedFilter ={
     price: "",
     minimum_nights_number: "",
     maximum_nights_number: "",
-    instant_bookable: ""
+    instant_bookable: "",
 };
 
 let error_msg = '';
@@ -165,44 +165,6 @@ async function getInitialListings(){
 };
 
 
-async function searchListing() {
-    const fromInput = document.getElementById('fromInput').value.trim();
-    const toInput = document.getElementById('toInput').value.trim();
-
-    // Convierte los valores de entrada a números enteros
-    const from = parseInt(fromInput);
-    const to = parseInt(toInput);
-
-    // Verifica si los valores de entrada son números válidos
-    if (isNaN(from) || isNaN(to)) {
-        error_msg = "Por favor, introduzca años válidos en los campos From y To.";
-        window.scrollTo(0, 0);
-        return;
-    }
-
-    // Construye la URL de búsqueda con los años como parámetros
-    let url = `${API}?from=${from}&to=${to}`;
-    const response = await fetch(url, {
-            method: 'GET'
-        });
-    const status = response.status;
-    if (status == 200) {
-            const data = await response.json();
-            listings = data; 
-            success_msg = "Se ha realizado la búsqueda correctamente";
-            error_msg = '';
-            window.scrollTo(0, 0);
-    } else if (status == 404){
-            error_msg = "No se encontraron resultados";
-            success_msg = "";
-            window.scrollTo(0, 0);
-    } else if (status == 500){
-            error_msg = "Ha ocurrido un error en el servidor";
-            success_msg = "";
-            window.scrollTo(0, 0);
-    }
-};
-
 async function searchListings() {
     try {
         // Construye la URL de búsqueda a partir de los filtros proporcionados
@@ -235,6 +197,39 @@ async function searchListings() {
                 searchParams.append(key, selectedFilter[key]);
             }
         }
+        const yearInput = document.getElementById('yearInput').value.trim();
+        const minpriceInput = document.getElementById('minpriceInput').value.trim();
+        const maxpriceInput = document.getElementById('maxpriceInput').value.trim();
+
+        // Convierte los valores de entrada a números enteros
+        const year = parseInt(yearInput);
+        const minprice = parseFloat(minpriceInput);
+        const maxprice = parseFloat(maxpriceInput);
+
+        const fromInput = document.getElementById('fromInput').value.trim();
+        const toInput = document.getElementById('toInput').value.trim();
+
+        // Convierte los valores de entrada a números enteros
+        const from = parseInt(fromInput);
+        const to = parseInt(toInput);
+
+        if (year !== '' && !isNaN(year)) {
+        searchParams.append('year', year);
+        }
+        if (minprice !== '' && !isNaN(minprice)) {
+            searchParams.append('min_price', minprice);
+        }
+        if (maxprice !== '' && !isNaN(maxprice)) {
+            searchParams.append('max_price', maxprice);
+        }
+        if (from !== '' && !isNaN(from)) {
+            searchParams.append('from', from);
+        }
+        if (to !== '' && !isNaN(to)) {
+            searchParams.append('to', to);
+        }
+        
+
         let searchUrl = `${API}?${searchParams.toString()}`;
         console.log(searchUrl);
         // Realiza la petición GET a la API con la URL de búsqueda generada
@@ -377,7 +372,7 @@ async function deleteListing(lat,lon){
             <Button color="danger" on:click="{deleteAll}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
         </Col>
         <Col>
-            <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtro por campos</Button>
+            <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtros</Button>
         </Col>
     </Row>
 </Container>
@@ -397,30 +392,11 @@ async function deleteListing(lat,lon){
         <strong>Éxito:</strong> {success2_msg}
     </Alert>
     {/if}
-<!-- Elementos de entrada para los parámetros de búsqueda -->
-<Container style="justify-content: center; text-align: center;">
-    <h2> Filtro por años</h2>
-    <Row>
-        <Col>
-            <Input type="number" id="fromInput" placeholder="From"/>
-        </Col>
-        <Col>
-            <Input type="number" id="toInput" placeholder="To"/>
-        </Col>
-        <Col>
-            <Button color="primary" on:click={searchListing}><Fa icon={faMagnifyingGlass}/> Buscar</Button>
-        </Col>
-    </Row>
-</Container>
 
 <br>
 <hr>
 
-
-{#if listings && listings.length > 0}
-    <!--_______________________________________________Datos_________________________________________________-->
-<Container>
-        <!-- Bloque condicional if con modal -->
+    <!-- Bloque condicional if con modal -->
     
     {#if showFilter}
     <Modal isOpen={showFilter} {toggle} {size}>
@@ -452,7 +428,7 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="responseTime">Tiemmpo de respuesta</Label>
+                                <Label for="responseTime">Tiempo de respuesta</Label>
                                 <Input type="text" id="responseTime" bind:value={selectedFilter.response_time} required />
                             </FormGroup>
                         </Col>
@@ -553,6 +529,40 @@ async function deleteListing(lat,lon){
                             </FormGroup>
                         </Col>
                     </Row>
+                <Row>
+                    <Col>
+                        <FormGroup>
+                            <Label for="year">Año (extraído de fecha)</Label>
+                            <Input type="number" id="yearInput"/>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="min_price">Precio mínimo</Label>
+                            <Input type="number" id="minpriceInput"/>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="max_price">Precio máximo</Label>
+                            <Input type="number" id="maxpriceInput"/>
+                        </FormGroup>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <FormGroup>
+                            <Label for="from">Desde (año)</Label>
+                            <Input type="number" id="fromInput"/>
+                        </FormGroup>
+                    </Col>
+                    <Col>
+                        <FormGroup>
+                            <Label for="to">Hasta (año)</Label>
+                            <Input type="number" id="toInput"/>
+                        </FormGroup>
+                    </Col>
+                </Row>
                 </Container>
             </form>
         </ModalBody>
@@ -581,48 +591,6 @@ async function deleteListing(lat,lon){
         </Container>
       </Modal>
     {/if}
-    <!-- AQUI SE MUESTRAN LOS DATOS -->
-    <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
-        {#each listings as listing}
-            <Col class='mb-3'>
-                <Card>
-                    <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
-                        <CardTitle><Fa icon={faHouse}/> {listing.name}</CardTitle>
-                    </CardHeader>
-                    <CardBody>
-                        <CardText>
-                            <strong>Fecha de registro de anfitrión:</strong> {listing.host_since} <br>
-                            <strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
-                            <strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>
-                            <strong>Tasa de respuesta del anfitrión:</strong> {listing.host_response_rate} <br>
-                            <strong>Tasa de aceptación del anfitrión:</strong> {listing.host_acceptance_rate} <br>
-                            <strong>Barrio: </strong>{listing.neighbourhood} <br>
-                            <strong>Ciudad:</strong> {listing.city} <br>
-                            <strong>Latitud:</strong> {listing.latitude} <br>
-                            <strong>Longitud: </strong>{listing.longitude} <br>
-                            <strong>Tipo de propiedad:</strong> {listing.property_type} <br>
-                            <strong>Tipo de habitación:</strong> {listing.room_type} <br>
-                            <strong>Número de huéspedes:</strong> {listing.guest_number} <br>
-                            <strong>Número de habitaciones:</strong> {listing.bedroom_number} <br>
-                            <strong>Lista de comodidades:</strong> {listing.amenities_list} <br>
-                            <strong>Precio:</strong> {listing.price} <br>
-                            <strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>
-                            <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
-                            <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
-                        </CardText>
-                        <Container style="justify-content: center; text-align: center;">
-                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
-                        <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
-                            <Fa icon={faPencil}/> Editar
-                        </Button>
-                        </Container>
-                    </CardBody>
-                </Card>
-            </Col>
-        {/each}
-    </Row>
-</Container>
-
 
     {#if showForm}
     <Modal isOpen={showForm} {toggle2} {size}>
@@ -905,6 +873,52 @@ async function deleteListing(lat,lon){
     </Modal>
     
     {/if}
+
+{#if listings && listings.length > 0}
+    <!--_______________________________________________Datos_________________________________________________-->
+<Container>
+    
+    <!-- AQUI SE MUESTRAN LOS DATOS -->
+    <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
+        {#each listings as listing}
+            <Col class='mb-3'>
+                <Card>
+                    <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
+                        <CardTitle><Fa icon={faHouse}/> {listing.name}</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <CardText>
+                            <strong>Fecha de registro de anfitrión:</strong> {listing.host_since} <br>
+                            <strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
+                            <strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>
+                            <strong>Tasa de respuesta del anfitrión:</strong> {listing.host_response_rate} <br>
+                            <strong>Tasa de aceptación del anfitrión:</strong> {listing.host_acceptance_rate} <br>
+                            <strong>Barrio: </strong>{listing.neighbourhood} <br>
+                            <strong>Ciudad:</strong> {listing.city} <br>
+                            <strong>Latitud:</strong> {listing.latitude} <br>
+                            <strong>Longitud: </strong>{listing.longitude} <br>
+                            <strong>Tipo de propiedad:</strong> {listing.property_type} <br>
+                            <strong>Tipo de habitación:</strong> {listing.room_type} <br>
+                            <strong>Número de huéspedes:</strong> {listing.guest_number} <br>
+                            <strong>Número de habitaciones:</strong> {listing.bedroom_number} <br>
+                            <strong>Lista de comodidades:</strong> {listing.amenities_list} <br>
+                            <strong>Precio:</strong> {listing.price} <br>
+                            <strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>
+                            <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
+                            <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
+                        </CardText>
+                        <Container style="justify-content: center; text-align: center;">
+                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
+                        <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
+                            <Fa icon={faPencil}/> Editar
+                        </Button>
+                        </Container>
+                    </CardBody>
+                </Card>
+            </Col>
+        {/each}
+    </Row>
+</Container>
 
 
 {:else}
