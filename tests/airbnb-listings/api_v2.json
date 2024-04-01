@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "4e9ab1be-66b1-490f-a69d-fdd0133feb0d",
 		"name": "airbnb-listings API - v2",
-		"description": "SOS2324-12 Project\n\nDeveloped by José Martínez Suárez\n\nThis documentation will discuss error handling and the correct way to access **airbnb_listings** API data.\n\nThe dataset contains detailed information about each listing, including its geographical location, the number of bedrooms, bathrooms, and amenities, and the reviews left by previous guests. Additionally, it includes information about the hosts, such as their profile description, response rate, and acceptance rate, which can provide valuable insights into the characteristics of successful Airbnb hosts. In particular, we have the following fields:\n\n---\n\n- **listing_id**: Unique identifier of the Airbnb listing.\n- **name**: Descriptive name of the accommodation.\n- **host_since**: Date the host joined Airbnb.\n- **host_location**: Location of the host.\n- **host_response_time**: Host's response time to guests' queries.\n- **host_response_rate**: Host's response rate to guest queries.\n- **host_acceptance_rate**: Host's acceptance rate for reservations.\n- **neighborhood**: Neighborhood where the accommodation is located.\n- **city**: City where the accommodation is located.\n- **latitude**: Latitude coordinate of the accommodation.\n- **longitude**: Longitude coordinate of the accommodation.\n- **property_type**: Property type (e.g. apartment, house, etc.).\n- **room_type**: Type of room (e.g. private room, full place, etc.).\n- **guest_number**: Maximum number of guests allowed.\n- **bedroom_number**: Number of bedrooms in the accommodation.\n- **amenities_list**: List of amenities offered in the accommodation (e.g. heating, TV, kitchen, etc.).\n- **price**: Price per night of the accommodation.\n- **minimum_nights_number**: Minimum number of nights required to book.\n- **maximum_nights_number**: Maximum number of nights allowed for booking.\n- **instant_bookable**: Indicator if the accommodation is instantly bookable (TRUE/FALSE).\n    \n\n---\n\nIn addition to the **listing_id**, it is also possible to uniquely identify a resource by the identifier (**latitude,longitude**).",
+		"description": "SOS2324-12 Project\n\nDeveloped by José Martínez Suárez\n\nThis documentation will discuss error handling and the correct way to access **airbnb_listings** API data.\n\nThe dataset contains detailed information about each listing, including its geographical location, the number of bedrooms, bathrooms, and amenities, and the reviews left by previous guests. Additionally, it includes information about the hosts, such as their profile description, response rate, and acceptance rate, which can provide valuable insights into the characteristics of successful Airbnb hosts. In particular, we have the following fields:\n\n- **name**: Descriptive name of the accommodation.\n- **host_since**: Date the host joined Airbnb.\n- **host_location**: Location of the host.\n- **host_response_time**: Host's response time to guests' queries.\n- **host_response_rate**: Host's response rate to guest queries.\n- **host_acceptance_rate**: Host's acceptance rate for reservations.\n- **neighborhood**: Neighborhood where the accommodation is located.\n- **city**: City where the accommodation is located.\n- **latitude**: Latitude coordinate of the accommodation.\n- **longitude**: Longitude coordinate of the accommodation.\n- **property_type**: Property type (e.g. apartment, house, etc.).\n- **room_type**: Type of room (e.g. private room, full place, etc.).\n- **guest_number**: Maximum number of guests allowed.\n- **bedroom_number**: Number of bedrooms in the accommodation.\n- **amenities_list**: List of amenities offered in the accommodation (e.g. heating, TV, kitchen, etc.).\n- **price**: Price per night of the accommodation.\n- **minimum_nights_number**: Minimum number of nights required to book.\n- **maximum_nights_number**: Maximum number of nights allowed for booking.\n- **instant_bookable**: Indicator if the accommodation is instantly bookable (TRUE/FALSE).\n    \n\n---\n\nIn addition to the **listing_id**, it is also possible to uniquely identify a resource by the identifier (**latitude,longitude**).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "33042302"
 	},
@@ -1085,93 +1085,6 @@
 			"name": "Removing Specific Data",
 			"item": [
 				{
-					"name": "/LISTING_ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is either 200 or 204\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([200, 204]);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{SERVER}}/37440389",
-							"host": [
-								"{{SERVER}}"
-							],
-							"path": [
-								"37440389"
-							]
-						},
-						"description": "The request deletes the data with the ID \"37440389\" from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings](https://sos2324-12.appspot.com/api/v1/airbnb-listings) using the DELETE method."
-					},
-					"response": [
-						{
-							"name": "Delete Data by ID",
-							"originalRequest": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{GCLOUD}}/37440389",
-									"host": [
-										"{{GCLOUD}}"
-									],
-									"path": [
-										"37440389"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "342a721e339b6c40093da5b26cb5cfa9"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 07 Mar 2024 12:48:57 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Content-Length",
-									"value": "2"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
-								}
-							],
-							"cookie": [],
-							"body": "OK"
-						}
-					]
-				},
-				{
 					"name": "/LAT/LONG",
 					"event": [
 						{
@@ -1453,7 +1366,8 @@
 									"    pm.response.to.have.status(201);\r",
 									"});"
 								],
-								"type": "text/javascript"
+								"type": "text/javascript",
+								"packages": {}
 							}
 						}
 					],
@@ -1462,7 +1376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"listing_id\": 47411421,\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1573,15 +1487,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}?listing_id=47411421",
+							"raw": "{{SERVER}}/40.76125/-73.98803",
 							"host": [
 								"{{SERVER}}"
 							],
-							"query": [
-								{
-									"key": "listing_id",
-									"value": "47411421"
-								}
+							"path": [
+								"40.76125",
+								"-73.98803"
 							]
 						}
 					},
@@ -1663,7 +1575,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"listing_id\": 47411421,\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Large one bed high floor in Times square\",\r\n    \"host_since\": \"01/01/2020\",\r\n    \"host_location\": \"United States\",\r\n    \"host_response_time\": \"within an hour\",\r\n    \"host_response_rate\": 0.95,\r\n    \"host_acceptance_rate\": 0.58,\r\n    \"neighbourhood\": \"Hell's Kitchen\",\r\n    \"city\": \"New York\",\r\n    \"latitude\": 40.76125,\r\n    \"longitude\": -73.98803,\r\n    \"property_type\": \"Entire apartment\",\r\n    \"room_type\": \"Entire place\",\r\n    \"guest_number\": 4,\r\n    \"bedroom_number\": 1,\r\n    \"amenities_list\": [\r\n      \"Smoke alarm\",\r\n      \"Essentials\",\r\n      \"Hangers\",\r\n      \"Washer\",\r\n      \"TV\",\r\n      \"Gym\",\r\n      \"Dryer\",\r\n      \"Wifi\",\r\n      \"Heating\",\r\n      \"Private entrance\",\r\n      \"Air conditioning\",\r\n      \"Long term stays allowed\",\r\n      \"Carbon monoxide alarm\",\r\n      \"Kitchen\"\r\n    ],\r\n    \"price\": 170,\r\n    \"minimum_nights_number\": 30,\r\n    \"maximum_nights_number\": 1125,\r\n    \"instant_bookable\": \"FALSE\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -2011,216 +1923,6 @@
 					]
 				},
 				{
-					"name": "Update data by ID",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"listing_id\": 2455506, \"name\" : \"UPDATED NAME\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{SERVER}}/2455506",
-							"host": [
-								"{{SERVER}}"
-							],
-							"path": [
-								"2455506"
-							]
-						},
-						"description": "The request is attempting to update the data associated with the ID \"2455506\" in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506](https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506) using the PUT method. The server allows updating data by ID, and the operation is successful without returning an error response."
-					},
-					"response": [
-						{
-							"name": "Update data by ID",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"listing_id\": 2455506, \"name\" : \"UPDATED NAME\"}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{GCLOUD}}/2455506",
-									"host": [
-										"{{GCLOUD}}"
-									],
-									"path": [
-										"2455506"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"2-nOO9QiTIwXgNtWtBJezz8kv3SLc\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "3122a7058d4cd2f065a23cdf34f90941;o=1"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 07 Mar 2024 12:48:26 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Content-Length",
-									"value": "2"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
-								}
-							],
-							"cookie": [],
-							"body": "OK"
-						}
-					]
-				},
-				{
-					"name": "[error 400]",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.response.to.have.status(400);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\"listing_id\": 2455406, \"name\" : \"UPDATED NAME\"}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{SERVER}}/2455506",
-							"host": [
-								"{{SERVER}}"
-							],
-							"path": [
-								"2455506"
-							]
-						},
-						"description": "The request is attempting to update the data associated with the ID \"2455506\" in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506](https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506) using the PUT method. However, the server returned a 400 Bad Request error, indicating that there was an issue with the request format or data (listing_id doesn't match)."
-					},
-					"response": [
-						{
-							"name": "Update data by ID [error 400]",
-							"originalRequest": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\"listing_id\": 2455406, \"name\" : \"UPDATED NAME\"}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "{{GCLOUD}}/2455506",
-									"host": [
-										"{{GCLOUD}}"
-									],
-									"path": [
-										"2455506"
-									]
-								}
-							},
-							"status": "Bad Request",
-							"code": 400,
-							"_postman_previewlanguage": "plain",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "text/plain; charset=utf-8"
-								},
-								{
-									"key": "X-Powered-By",
-									"value": "Express"
-								},
-								{
-									"key": "ETag",
-									"value": "W/\"b-EFiDB1U+dmqzx9Mo2UjcZ1SJPO8\""
-								},
-								{
-									"key": "X-Cloud-Trace-Context",
-									"value": "52cc1abdfd56de5eff084e50c021b50d"
-								},
-								{
-									"key": "Date",
-									"value": "Thu, 07 Mar 2024 12:48:36 GMT"
-								},
-								{
-									"key": "Server",
-									"value": "Google Frontend"
-								},
-								{
-									"key": "Content-Length",
-									"value": "11"
-								},
-								{
-									"key": "Alt-Svc",
-									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
-								}
-							],
-							"cookie": [],
-							"body": "Bad Request"
-						}
-					]
-				},
-				{
 					"name": "Update data by latitude and longitude",
 					"event": [
 						{
@@ -2324,6 +2026,113 @@
 							],
 							"cookie": [],
 							"body": "OK"
+						}
+					]
+				},
+				{
+					"name": "[error 400]",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"latitude\": 40.5855199999, \"name\" : \"UPDATED NAME\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/40.58551/-73.94439",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"40.58551",
+								"-73.94439"
+							]
+						},
+						"description": "The request is attempting to update the data associated with the ID \"2455506\" in the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506](https://sos2324-12.appspot.com/api/v1/airbnb-listings/2455506) using the PUT method. However, the server returned a 400 Bad Request error, indicating that there was an issue with the request format or data (listing_id doesn't match)."
+					},
+					"response": [
+						{
+							"name": "Update data by ID [error 400]",
+							"originalRequest": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\"listing_id\": 2455406, \"name\" : \"UPDATED NAME\"}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{GCLOUD}}/2455506",
+									"host": [
+										"{{GCLOUD}}"
+									],
+									"path": [
+										"2455506"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "plain",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain; charset=utf-8"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b-EFiDB1U+dmqzx9Mo2UjcZ1SJPO8\""
+								},
+								{
+									"key": "X-Cloud-Trace-Context",
+									"value": "52cc1abdfd56de5eff084e50c021b50d"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 07 Mar 2024 12:48:36 GMT"
+								},
+								{
+									"key": "Server",
+									"value": "Google Frontend"
+								},
+								{
+									"key": "Content-Length",
+									"value": "11"
+								},
+								{
+									"key": "Alt-Svc",
+									"value": "h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000"
+								}
+							],
+							"cookie": [],
+							"body": "Bad Request"
 						}
 					]
 				}
