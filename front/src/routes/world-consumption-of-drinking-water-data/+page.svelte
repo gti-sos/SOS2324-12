@@ -10,7 +10,7 @@ import {onMount} from "svelte";
 
 // Rutas
 
-let API = '/api/v1/world-consumption-of-drinking-water-data';
+let API = '/api/v2/world-consumption-of-drinking-water-data';
 if(dev)
     API = 'http://localhost:10000'+API;
   

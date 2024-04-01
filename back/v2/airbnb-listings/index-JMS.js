@@ -937,41 +937,41 @@ function loadBackend_JMS_v2(app,db){
     }),
 
 
-// GET => Buscar por latitude y longitude con paginación
-app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
-  const { latitude, longitude } = req.params;
+    // GET => Buscar por latitude y longitude con paginación
+    app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
+      const { latitude, longitude } = req.params;
 
-  // Parsear las coordenadas a números flotantes
-  const latitudeFloat = parseFloat(latitude);
-  const longitudeFloat = parseFloat(longitude);
+      // Parsear las coordenadas a números flotantes
+      const latitudeFloat = parseFloat(latitude);
+      const longitudeFloat = parseFloat(longitude);
 
-  // Parsear los parámetros de paginación
-  const limit = parseInt(req.query.limit) || 10; // Valor predeterminado: 10
-  const offset = parseInt(req.query.offset) || 0; // Valor predeterminado: 0
+      // Parsear los parámetros de paginación
+      const limit = parseInt(req.query.limit) || 10; // Valor predeterminado: 10
+      const offset = parseInt(req.query.offset) || 0; // Valor predeterminado: 0
 
-  // Buscar las listas que coincidan con las coordenadas
-  db.find({ latitude: latitudeFloat, longitude: longitudeFloat })
-      .limit(limit)
-      .skip(offset)
-      .exec((err, listings) => {
-          if (err) {
-              res.status(500).send("Internal Error");
-          } else {
-              if (listings.length === 0) {
-                  res.status(404).send("[]");
+      // Buscar las listas que coincidan con las coordenadas
+      db.find({ latitude: latitudeFloat, longitude: longitudeFloat })
+          .limit(limit)
+          .skip(offset)
+          .exec((err, listings) => {
+              if (err) {
+                  res.status(500).send("Internal Error");
               } else {
-                  // Eliminar el campo _id de cada resultado
-                  const responseBody = listings.map(listing => {
-                      delete listing._id;
-                      return listing;
-                  })[0];
+                  if (listings.length === 0) {
+                      res.status(404).send("[]");
+                  } else {
+                      // Eliminar el campo _id de cada resultado
+                      const responseBody = listings.map(listing => {
+                          delete listing._id;
+                          return listing;
+                      })[0];
 
-                  // Devolver la lista de resultados
-                  return res.status(200).send(responseBody);
+                      // Devolver la lista de resultados
+                      return res.status(200).send(responseBody);
+                  }
               }
-          }
-      });
-});
+          });
+    });
 
 
     // GET => Búsqueda por precio minimo y maximo

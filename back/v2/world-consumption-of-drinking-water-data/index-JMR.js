@@ -764,7 +764,7 @@ let initialData = [
 ]
 var data = [];
 
-function loadBackend_JMR(app,db) {
+function loadBackend_JMR_v2(app,db) {
 
     // REDIRECT al portal de documentación
   app.get(API_BASE_JMR + "/docs", (req, res) => {
@@ -1145,4 +1145,4 @@ function loadBackend_JMR(app,db) {
         });    
 };
 
-export {loadBackend_JMR};
+export {loadBackend_JMR_v2};
