@@ -432,19 +432,19 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="name">Name</Label>
+                                <Label for="name">Nombre</Label>
                                 <Input type="text" id="name" bind:value={selectedFilter.name} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="hostSince">Host Since</Label>
+                                <Label for="hostSince">Fecha de registro del anfitrión</Label>
                                 <Input type="text" id="hostSince" bind:value={selectedFilter.host_since} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="hostLocation">Host Location</Label>
+                                <Label for="hostLocation">Ubicación del anfitrión</Label>
                                 <Input type="text" id="hostLocation" bind:value={selectedFilter.host_location} required />
                             </FormGroup>
                         </Col>
@@ -452,25 +452,25 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="responseTime">Response Time</Label>
+                                <Label for="responseTime">Tiemmpo de respuesta</Label>
                                 <Input type="text" id="responseTime" bind:value={selectedFilter.response_time} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="responseRate">Response Rate</Label>
+                                <Label for="responseRate">Tasa de respuesta</Label>
                                 <Input type="number" id="responseRate" bind:value={selectedFilter.response_rate} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="acceptanceRate">Acceptance Rate</Label>
+                                <Label for="acceptanceRate">Tasa de aceptación</Label>
                                 <Input type="number" id="acceptanceRate" bind:value={selectedFilter.acceptance_rate} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="neighbourhood">Neighbourhood</Label>
+                                <Label for="neighbourhood">Barrio</Label>
                                 <Input type="text" id="neighbourhood" bind:value={selectedFilter.neighbourhood} required />
                             </FormGroup>
                         </Col>
@@ -478,25 +478,25 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="city">City</Label>
+                                <Label for="city">Ciudad</Label>
                                 <Input type="text" id="city" bind:value={selectedFilter.city} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="latitude">Latitude</Label>
+                                <Label for="latitude">Latitud</Label>
                                 <Input type="number" id="latitude" bind:value={selectedFilter.latitude} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="longitude">Longitude</Label>
+                                <Label for="longitude">Longitud</Label>
                                 <Input type="number" id="longitude" bind:value={selectedFilter.longitude} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="propertyType">Property Type</Label>
+                                <Label for="propertyType">Tipo de propiedad</Label>
                                 <Input type="text" id="propertyType" bind:value={selectedFilter.property_type} required />
                             </FormGroup>
                         </Col>
@@ -504,25 +504,25 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="roomType">Room Type</Label>
+                                <Label for="roomType">Tipo de habitación</Label>
                                 <Input type="text" id="roomType" bind:value={selectedFilter.room_type} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="guestNumber">Guest Number</Label>
+                                <Label for="guestNumber">Número de huéspedes</Label>
                                 <Input type="number" id="guestNumber" bind:value={selectedFilter.guest_number} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="bedroomNumber">Bedroom Number</Label>
+                                <Label for="bedroomNumber">Número de habitaciones</Label>
                                 <Input type="number" id="bedroomNumber" bind:value={selectedFilter.bedroom_number} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="amenitiesList">Amenities List</Label>
+                                <Label for="amenitiesList">Lista de comodidades</Label>
                                 <Input type="text" id="amenitiesList" bind:value={selectedFilter.amenities_list} required />
                             </FormGroup>
                         </Col>
@@ -530,25 +530,25 @@ async function deleteListing(lat,lon){
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="price">Price</Label>
+                                <Label for="price">Precio</Label>
                                 <Input type="number" id="price" bind:value={selectedFilter.price} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="minimumNights">Minimum Nights</Label>
+                                <Label for="minimumNights">Número de noches mínimas</Label>
                                 <Input type="number" id="minimumNights" bind:value={selectedFilter.minimum_nights} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="maximumNights">Maximum Nights</Label>
+                                <Label for="maximumNights">Número de noches máximas</Label>
                                 <Input type="number" id="maximumNights" bind:value={selectedFilter.maximum_nights} required />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="instantBookable">Instant Bookable</Label>
+                                <Label for="instantBookable">Reserva instantánea</Label>
                                 <Input type="text" id="instantBookable" bind:checked={selectedFilter.instant_bookable} />
                             </FormGroup>
                         </Col>

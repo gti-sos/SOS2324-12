@@ -776,12 +776,39 @@ function loadBackend_JMS_v2(app,db){
     // Permite establecer un periodo con from y to
     // Permite buscar por cualquier parametro con ?parametro=valor
     // Permite paginacion con limit y offset
-
+    // Permite filtrar por un rango de precios con ?min_price=valor&max_price=valor
+    // Permite filtrar por año (extraido de la fecha de registro del host) con ?year=valor
+    // Método para manejar las solicitudes GET a la ruta raíz
+    // Método para manejar las solicitudes GET a la ruta raíz
+      // Método para manejar las solicitudes GET a la ruta raíz
     app.get(API_BASE_JMS + "/", (req, res) => {
-      const { from, to, limit, offset, ...queryParams } = req.query;
+      const { from, to, min_price, max_price, limit, offset, year, ...queryParams } = req.query;
 
-      // Verifica si hay parámetros 'from' y 'to'
-      if (from !== undefined && to !== undefined) {
+      // Verificar si hay parámetros 'from' y 'to' para filtrar por año
+      if (year !== undefined && /^\d{4}$/.test(year)) {
+          const limitNum = parseInt(limit) || 10; // Límite predeterminado de 10 resultados
+          const offsetNum = parseInt(offset) || 0; // Desplazamiento predeterminado de 0
+          const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
+
+          db.find({ host_since: { $regex: yearRegex } })
+              .skip(offsetNum) // Aplicar desplazamiento
+              .limit(limitNum) // Aplicar límite
+              .exec((err, listings) => {
+                  if (err) {
+                      res.status(500).send("Internal Error");
+                  } else {
+                      if (listings.length === 0) {
+                          res.status(404).send("[]");
+                      } else {
+                            const responseBody = listings.map((listing) => { 
+                                  delete listing._id; 
+                                  return listing; 
+                              });
+                              return res.status(200).send(responseBody);
+                      }
+                  }
+              });
+      } else if (from !== undefined && to !== undefined) {
           const fromYear = parseInt(from);
           const toYear = parseInt(to);
           if (isNaN(fromYear) || isNaN(toYear)) {
@@ -798,11 +825,6 @@ function loadBackend_JMS_v2(app,db){
                   const listingYear = new Date(listing.host_since).getFullYear();
                   return listingYear >= fromYear && listingYear <= toYear;
               });
-
-              // Verificar si se encontraron resultados
-              if (filteredListings.length === 0) {
-                  return res.status(404).send("[]");
-              }
 
               // Aplicar paginación si los parámetros limit y offset están presentes
               let paginatedListings = filteredListings;
@@ -824,6 +846,44 @@ function loadBackend_JMS_v2(app,db){
 
               res.status(200).send(responseBody);
           });
+      } else if (min_price !== undefined && max_price !== undefined) {
+          // Verificar si se proporcionan los parámetros mínimos y máximos de precio
+          if (isNaN(parseFloat(min_price)) || isNaN(parseFloat(max_price))) {
+              return res.status(400).send("Bad Request. Please provide valid numerical values for min_price and max_price.");
+          }
+
+          // Realizar la consulta a la base de datos para filtrar por precio
+          db.find({ price: { $gte: parseFloat(min_price), $lte: parseFloat(max_price) }, ...queryParams })
+              .exec((err, listings) => {
+                  if (err) {
+                      return res.status(500).send("Internal Server Error");
+                  }
+
+                  // Verificar si se encontraron resultados
+                  if (listings.length === 0) {
+                      return res.status(404).send("[]");
+                  }
+
+                  // Aplicar paginación si los parámetros limit y offset están presentes
+                  let paginatedListings = listings;
+                  if (limit !== undefined) {
+                      const limitNum = parseInt(limit);
+                      if (offset !== undefined) {
+                          const offsetNum = parseInt(offset);
+                          paginatedListings = listings.slice(offsetNum, offsetNum + limitNum);
+                      } else {
+                          paginatedListings = listings.slice(0, limitNum);
+                      }
+                  }
+
+                  // Eliminar el campo _id de los resultados y enviar la respuesta
+                  let responseBody = paginatedListings.map((listing) => {
+                      delete listing._id;
+                      return listing;
+                  });
+
+                  res.status(200).send(responseBody);
+              });
       } else if (Object.keys(queryParams).length === 0) {
           // No hay parámetros de consulta, devolver todos los recursos
           db.find({}, handleDbResponse);
@@ -871,9 +931,8 @@ function loadBackend_JMS_v2(app,db){
 
           res.status(200).send(responseBody);
       }
-    }),
+    });
 
-  
     // GET => loadInitialData (al hacer un GET cree 10 o más datos en el array de NodeJS si está vacío)
     app.get(API_BASE_JMS+"/loadInitialData",(req,res) => {
       db.find({},(err,listings) => {
@@ -896,44 +955,6 @@ function loadBackend_JMS_v2(app,db){
           res.status(200).send("Database already contains data, initial data won't be loaded again.");
         }
       }); 
-    }),
-
-    // GET => Search data by year
-    app.get(API_BASE_JMS + "/year/:year", (req, res) => {
-      const year = req.params.year;
-      const limit = parseInt(req.query.limit) || 10; // Límite predeterminado de 10 resultados
-      const offset = parseInt(req.query.offset) || 0; // Desplazamiento predeterminado de 0
-
-      // Verificar si el año tiene un formato válido (cuatro dígitos)
-      if (!(/^\d{4}$/.test(year))) {
-        return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
-      };
-
-      const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
-      
-      db.find({ host_since: { $regex: yearRegex } })
-        .skip(offset) // Aplicar desplazamiento
-        .limit(limit) // Aplicar límite
-        .exec((err, listings) => {
-          if (err) {
-            res.status(500).send("Internal Error");
-          } else {
-            if (listings.length === 0) {
-              res.status(404).send("[]");
-            } else {
-              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
-              if (listings.length === 1) {
-                const responseBody = listings[0];
-                delete responseBody._id;
-                return res.status(200).send(responseBody);
-              } else {
-                // Si hay más de un elemento, devolver el array normalmente
-                const responseBody = listings.map((listing => { delete listing._id; return listing; }));
-                return res.status(200).send(responseBody);
-              }
-            }
-          }
-        });
     }),
 
 
@@ -974,93 +995,39 @@ function loadBackend_JMS_v2(app,db){
     });
 
 
-    // GET => Búsqueda por precio minimo y maximo
-    // Se debe especificar min_price y max_price
-    app.get(API_BASE_JMS + "/price", (req, res) => {
-      const { min_price, max_price, limit, offset } = req.query;
+    // POST => Create a new listing
+    app.post(API_BASE_JMS + "/", (req, res) => {
 
-      // Verificar si se proporcionan los parámetros mínimos y máximos de precio
-      if (!min_price || !max_price) {
-          return res.status(400).send("Bad Request. Please provide both min_price and max_price parameters.");
-      }
+      const newData =  req.body;
+      const expectedFields = ["name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
+      ];
+      const receivedFields = Object.keys(newData);
+      const isValidData = expectedFields.every(field => receivedFields.includes(field));
 
-      // Parsear los parámetros de paginación
-      const limitNum = parseInt(limit) || 10; // Valor predeterminado: 10
-      const offsetNum = parseInt(offset) || 0; // Valor predeterminado: 0
-
-      // Convertir los precios a números
-      const minPriceNum = parseFloat(min_price);
-      const maxPriceNum = parseFloat(max_price);
-
-      // Verificar si los precios son números válidos
-      if (isNaN(minPriceNum) || isNaN(maxPriceNum)) {
-          return res.status(400).send("Bad Request. Please provide valid numerical values for min_price and max_price.");
-      }
-
-      // Realizar la consulta a la base de datos para filtrar por precio
-      db.find({ price: { $gte: minPriceNum, $lte: maxPriceNum } })
-          .limit(limitNum)
-          .skip(offsetNum)
-          .exec((err, listings) => {
+      if (!isValidData) {
+        res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
+      } else {
+          // Verificar si ya existe un documento con el mismo cci en la base de datos
+          db.findOne({latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
               if (err) {
-                  return res.status(500).send("Internal Server Error");
-              }
-
-              // Verificar si se encontraron resultados
-              if (listings.length === 0) {
-                  return res.status(404).send("[]");
-              }
-
-              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
-              if (listings.length === 1) {
-                const responseBody = listings[0];
-                delete responseBody._id;
-                return res.status(200).send(responseBody);
+                res.status(500).send("Internal Error"); // Error interno del servidor
               } else {
-                // Si hay más de un elemento, devolver el array normalmente
-                const responseBody = listings.map((listing) => {
-                    delete listing._id;
-                    return listing;
-                });
-                return res.status(200).send(responseBody);
+                  if (existingData) {
+                    res.status(409).send("Conflict, data already exists");  //Datos existentes
+                  } else {
+                      // Si no existe, insertar el nuevo documento
+                      db.insert(newData, (err, insertedData) => {
+                          if (err) {
+                            res.status(500).send("Internal Error"); // Error interno del servidor
+                          } else {
+                            res.status(201).send("Created");
+                          }
+                      });
+                  }
               }
           });
+      }
     }),
-
-
-  // POST => Create a new listing
-  app.post(API_BASE_JMS + "/", (req, res) => {
-
-    const newData =  req.body;
-    const expectedFields = ["name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
-    ];
-    const receivedFields = Object.keys(newData);
-    const isValidData = expectedFields.every(field => receivedFields.includes(field));
-
-    if (!isValidData) {
-      res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
-    } else {
-        // Verificar si ya existe un documento con el mismo cci en la base de datos
-        db.findOne({latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
-            if (err) {
-              res.status(500).send("Internal Error"); // Error interno del servidor
-            } else {
-                if (existingData) {
-                  res.status(409).send("Conflict, data already exists");  //Datos existentes
-                } else {
-                    // Si no existe, insertar el nuevo documento
-                    db.insert(newData, (err, insertedData) => {
-                        if (err) {
-                          res.status(500).send("Internal Error"); // Error interno del servidor
-                        } else {
-                          res.status(201).send("Created");
-                        }
-                    });
-                }
-            }
-        });
-    }
-  }),
 
     // PUT => Can't update root directory
     app.put(API_BASE_JMS + "/", (req,res)=> {
@@ -1068,7 +1035,7 @@ function loadBackend_JMS_v2(app,db){
     }),
 
       // PUT => Update resource by latitude and longitude
-      app.put(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
+    app.put(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
         const latitude = parseFloat(req.params.latitude);
         const longitude = parseFloat(req.params.longitude);
         let data = req.body;
