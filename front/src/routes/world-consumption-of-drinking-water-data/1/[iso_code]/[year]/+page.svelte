@@ -61,7 +61,7 @@ onMount(async () => {
 
 
     async function getResource(){
-        const response = await fetch(API+`/${iso_code}/${year}`,{
+        const response = await fetch(API+`/1/${iso_code}/${year}`,{
                                         method: "GET"               
             }); 
         try{    

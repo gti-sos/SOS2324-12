@@ -1084,8 +1084,7 @@ function loadBackend_JMR(app,db) {
 
     app.delete(API_BASE_JMR + "/1/:iso_code/:year", (req, res) => {
         const iso = req.params.iso_code;
-        const year = req.params.year;
-
+        const year = parseInt(req.params.year);
         //const yearInt = parseInt(año);
     
         // Eliminar el documento con la iso_code y year especificadas de la base de datos
