@@ -83,7 +83,8 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/">airbnb-listings</Button>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/">airbnb-listings [v1]</Button>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v2/airbnb-listings/">airbnb-listings [v2]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
                                         </CardBody>
@@ -92,7 +93,7 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/global-food-prices/" >global-food-prices</Button>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/global-food-prices/" >global-food-prices [v1]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
                                         </CardBody>
@@ -101,7 +102,7 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data</Button>
+                                            <Button color="primary" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data [v1]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
                                         </CardBody>
@@ -125,7 +126,8 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/docs">airbnb-listings</Button>
+                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/airbnb-listings/docs">airbnb-listings [v1]</Button>
+                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v2/airbnb-listings/docs">airbnb-listings [v2]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
                                         </CardBody>
@@ -134,7 +136,7 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/global-food-prices/docs" >global-food-prices</Button>
+                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/global-food-prices/docs" >global-food-prices [v1]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
                                         </CardBody>
@@ -143,7 +145,7 @@
                                 <Col sm="12" md="4">
                                     <Card class="api-wrapper">
                                         <CardBody>
-                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data</Button>
+                                            <Button color="info" href="https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data [v1]</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
                                         </CardBody>

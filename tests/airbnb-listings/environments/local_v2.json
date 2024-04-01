@@ -1,0 +1,15 @@
+{
+	"id": "a33d53e2-8456-41e5-b57c-a700601d2374",
+	"name": "LOCAL_v2",
+	"values": [
+		{
+			"key": "SERVER",
+			"value": "http://localhost:10000/api/v2/airbnb-listings",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2024-03-31T15:42:36.330Z",
+	"_postman_exported_using": "Postman/10.24.10-240326-0510"
+}
