@@ -782,7 +782,13 @@ function loadBackend_JMS_v2(app,db){
     // Método para manejar las solicitudes GET a la ruta raíz
       // Método para manejar las solicitudes GET a la ruta raíz
     app.get(API_BASE_JMS + "/", (req, res) => {
-      const { from, to, min_price, max_price, limit, offset, year, ...queryParams } = req.query;
+      const { amenities_list, from, to, min_price, max_price, limit, offset, year, ...queryParams } = req.query;
+
+      if (amenities_list !== undefined) {
+        const amenitiesArray = amenities_list.split(',');
+        // Construir la consulta para buscar recursos que contengan al menos uno de los elementos de amenitiesArray
+        queryParams.amenities_list = { $in: amenitiesArray };
+      };
 
       // Verificar si hay parámetros 'from' y 'to' para filtrar por año
       if (year !== undefined && /^\d{4}$/.test(year)) {
