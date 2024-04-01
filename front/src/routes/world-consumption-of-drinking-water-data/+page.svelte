@@ -262,6 +262,12 @@ async function createListing(){
     || !newListing.urban_unimproved_other || !newListing.rural_improved_total || !newListing.rural_improved_piped || 
     !newListing.rural_improved_other || !newListing.rural_unimproved_other || !newListing.rural_unimproved_surface || !newListing.total_improved_total || 
     !newListing.total_improved_piped || !newListing.total_improved_other || !newListing.total_unimproved_other || !newListing.total_unimproved_surface) {
+        console.log(newListing.iso_code);
+        console.log(newListing.country);
+        console.log(newListing.year);
+        console.log(newListing.urban_improved_piped);
+        console.log(newListing.urban_improved_total);
+        console.log(newListing.urban_improved_other);
         error_msg = "Por favor, completa todos los campos.";
         success_msg = "";
         return;
@@ -606,6 +612,19 @@ async function deleteListing(iso_code,year){
                                 name="iso_code"
                                 placeholder="Escribe un iso_code"
                                 bind:value={newListing.iso_code}
+                                required
+                            />
+                        </FormGroup>
+                    </Col>
+                    <Col class='mb-3'>
+                        <FormGroup>
+                            <Label for="urban_improved_piped">urban_improved_piped</Label>
+                            <Input
+                                type="text"
+                                id="urban_improved_piped"
+                                name="urban_improved_piped"
+                                placeholder="Escribe un urban_improved_piped"
+                                bind:value={newListing.urban_improved_piped}
                                 required
                             />
                         </FormGroup>
