@@ -27,10 +27,13 @@
 	} from '@sveltestrap/sveltestrap';
 	import { query_selector_all } from 'svelte/internal';
 	import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
+	import { page } from '$app/stores'; 
 
 	// Rutas
 	let API = '/api/v1/global-food-prices';
 	if (dev) API = 'http://localhost:10000' + API;
+
+
 
 	// ===============================================
 	// Variables
@@ -360,44 +363,6 @@
         window.scrollTo(0, 0);
     }
 };
-
-async function updateResource(){
-    if( updatedListing.adm0_id === "" || 
-        updatedListing.adm1_id === "" || 
-        updatedListing.mkt_id === "" || 
-        updatedListing.cm_id === "" || 
-        updatedListing.cur_id === "" || 
-        updatedListing.pt_id === "" || 
-        updatedListing.um_id === "" || 
-        updatedListing.mp_month === "" || 
-        updatedListing.mp_year === "") {
-            error_msg = "No se puede actualizar si el dato no se pasa completo";
-            window.scrollTo(0, 0);
-        } else {
-            const response = await fetch(API+`/${updatedListing.adm0_id}/${updatedListing.adm1_id}/${updatedListing.mkt_id}/${updatedListing.cm_id}/${updatedListing.cur_id}/${updatedListing.pt_id}/${updatedListing.um_id}/${updatedListing.mp_month}/${updatedListing.mp_year}`, {
-                method: 'PUT',
-                headers:{
-                    "Content-Type" : "application/json"
-                },
-                body: JSON.stringify(updatedListing)
-            });
-            const status = await response.status;
-            if (status == 200){
-                getResource();
-                success2_msg = "El dato se ha actuallizado correctamente";
-                error_msg = "";
-                window.scrollTo(0, 0);
-            } else if (status == 404){
-                error_msg = "El dato no existe en la base de datos";
-                success_msg = "";
-                window.scrollTo(0, 0);
-            } else if (status == 400){
-                error_msg = "Hay algún dato que no se ha obtenido correctamente, vuelva a intentarlo";
-                success_msg = "";
-                window.scrollTo(0, 0);
-            }
-        }
-    };
 
 </script>
 
@@ -747,7 +712,9 @@ async function updateResource(){
 									<strong>Fuente de datos: </strong>{listing.mp_commoditysource} <br />
 								</CardText>
 								<Button color="danger" on:click={() => deleteListing(listing.adm0_id, listing.adm1_id, listing.mkt_id, listing.cm_id, listing.cur_id, listing.pt_id, listing.um_id, listing.mp_month, listing.mp_year)}>Borrar</Button>
-                        		<Button color="primary" on:click={updateResource}>Editar</Button>
+                        		<Button color="warning" on:click={() => { window.location.href = `global-food-prices/${listing.adm0_id}/${listing.adm1_id}/${listing.mkt_id}/${listing.cm_id}/${listing.cur_id}/${listing.pt_id}/${listing.um_id}/${listing.mp_month}/${listing.mp_year}` }}>
+									Editar
+								</Button>
 							</CardBody>
 						</Card>
 					</Col>
