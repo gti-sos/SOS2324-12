@@ -340,8 +340,8 @@
 		}
 	}
 
-	async function deleteListing(adm0_id, adm1_id, mkt_id, cm_id, cur_id, pt_id, um_id, mp_month, mp_year, mp_price, mp_commoditysource){
-    let response = await fetch(API + "/" + adm0_id + "/" + adm1_id + "/" + mkt_id + "/" + cm_id + "/" + cur_id + "/" + pt_id + "/" + um_id + "/" + mp_month + "/" + mp_year + "/" + mp_price + "/" + mp_commoditysource,{
+	async function deleteListing(adm0_id, adm1_id, mkt_id, cm_id, cur_id, pt_id, um_id, mp_month, mp_year){
+    let response = await fetch(API + "/" + adm0_id + "/" + adm1_id + "/" + mkt_id + "/" + cm_id + "/" + cur_id + "/" + pt_id + "/" + um_id + "/" + mp_month + "/" + mp_year,{
             method: "DELETE"
         });
     const status = response.status;
@@ -360,6 +360,44 @@
         window.scrollTo(0, 0);
     }
 };
+
+async function updateResource(){
+    if( updatedListing.adm0_id === "" || 
+        updatedListing.adm1_id === "" || 
+        updatedListing.mkt_id === "" || 
+        updatedListing.cm_id === "" || 
+        updatedListing.cur_id === "" || 
+        updatedListing.pt_id === "" || 
+        updatedListing.um_id === "" || 
+        updatedListing.mp_month === "" || 
+        updatedListing.mp_year === "") {
+            error_msg = "No se puede actualizar si el dato no se pasa completo";
+            window.scrollTo(0, 0);
+        } else {
+            const response = await fetch(API+`/${updatedListing.adm0_id}/${updatedListing.adm1_id}/${updatedListing.mkt_id}/${updatedListing.cm_id}/${updatedListing.cur_id}/${updatedListing.pt_id}/${updatedListing.um_id}/${updatedListing.mp_month}/${updatedListing.mp_year}`, {
+                method: 'PUT',
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify(updatedListing)
+            });
+            const status = await response.status;
+            if (status == 200){
+                getResource();
+                success2_msg = "El dato se ha actuallizado correctamente";
+                error_msg = "";
+                window.scrollTo(0, 0);
+            } else if (status == 404){
+                error_msg = "El dato no existe en la base de datos";
+                success_msg = "";
+                window.scrollTo(0, 0);
+            } else if (status == 400){
+                error_msg = "Hay algún dato que no se ha obtenido correctamente, vuelva a intentarlo";
+                success_msg = "";
+                window.scrollTo(0, 0);
+            }
+        }
+    };
 
 </script>
 
@@ -708,10 +746,8 @@
 									{listing.mp_price} <br />
 									<strong>Fuente de datos: </strong>{listing.mp_commoditysource} <br />
 								</CardText>
-								<Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}>Borrar</Button>
-                        		<Button color="warning" on:click={() => { window.location.href = `global-food-prices/${listing.adm0_id}/${listing.adm1_id}/${listing.mkt_id}/${listing.cm_id}/${listing.cur_id}/${listing.pt_id}/${listing.um_id}/${listing.mp_month}/${listing.mp_year}/${listing.mp_price}/${listing.mp_commoditysource}`}}>
-                            Editar
-                        </Button>
+								<Button color="danger" on:click={() => deleteListing(listing.adm0_id, listing.adm1_id, listing.mkt_id, listing.cm_id, listing.cur_id, listing.pt_id, listing.um_id, listing.mp_month, listing.mp_year)}>Borrar</Button>
+                        		<Button color="primary" on:click={updateResource}>Editar</Button>
 							</CardBody>
 						</Card>
 					</Col>
