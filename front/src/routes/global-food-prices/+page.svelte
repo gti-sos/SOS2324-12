@@ -173,6 +173,7 @@
 		// Verifica si los valores de entrada son números válidos
 		if (isNaN(from) || isNaN(to)) {
 			error_msg = 'Por favor, introduzca años válidos en los campos From y To.';
+			window.scrollTo(0, 0);
 			return;
 		}
 
@@ -187,12 +188,15 @@
 			listings = data;
 			success_msg = 'Se ha realizado la búsqueda correctamente';
 			error_msg = '';
+			window.scrollTo(0, 0);
 		} else if (status == 404) {
 			error_msg = 'No se encontraron resultados';
 			success_msg = '';
+			window.scrollTo(0, 0);
 		} else if (status == 500) {
 			error_msg = 'Ha ocurrido un error en el servidor';
 			success_msg = '';
+			window.scrollTo(0, 0);
 		}
 	}
 
@@ -323,15 +327,40 @@
 		if (status == 200) {
 			success_msg = 'Todos los datos han sido eliminados';
 			error_msg = '';
+			window.location.reload();
 		} else if (status == 204) {
 			error_msg =
 				'No se encontraron datos para eliminar, es posible que la base de datos esté vacía';
 			success_msg = '';
+			window.scrollTo(0, 0);
 		} else if (status == 500) {
 			error_msg = 'Ha ocurrido un error en el servidor';
 			success_msg = '';
+			window.scrollTo(0, 0);
 		}
 	}
+
+	async function deleteListing(adm0_id, adm1_id, mkt_id, cm_id, cur_id, pt_id, um_id, mp_month, mp_year, mp_price, mp_commoditysource){
+    let response = await fetch(API + "/" + adm0_id + "/" + adm1_id + "/" + mkt_id + "/" + cm_id + "/" + cur_id + "/" + pt_id + "/" + um_id + "/" + mp_month + "/" + mp_year + "/" + mp_price + "/" + mp_commoditysource,{
+            method: "DELETE"
+        });
+    const status = response.status;
+    if (status == 200){
+        success2_msg = "El recurso ha sido eliminado";
+        error_msg = "";
+        getListings();
+        window.scrollTo(0, 0);
+    } else if (status == 204) {
+        error_msg = "No se encontró ningún recurso con los IDs especificados";
+        success_msg = "";
+        window.scrollTo(0, 0);
+    } else if (status == 500) {
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
+        window.scrollTo(0, 0);
+    }
+};
+
 </script>
 
 <Container class="content-container" style="justify-content: center;">
@@ -341,6 +370,25 @@
 	</Container>
 
 	<br />
+
+<!--______________________________________Botones_____________________________________-->
+<Container class="text-center">
+    <Row>
+        <Col cols={{ xs:4 }}>
+            <Button color="warning" on:click="{getInitialListings}">Cargar Datos Iniciales</Button>
+        </Col>
+        <Col cols={{ xs:4 }}>
+            <Button color="success" on:click={() => {showForm = true;}}>Crear Nuevo Dato</Button>
+        </Col>
+        <Col cols={{ xs:4 }}>
+            <Button color="danger" on:click="{deleteAll}">Borrar Todos los Datos</Button>
+        </Col>
+        <Col>
+            <Button color="primary" on:click={() => {showFilter = true;}}>Filtro por campos</Button>
+        </Col>
+    </Row>
+</Container>
+<br/>  
 
 	{#if error_msg != ''}
 		<Alert color="danger">
@@ -392,7 +440,7 @@
 		<!--_______________________________________________Datos_________________________________________________-->
 		<Container>
 			<!-- Bloque condicional if con modal -->
-			<!-- POR AÑADIR-->
+			
 			{#if showFilter}
 				<Modal isOpen={showFilter} {toggle} {size}>
 					<ModalHeader {toggle}>Filtrar datos</ModalHeader>
@@ -599,6 +647,23 @@
 						<Button color="primary" on:click={searchListings}>Aplicar filtros</Button>
 						<Button color="secondary" on:click={toggle}>Cerrar</Button>
 					</ModalFooter>
+					<Container>
+						{#if error_msg != ""}
+						<Alert color="danger">
+							<strong>Error:</strong> {error_msg}
+						</Alert>
+						{:else if success_msg != ""}
+						<Alert color="success">
+							<strong>Éxito:</strong> {success_msg}
+						</Alert>
+						
+						{/if}
+						{#if success2_msg != ""}
+						<Alert color="success">
+							<strong>Éxito:</strong> {success2_msg}
+						</Alert>
+						{/if}
+					</Container>
 				</Modal>
 			{/if}
 			<Row cols={{ xs: 2, sm: 3, md: 3, lg: 3, xl: 4 }}>
@@ -643,6 +708,10 @@
 									{listing.mp_price} <br />
 									<strong>Fuente de datos: </strong>{listing.mp_commoditysource} <br />
 								</CardText>
+								<Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}>Borrar</Button>
+                        		<Button color="warning" on:click={() => { window.location.href = `global-food-prices/${listing.adm0_id}/${listing.adm1_id}/${listing.mkt_id}/${listing.cm_id}/${listing.cur_id}/${listing.pt_id}/${listing.um_id}/${listing.mp_month}/${listing.mp_year}/${listing.mp_price}/${listing.mp_commoditysource}`}}>
+                            Editar
+                        </Button>
 							</CardBody>
 						</Card>
 					</Col>
@@ -651,8 +720,10 @@
 		</Container>
 
 		{#if showForm}
-			<hr class="line" />
-			<Container class="mb-3">
+		<Modal isOpen={showForm} {toggle} {size}>
+			<ModalHeader {toggle}>Filtrar datos</ModalHeader>
+			<ModalBody>
+				<Container class='mb-3'>
 				<Row cols={{ xs: 2, sm: 2, md: 3, lg: 3, xl: 3 }}>
 					<Col class="mb-3">
 						<FormGroup>
@@ -889,12 +960,30 @@
 						</FormGroup>
 					</Col>
 				</Row>
-				<Row>
-					<Col></Col>
-					<Col><Button color="success" on:click={createListing}>Crear</Button></Col>
-					<Col></Col>
-				</Row>
 			</Container>
+		</ModalBody>
+        <ModalFooter>
+            <Button color="success" on:click={createListing}>Crear</Button>
+        </ModalFooter>
+        <Container>
+            {#if error_msg != ""}
+            <Alert color="danger">
+                <strong>Error:</strong> {error_msg}
+            </Alert>
+            {:else if success_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success_msg}
+            </Alert>
+            
+            {/if}
+            {#if success2_msg != ""}
+            <Alert color="success">
+                <strong>Éxito:</strong> {success2_msg}
+            </Alert>
+            {/if}
+        </Container>
+    </Modal>
+			
 		{/if}
 	{:else}
 		<p class="container">No hay datos disponibles</p>
@@ -916,23 +1005,5 @@
 
 	<hr />
 	<br />
-	<!--______________________________________Botones_____________________________________-->
-	<Container class="text-center">
-		<Row>
-			<Col cols={{ xs: 4 }}>
-				<Button color="warning" on:click={getInitialListings}>Cargar Datos Iniciales</Button>
-			</Col>
-			<Col cols={{ xs: 4 }}>
-				<Button
-					color="success"
-					on:click={() => {
-						showForm = true;
-					}}>Crear Nuevo Dato</Button
-				>
-			</Col>
-			<Col cols={{ xs: 4 }}>
-				<Button color="danger" on:click={deleteAll}>Borrar Todos los Datos</Button>
-			</Col>
-		</Row>
-	</Container>
+
 </Container>
