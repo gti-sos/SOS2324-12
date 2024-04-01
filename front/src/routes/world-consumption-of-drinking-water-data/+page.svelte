@@ -579,7 +579,7 @@ async function deleteListing(iso_code,year){
                             <strong>Empeora total superficie:</strong> {listing.total_unimproved_surface} <br>
                         </CardText>
                         <Button color="danger" on:click={() => deleteListing(listing.iso_code, listing.year)}>Borrar</Button>
-                        <Button color="warning" on:click={() => { window.location.href = `world-consumption-of-drinking-water-data/${listing.iso_code}/${listing.year}` }}>
+                        <Button color="warning" on:click={() => { window.location.href = `world-consumption-of-drinking-water-data/1/${listing.iso_code}/${listing.year}` }}>
                             Editar
                         </Button>
                     </CardBody>
