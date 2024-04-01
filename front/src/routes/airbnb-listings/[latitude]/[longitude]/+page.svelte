@@ -7,8 +7,8 @@
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
-    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons'
-    import Fa from 'svelte-fa'
+    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
+    import Fa from 'svelte-fa';
 
 
     // Rutas

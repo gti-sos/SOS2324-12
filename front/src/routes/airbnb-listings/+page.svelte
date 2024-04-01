@@ -6,8 +6,8 @@
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
-    import Fa from 'svelte-fa'
-    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse} from '@fortawesome/free-solid-svg-icons'
+    import Fa from 'svelte-fa';
+    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse} from '@fortawesome/free-solid-svg-icons';
     import { faGithub } from '@fortawesome/free-brands-svg-icons';
 // Rutas
 let API = '/api/v2/airbnb-listings';
