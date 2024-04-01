@@ -7,6 +7,8 @@ import {onMount} from "svelte";
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
+    import { page } from '$app/stores'; 
+
 
 // Rutas
 
@@ -86,23 +88,23 @@ onMount(async () => {
 
     async function updateResource(){
     if(
-        updatedListing.iso_code: === "" ||
-        updatedListing.country: === "" ||
-        updatedListing.year: === "" ||
-        updatedListing.urban_improved_total: === "" ||
-        updatedListing.urban_improved_piped: === "" ||
-        updatedListing.urban_improved_other: === "" ||
-        updatedListing.urban_unimproved_other: === "" ||
-        updatedListing.rural_improved_total: === "" ||
-        updatedListing.rural_improved_piped: === "" ||
-        updatedListing.rural_improved_other: === "" ||
-        updatedListing.rural_unimproved_other: === "" ||
-        updatedListing.rural_unimproved_surface: === "" ||
-        updatedListing.total_improved_total: === "" ||
-        updatedListing.total_improved_piped: === "" ||
-        updatedListing.total_improved_other: === "" ||
-        updatedListing.total_unimproved_other: === "" ||
-        updatedListing.total_unimproved_surface: === ""
+        updatedListing.iso_code === "" ||
+        updatedListing.country === "" ||
+        updatedListing.year === "" ||
+        updatedListing.urban_improved_total === "" ||
+        updatedListing.urban_improved_piped === "" ||
+        updatedListing.urban_improved_other === "" ||
+        updatedListing.urban_unimproved_other === "" ||
+        updatedListing.rural_improved_total === "" ||
+        updatedListing.rural_improved_piped === "" ||
+        updatedListing.rural_improved_other === "" ||
+        updatedListing.rural_unimproved_other === "" ||
+        updatedListing.rural_unimproved_surface === "" ||
+        updatedListing.total_improved_total === "" ||
+        updatedListing.total_improved_piped === "" ||
+        updatedListing.total_improved_other === "" ||
+        updatedListing.total_unimproved_other === "" ||
+        updatedListing.total_unimproved_surface === ""
         ) {
             error_msg = "No se puede actualizar si el dato no se pasa completo";
             window.scrollTo(0, 0);
@@ -132,6 +134,8 @@ onMount(async () => {
         }
     };
 </script>
+
+
 <main>
     <Container class="content-container" style="justify-content: center;"> 
         <!--______________________________________Cabecera_____________________________________-->
@@ -157,7 +161,7 @@ onMount(async () => {
         </Alert>
         {/if}
     
-    <Container class="mb-3">
+        <Container class="mb-3">
         <Row>
             <Col class="text-center">
                 <h1>
@@ -175,7 +179,7 @@ onMount(async () => {
                                 id="iso_code"
                                 name="iso_code"
                                 placeholder="Escribe un iso_code"
-                                bind:value={newListing.iso_code}
+                                bind:value={updatedListing.iso_code}
                                 
                             />
                         </FormGroup>
@@ -188,7 +192,7 @@ onMount(async () => {
                                 id="country"
                                 name="country"
                                 placeholder="Escribe un Pais"
-                                bind:value={newListing.country}
+                                bind:value={updatedListing.country}
                                 
                             />
                         </FormGroup>
@@ -200,7 +204,7 @@ onMount(async () => {
                                 type="number"
                                 id="year"
                                 name="year"
-                                bind:value={newListing.year}
+                                bind:value={updatedListing.year}
                                 
                             />
                         </FormGroup>
@@ -213,7 +217,7 @@ onMount(async () => {
                                 id="urban_improved_total"
                                 name="urban_improved_total"
                                 placeholder="Escribe una mejora urbana total"
-                                bind:value={newListing.urban_improved_total}
+                                bind:value={updatedListing.urban_improved_total}
                                 
                             />
                         </FormGroup>
@@ -226,7 +230,7 @@ onMount(async () => {
                                 id="urban_improved_other"
                                 name="urban_improved_other"
                                 placeholder="Escribe una mejora urbana otra"
-                                bind:value={newListing.urban_improved_other}
+                                bind:value={updatedListing.urban_improved_other}
                                 
                             />
                         </FormGroup>
@@ -239,7 +243,7 @@ onMount(async () => {
                                 id="urban_unimproved_other"
                                 name="urban_unimproved_other"
                                 placeholder="Escribe una empeora urbana otra"
-                                bind:value={newListing.urban_unimproved_other}
+                                bind:value={updatedListing.urban_unimproved_other}
                                 
                             />
                         </FormGroup>
@@ -252,7 +256,7 @@ onMount(async () => {
                                 id="rural_improved_total"
                                 name="rural_improved_total"
                                 placeholder="Escribe una mejora rural total"
-                                bind:value={newListing.rural_improved_total}
+                                bind:value={updatedListing.rural_improved_total}
                                 
                             />
                         </FormGroup>
@@ -265,7 +269,7 @@ onMount(async () => {
                                 id="rural_improved_piped"
                                 name="rural_improved_piped"
                                 placeholder="Escribe una mejora rural entubada"
-                                bind:value={newListing.rural_improved_piped}
+                                bind:value={updatedListing.rural_improved_piped}
                                 
                             />
                         </FormGroup>
@@ -278,7 +282,7 @@ onMount(async () => {
                                 id="rural_improved_other"
                                 name="rural_improved_other"
                                 placeholder="Escribe una mejora rural otro"
-                                bind:value={newListing.rural_improved_other}
+                                bind:value={updatedListing.rural_improved_other}
                                 
                             />
                         </FormGroup>
@@ -291,7 +295,7 @@ onMount(async () => {
                                 id="rural_unimproved_other"
                                 name="rural_unimproved_other"
                                 placeholder="Escribe un valor para empeora rural otro"
-                                bind:value={newListing.rural_unimproved_other}
+                                bind:value={updatedListing.rural_unimproved_other}
                                 
                             />
                         </FormGroup>
@@ -304,7 +308,7 @@ onMount(async () => {
                                 id="rural_unimproved_surface"
                                 name="rural_unimproved_surface"
                                 placeholder="Escribe una rural_unimproved_surface"
-                                bind:value={newListing.rural_unimproved_surface}
+                                bind:value={updatedListing.rural_unimproved_surface}
                                 
                             />
                         </FormGroup>
@@ -317,7 +321,7 @@ onMount(async () => {
                                 id="total_improved_total"
                                 name="total_improved_total"
                                 placeholder="Escribe una mejora total total"
-                                bind:value={newListing.total_improved_total}
+                                bind:value={updatedListing.total_improved_total}
                                 
                             />
                         </FormGroup>
@@ -330,7 +334,7 @@ onMount(async () => {
                                 id="total_improved_piped"
                                 name="total_improved_piped"
                                 placeholder="Escribe una mejora total entubada"
-                                bind:value={newListing.total_improved_piped}
+                                bind:value={updatedListing.total_improved_piped}
                                 
                             />
                         </FormGroup>
@@ -343,7 +347,7 @@ onMount(async () => {
                                 id="total_improved_other"
                                 name="total_improved_other"
                                 placeholder="Escribe una mejora total otro"
-                                bind:value={newListing.total_improved_other}
+                                bind:value={updatedListing.total_improved_other}
                                 
                             />
                         </FormGroup>
@@ -356,7 +360,7 @@ onMount(async () => {
                                 id="total_unimproved_other"
                                 name="total_unimproved_other"
                                 placeholder="Escribe un valor para empeora total otro"
-                                bind:value={newListing.total_unimproved_other}
+                                bind:value={updatedListing.total_unimproved_other}
                                 
                             />
                         </FormGroup>
@@ -369,12 +373,16 @@ onMount(async () => {
                                 id="total_unimproved_surface"
                                 name="total_unimproved_surface"
                                 placeholder="Escribe un valor para empeora total superficie"
-                                bind:value={newListing.total_unimproved_surface}
+                                bind:value={updatedListing.total_unimproved_surface}
                                 
                             />
                         </FormGroup>
                     </Col>
-                </Row>
-    </Container>
-    </Container>
+            </Row>
+                <Col class="text-center">
+                    <Button color="primary" on:click={updateResource}>Actualizar</Button>
+                </Col>
+        </Row>
+        </Container>
+</Container>    
 </main>
