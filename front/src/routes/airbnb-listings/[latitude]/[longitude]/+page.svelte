@@ -7,7 +7,8 @@
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
-
+    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons'
+    import Fa from 'svelte-fa'
 
 
     // Rutas
@@ -23,7 +24,6 @@
     let longitude = $page.params.longitude;
 
     let updatedListing ={
-    listing_id: "",
     name: "",
     host_since: "",
     host_location: "",
@@ -83,8 +83,7 @@
     };
 
     async function updateResource(){
-    if(updatedListing.listing_id === "" || 
-        updatedListing.name === "" || 
+    if( updatedListing.name === "" || 
         updatedListing.host_since === "" || 
         updatedListing.host_location === "" || 
         updatedListing.host_response_time === "" || 
@@ -164,14 +163,12 @@
                 </h1>
             </Col>
             <br>
+            <Row class="text-center">
+                <Button color="success" on:click={() => { window.location.href = `/airbnb-listings/`}}><Fa icon={faLongArrowLeft}/> Volver</Button>
+            </Row>
+            <br>
             <hr>
             <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
-                            <Col class='mb-3'>
-                            <FormGroup>
-                                <Label for="listingId">Listing ID</Label>
-                                <Input type="number" id="listingId" bind:value={updatedListing.listing_id} placeholder="Nuevo Listing ID"/>
-                            </FormGroup>
-                            </Col>
                             <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="nombre">Nombre</Label>
@@ -288,7 +285,7 @@
                         </Col>
                     </Row>
                     <Col class="text-center">
-                        <Button color="primary" on:click={updateResource}>Actualizar</Button>
+                        <Button color="primary" on:click={updateResource}><Fa icon={faCheck}/> Actualizar</Button>
                     </Col>
         </Row>
     </Container>

@@ -2,7 +2,6 @@ const API_BASE_JMS = "/api/v2/airbnb-listings";
 
 let initialData = [
   {
-    "listing_id": 2455506,
     "name": "Appartement lumineux rue de Levis",
     "host_since": "25/02/2014",
     "host_location": "France",
@@ -32,7 +31,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 37027049,
     "name": "Appartement Paris 19 - Balcon et vue sur Paris",
     "host_since": "30/11/2012",
     "host_location": "France",
@@ -70,7 +68,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 37440389,
     "name": "Paris 15",
     "host_since": "17/11/2017",
     "host_location": "Lebanon",
@@ -106,7 +103,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 43199304,
     "name": "Bright and Charming Flat for 2 in Great Location",
     "host_since": "11/03/2020",
     "host_location": "Malaysia",
@@ -145,7 +141,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 44110139,
     "name": "Amazing apartment - 4P/1BR - Canal Saint Martin",
     "host_since": "21/04/2020",
     "host_location": "France",
@@ -192,7 +187,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 45553305,
     "name": "Superb studio close to Montmartre",
     "host_since": "23/09/2020",
     "host_location": "France",
@@ -221,7 +215,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 45776006,
     "name": "Designer Apartment in Batignolles",
     "host_since": "12/07/2019",
     "host_location": "France",
@@ -268,7 +261,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 45835725,
     "name": "Bright 1-BDR apartment centrally located",
     "host_since": "17/10/2014",
     "host_location": "Canada",
@@ -301,7 +293,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 47792594,
     "name": "Opera/Haussmann: Luxueux appartement d'architecte",
     "host_since": "19/01/2021",
     "host_location": "France",
@@ -341,7 +332,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 47921846,
     "name": "Appartement 2 piÃ¨ces proche canal st martin /Gare",
     "host_since": "27/09/2016",
     "host_location": "France",
@@ -382,7 +372,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 48024945,
     "name": "Wonderful apartment \"Porte de Versailles",
     "host_since": "03/02/2017",
     "host_location": "Switzerland",
@@ -427,7 +416,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 7693040,
     "name": "Park Facing, Spacious 1 BR APT",
     "host_since": "06/11/2012",
     "host_location": "United States",
@@ -461,7 +449,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 10068653,
     "name": "DESIGNER DOWNTOWN 1 BEDROOM",
     "host_since": "01/07/2013",
     "host_location": "United States",
@@ -513,7 +500,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 39447656,
     "name": "Sunny Brown Stone Apartment",
     "host_since": "05/03/2015",
     "host_location": "United States",
@@ -547,7 +533,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 43091725,
     "name": "Perfect retreat for a working professional",
     "host_since": "03/07/2015",
     "host_location": "United States",
@@ -590,7 +575,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 44843504,
     "name": "Beautiful clean Gramercy 1bd room! Brand new!",
     "host_since": "03/08/2015",
     "host_location": "United States",
@@ -632,7 +616,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 45308579,
     "name": "Spacious studio with walk-in in closet",
     "host_since": "08/03/2019",
     "host_location": "United States",
@@ -675,7 +658,6 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "listing_id": 45448589,
     "name": "Garden condo w patio in New York artistic Bushwick",
     "host_since": "08/11/2019",
     "host_location": "United States",
@@ -744,7 +726,6 @@ let initialData = [
     "instant_bookable": "FALSE"
   },
   {
-    "listing_id": 45494285,
     "name": "1 BR Apt, 1 block from Central Park, Heart of UWS",
     "host_since": "10/11/2013",
     "host_location": "United States",
@@ -849,7 +830,6 @@ function loadBackend_JMS_v2(app,db){
       } else {
           // Hay parámetros de consulta, filtrar por esos parámetros
           db.find(queryParams, handleDbResponse);
-          if (queryParams.listing_id) queryParams.listing_id = parseInt(queryParams.listing_id);
           if (queryParams.host_response_rate) queryParams.host_response_rate = parseFloat(queryParams.host_response_rate);
           if (queryParams.host_acceptance_rate) queryParams.host_acceptance_rate = parseFloat(queryParams.host_acceptance_rate);
           if (queryParams.latitude) queryParams.latitude = parseFloat(queryParams.latitude);
@@ -1052,7 +1032,7 @@ app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
   app.post(API_BASE_JMS + "/", (req, res) => {
 
     const newData =  req.body;
-    const expectedFields = ["listing_id","name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
+    const expectedFields = ["name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
     ];
     const receivedFields = Object.keys(newData);
     const isValidData = expectedFields.every(field => receivedFields.includes(field));
@@ -1061,7 +1041,7 @@ app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
       res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
     } else {
         // Verificar si ya existe un documento con el mismo cci en la base de datos
-        db.findOne({ listing_id: newData.listing_id, latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
+        db.findOne({latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
             if (err) {
               res.status(500).send("Internal Error"); // Error interno del servidor
             } else {
@@ -1087,23 +1067,6 @@ app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
       res.status(405).send("Method Not Allowed");
     }),
 
-    // PUT => Update resource by listing_id
-    app.put(API_BASE_JMS + "/:listing_id", (req, res) => {
-
-      const listing_id = parseInt(req.params.listing_id);
-      let data = req.body;
-
-      if (!data || Object.keys(data).length === 0 || data.listing_id !== listing_id) {
-        res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
-      } else {
-          db.update({ listing_id: listing_id }, data, { }, (err) => {
-              if (err) {
-                res.status(500).send("Internal Error"); // Error interno del servidor
-              }
-              res.status(200).send("OK, data updated"); //Actualizacion correcta
-          });
-      }
-  }),
       // PUT => Update resource by latitude and longitude
       app.put(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
         const latitude = parseFloat(req.params.latitude);
@@ -1139,24 +1102,6 @@ app.get(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
         }
     });
   }),
-
-    // DELETE => Delete specific data by listing_id
-    app.delete(API_BASE_JMS + "/:id", (req, res) => {
-      const ID = parseInt(req.params.id);
-  
-      // Eliminar el documento con el listing_id especificado de la base de datos
-      db.remove({ listing_id: ID }, {}, (err, numRemoved) => {
-          if (err) {
-            res.status(500).send("Internal Error");
-          } else if (numRemoved === 0) {
-              // No se encontró ningún documento con el listing_id especificado, devolver un error 204 NOT FOUND
-              res.status(204).send("Listing not found");
-          } else {
-              // Se eliminó correctamente el documento
-              res.status(200).send("Listing deleted");
-          }
-      });
-    }),
 
     // DELETE => Delete specific data by latitude and longitude
     app.delete(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
