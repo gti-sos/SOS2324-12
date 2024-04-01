@@ -6,7 +6,9 @@
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
-
+    import Fa from 'svelte-fa'
+    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse} from '@fortawesome/free-solid-svg-icons'
+    import { faGithub } from '@fortawesome/free-brands-svg-icons';
 // Rutas
 let API = '/api/v2/airbnb-listings';
 if(dev)
@@ -21,7 +23,6 @@ let listings = []; // Data
 let showForm = false;
 let showFilter = false;
 let newListing ={
-    listing_id: "",
     name: "",
     host_since: "",
     host_location: "",
@@ -43,7 +44,6 @@ let newListing ={
     instant_bookable: ""
 };
 let selectedFilter ={
-    listing_id: "",
     name: "",
     host_since: "",
     host_location: "",
@@ -73,6 +73,10 @@ let size = "lg";
 const toggle = () => {
     size = "lg";
     showFilter = !showFilter;
+};
+const toggle2 = () => {
+    size = "lg";
+    showForm = !showForm;
 };
 
 // Paginacion
@@ -205,7 +209,6 @@ async function searchListings() {
         let searchParams = new URLSearchParams();
         if (Object.keys(selectedFilter).length === 0) {
             selectedFilter = {
-                listing_id: '',
                 name: '',
                 host_since: '',
                 host_location: '',
@@ -268,7 +271,7 @@ async function searchListings() {
 
 
 async function createListing(){
-    if (!newListing.listing_id || !newListing.name || !newListing.host_since || 
+    if (!newListing.name || !newListing.host_since || 
     !newListing.host_location || !newListing.host_response_time || !newListing.host_response_rate 
     || !newListing.host_acceptance_rate || !newListing.neighbourhood || !newListing.city || 
     !newListing.latitude || !newListing.longitude || !newListing.property_type || !newListing.room_type || 
@@ -357,6 +360,7 @@ async function deleteListing(lat,lon){
     <!--______________________________________Cabecera_____________________________________-->
     <Container style="justify-content: center; text-align: center;">
             <h1> Datos de alquileres manejados por AirBnB</h1>
+            <img src="/logo-airbnb.png" alt="logo-airbnb" class="centered-image">
     </Container>
 
     <br/>
@@ -364,16 +368,16 @@ async function deleteListing(lat,lon){
 <Container class="text-center">
     <Row>
         <Col cols={{ xs:4 }}>
-            <Button color="warning" on:click="{getInitialListings}">Cargar Datos Iniciales</Button>
+            <Button color="warning" on:click="{getInitialListings}"><Fa icon={faSpinner}/> Cargar Datos Iniciales</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="success" on:click={() => {showForm = true;}}>Crear Nuevo Dato</Button>
+            <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Crear Nuevo Dato</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="danger" on:click="{deleteAll}">Borrar Todos los Datos</Button>
+            <Button color="danger" on:click="{deleteAll}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
         </Col>
         <Col>
-            <Button color="primary" on:click={() => {showFilter = true;}}>Filtro por campos</Button>
+            <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtro por campos</Button>
         </Col>
     </Row>
 </Container>
@@ -404,7 +408,7 @@ async function deleteListing(lat,lon){
             <Input type="number" id="toInput" placeholder="To"/>
         </Col>
         <Col>
-            <Button color="primary" on:click={searchListing}>Buscar</Button>
+            <Button color="primary" on:click={searchListing}><Fa icon={faMagnifyingGlass}/> Buscar</Button>
         </Col>
     </Row>
 </Container>
@@ -426,12 +430,6 @@ async function deleteListing(lat,lon){
             <form on:submit|preventDefault={searchListings}>
                 <Container fluid>
                     <Row>
-                        <Col>
-                            <FormGroup>
-                                <Label for="listingId">Listing ID</Label>
-                                <Input type="text" id="listingId" bind:value={selectedFilter.listing_id} required />
-                            </FormGroup>
-                        </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="name">Name</Label>
@@ -559,8 +557,10 @@ async function deleteListing(lat,lon){
             </form>
         </ModalBody>
         <ModalFooter>
-          <Button color="primary" on:click={searchListings}>Aplicar filtros</Button>
-          <Button color="secondary" on:click={toggle}>Cerrar</Button>
+            <Container style="justify-content: center; text-align: center;">
+          <Button color="primary" on:click={searchListings}><Fa icon={faCheck}/> Aplicar filtros</Button>
+          <Button color="secondary" on:click={toggle}><Fa icon={faXmark}/> Cerrar</Button>
+            </Container>
         </ModalFooter>
         <Container>
             {#if error_msg != ""}
@@ -586,13 +586,11 @@ async function deleteListing(lat,lon){
         {#each listings as listing}
             <Col class='mb-3'>
                 <Card>
-                    <CardHeader>
-                        <CardTitle>{listing.name}</CardTitle>
+                    <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
+                        <CardTitle><Fa icon={faHouse}/> {listing.name}</CardTitle>
                     </CardHeader>
                     <CardBody>
                         <CardText>
-                            <strong>Listing ID:</strong>{listing.listing_id} <br>
-                            <strong>Nombre:</strong> {listing.name} <br>
                             <strong>Fecha de registro de anfitrión:</strong> {listing.host_since} <br>
                             <strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
                             <strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>
@@ -612,10 +610,12 @@ async function deleteListing(lat,lon){
                             <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
                             <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
                         </CardText>
-                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}>Borrar</Button>
+                        <Container style="justify-content: center; text-align: center;">
+                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
                         <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
-                            Editar
+                            <Fa icon={faPencil}/> Editar
                         </Button>
+                        </Container>
                     </CardBody>
                 </Card>
             </Col>
@@ -625,25 +625,12 @@ async function deleteListing(lat,lon){
 
 
     {#if showForm}
-    <Modal isOpen={showForm} {toggle} {size}>
-        <ModalHeader {toggle}>Filtrar datos</ModalHeader>
+    <Modal isOpen={showForm} {toggle2} {size}>
+        <ModalHeader {toggle2}>Crear dato</ModalHeader>
         <ModalBody>
             
             <Container class='mb-3'>
                 <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
-                    <Col class='mb-3'>
-                        <FormGroup>
-                            <Label for="listingId">Listing ID</Label>
-                            <Input
-                                type="text"
-                                id="listingId"
-                                name="listingId"
-                                placeholder="Escribe un listing ID"
-                                bind:value={newListing.listing_id}
-                                required
-                            />
-                        </FormGroup>
-                    </Col>
                     <Col class='mb-3'>
                         <FormGroup>
                             <Label for="name">Nombre</Label>
@@ -893,7 +880,10 @@ async function deleteListing(lat,lon){
             </Container>
         </ModalBody>
         <ModalFooter>
-            <Button color="success" on:click={createListing}>Crear</Button>
+            <Container style="justify-content: center; text-align: center;">
+            <Button color="success" on:click={createListing}><Fa icon={faCheck}/> Crear</Button>
+            <Button color="secondary" on:click={toggle2}><Fa icon={faXmark}/> Cerrar</Button>
+            </Container>
         </ModalFooter>
         <Container>
             {#if error_msg != ""}
@@ -922,15 +912,14 @@ async function deleteListing(lat,lon){
 {/if}
 
 <hr>
-<br>
 <!--______________________________________Paginación_____________________________________-->
 <Container class="text-center">
     <Row>
         <Col cols={{ xs:6 }}>
-            <Button color="info" on:click={prevPage}>Página anterior</Button>
+            <Button color="info" on:click={prevPage}><Fa icon={faArrowLeft}/> Página anterior</Button>
         </Col>
         <Col cols={{ xs:6 }}>
-            <Button color="info" on:click={nextPage}>Página siguiente</Button>
+            <Button color="info" on:click={nextPage}>Página siguiente <Fa icon={faArrowRight}/></Button>
         </Col>
     </Row>
 </Container>

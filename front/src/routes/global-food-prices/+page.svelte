@@ -27,10 +27,13 @@
 	} from '@sveltestrap/sveltestrap';
 	import { query_selector_all } from 'svelte/internal';
 	import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
+	import { page } from '$app/stores'; 
 
 	// Rutas
 	let API = '/api/v1/global-food-prices';
 	if (dev) API = 'http://localhost:10000' + API;
+
+
 
 	// ===============================================
 	// Variables
@@ -340,8 +343,8 @@
 		}
 	}
 
-	async function deleteListing(adm0_id, adm1_id, mkt_id, cm_id, cur_id, pt_id, um_id, mp_month, mp_year, mp_price, mp_commoditysource){
-    let response = await fetch(API + "/" + adm0_id + "/" + adm1_id + "/" + mkt_id + "/" + cm_id + "/" + cur_id + "/" + pt_id + "/" + um_id + "/" + mp_month + "/" + mp_year + "/" + mp_price + "/" + mp_commoditysource,{
+	async function deleteListing(adm0_id, adm1_id, mkt_id, cm_id, cur_id, pt_id, um_id, mp_month, mp_year){
+    let response = await fetch(API + "/" + adm0_id + "/" + adm1_id + "/" + mkt_id + "/" + cm_id + "/" + cur_id + "/" + pt_id + "/" + um_id + "/" + mp_month + "/" + mp_year,{
             method: "DELETE"
         });
     const status = response.status;
@@ -708,10 +711,10 @@
 									{listing.mp_price} <br />
 									<strong>Fuente de datos: </strong>{listing.mp_commoditysource} <br />
 								</CardText>
-								<Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}>Borrar</Button>
-                        		<Button color="warning" on:click={() => { window.location.href = `global-food-prices/${listing.adm0_id}/${listing.adm1_id}/${listing.mkt_id}/${listing.cm_id}/${listing.cur_id}/${listing.pt_id}/${listing.um_id}/${listing.mp_month}/${listing.mp_year}/${listing.mp_price}/${listing.mp_commoditysource}`}}>
-                            Editar
-                        </Button>
+								<Button color="danger" on:click={() => deleteListing(listing.adm0_id, listing.adm1_id, listing.mkt_id, listing.cm_id, listing.cur_id, listing.pt_id, listing.um_id, listing.mp_month, listing.mp_year)}>Borrar</Button>
+                        		<Button color="warning" on:click={() => { window.location.href = `global-food-prices/${listing.adm0_id}/${listing.adm1_id}/${listing.mkt_id}/${listing.cm_id}/${listing.cur_id}/${listing.pt_id}/${listing.um_id}/${listing.mp_month}/${listing.mp_year}` }}>
+									Editar
+								</Button>
 							</CardBody>
 						</Card>
 					</Col>
