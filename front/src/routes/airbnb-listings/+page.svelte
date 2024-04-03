@@ -1002,7 +1002,7 @@ async function cleanFilter(){
                     <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
                         <CardTitle><Fa icon={faHouse}/> <a style = "color: white" href={`airbnb-listings/${listing.latitude}/${listing.longitude}`}>{listing.name}</a></CardTitle>
                     </CardHeader>
-                    <CardBody>
+                    <CardBody class='tarjetas-datos'>
                         <CardText>
                             <strong>Fecha de registro de anfitrión:</strong> {listing.host_since} <br>
                             <strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
