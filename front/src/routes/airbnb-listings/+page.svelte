@@ -7,7 +7,7 @@
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import Fa from 'svelte-fa';
-    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse} from '@fortawesome/free-solid-svg-icons';
+    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse, faAngleDoubleLeft, faAngleDoubleRight, faList} from '@fortawesome/free-solid-svg-icons';
     import { faGithub } from '@fortawesome/free-brands-svg-icons';
 // Rutas
 let API = '/api/v2/airbnb-listings';
@@ -64,6 +64,11 @@ let selectedFilter ={
     maximum_nights_number: "",
     instant_bookable: "",
 };
+let year = "";
+let minprice = "";
+let maxprice = "";
+let from = "";
+let to = "";
 
 let error_msg = '';
 let success_msg = '';
@@ -88,7 +93,11 @@ let totalItems = 0;
 let pagination = 0;
 let valor = -1;
 
-
+function firstPage() {
+    pagination = 0;
+    getListings();
+    window.scrollTo(0, 0);
+}
 
 function nextPage(){
     if(pagination!=valor){
@@ -105,6 +114,20 @@ function prevPage(){
     }
 }
 
+function lastPage(){
+    pagination = valor;
+    getListings();
+}
+
+async function countData(){
+    const response = await fetch(API, {
+        method: 'GET'
+    });
+    const data = await response.json();
+    let numElements = Array.isArray(data) ? data.length : 0;
+    let last_page = Math.floor(numElements/10);
+    valor = last_page;
+}
 
 
 // Inicialización
@@ -119,6 +142,89 @@ onMount(async () => {
     }, 10000);
 });
 
+
+async function getInitialListings(){
+    let response = await fetch(API + "/loadInitialData", {
+                method: "GET"
+            });
+    const status = await response.status;
+    if (status == 201){
+        getListings();
+        success2_msg = "Datos iniciales cargados correctamente";
+        error_msg = "";
+        window.scrollTo(0, 0);
+    } else if (status == 200) {
+        error_msg = "La base de datos ya está cargada";
+        success_msg = "";
+        window.scrollTo(0, 0);
+    } else if (status == 500){
+        error_msg = "Ha ocurrido un error en el servidor"
+        success_msg = "";
+        window.scrollTo(0, 0);
+    }
+};
+async function getListings() {
+    // Construye los parámetros de búsqueda
+    let searchParams = new URLSearchParams();
+    for (const key in selectedFilter) {
+        if (selectedFilter[key] !== '') {
+            searchParams.append(key, selectedFilter[key]);
+        }
+    }
+    searchParams.append('limit', pageSize);
+    searchParams.append('offset', pagination * pageSize);
+    if (year !== '' && !isNaN(year)) {
+        searchParams.append('year', year);
+        }
+        if (minprice !== '' && !isNaN(minprice)) {
+            searchParams.append('min_price', minprice);
+        }
+        if (maxprice !== '' && !isNaN(maxprice)) {
+            searchParams.append('max_price', maxprice);
+        }
+        if (from !== '' && !isNaN(from)) {
+            searchParams.append('from', from);
+        }
+        if (to !== '' && !isNaN(to)) {
+            searchParams.append('to', to);
+        }
+
+    // Realiza la solicitud a la API con los parámetros de búsqueda
+    let searchUrl = `${API}?${searchParams.toString()}`;
+    let response = await fetch(searchUrl, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    // Manejo de la respuesta de la API
+    let status = response.status;
+    console.log(`Response status: ${status}`);
+
+    if (response.status == 200) {
+        // Actualiza los datos después de una búsqueda exitosa
+        success_msg = "Mostrando los datos solicitados";
+        let data = await response.json();
+        listings = data;
+        window.scrollTo(0, 0);
+        console.log(data);
+    } else {
+        // Manejo de errores
+        if (response.status == 400) {
+            error_msg = 'Error en la estructura de los datos';
+            window.scrollTo(0, 0);
+        } else if (response.status == 404) {
+            error_msg = 'No se encontraron datos';
+            window.scrollTo(0, 0);
+        } else if (status == 500) {
+        error_msg = "Ha ocurrido un error en el servidor";
+        success_msg = "";
+        window.scrollTo(0, 0);
+    }
+    }
+}
+/*
 async function getListings() {
     let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*10}`, {
             method: "GET"
@@ -141,29 +247,7 @@ async function getListings() {
         window.scrollTo(0, 0);
     }
 };
-
-
-async function getInitialListings(){
-    let response = await fetch(API + "/loadInitialData", {
-                method: "GET"
-            });
-    const status = await response.status;
-    if (status == 201){
-        getListings();
-        success_msg = "Datos iniciales cargados correctamente";
-        error_msg = "";
-        window.scrollTo(0, 0);
-    } else if (status == 200) {
-        error_msg = "La base de datos ya está cargada";
-        success_msg = "";
-        window.scrollTo(0, 0);
-    } else if (status == 500){
-        error_msg = "Ha ocurrido un error en el servidor"
-        success_msg = "";
-        window.scrollTo(0, 0);
-    }
-};
-
+*/
 
 async function searchListings() {
     try {
@@ -197,21 +281,6 @@ async function searchListings() {
                 searchParams.append(key, selectedFilter[key]);
             }
         }
-        const yearInput = document.getElementById('yearInput').value.trim();
-        const minpriceInput = document.getElementById('minpriceInput').value.trim();
-        const maxpriceInput = document.getElementById('maxpriceInput').value.trim();
-
-        // Convierte los valores de entrada a números enteros
-        const year = parseInt(yearInput);
-        const minprice = parseFloat(minpriceInput);
-        const maxprice = parseFloat(maxpriceInput);
-
-        const fromInput = document.getElementById('fromInput').value.trim();
-        const toInput = document.getElementById('toInput').value.trim();
-
-        // Convierte los valores de entrada a números enteros
-        const from = parseInt(fromInput);
-        const to = parseInt(toInput);
 
         if (year !== '' && !isNaN(year)) {
         searchParams.append('year', year);
@@ -229,6 +298,10 @@ async function searchListings() {
             searchParams.append('to', to);
         }
         
+        // Agrega los parámetros de paginación a los filtros
+        pagination = 0;
+        searchParams.append('limit', pageSize);
+        searchParams.append('offset', pagination * pageSize);
 
         let searchUrl = `${API}?${searchParams.toString()}`;
         console.log(searchUrl);
@@ -262,7 +335,7 @@ async function searchListings() {
         error_msg = error;
         console.log(error);
     }
-}
+};
 
 
 async function createListing(){
@@ -306,13 +379,16 @@ async function createListing(){
 };
 
 async function deleteAll(){
+    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar todos los datos?");
+    if (!confirmDelete) {
+        return; // Si el usuario cancela la eliminación, no se realiza ninguna acción
+    }
     let response = await fetch(API,{
             method: "DELETE"
         });
     const status = response.status;
     if (status == 200){
         success2_msg = "Todos los datos han sido eliminados";
-        alert("Todos los datos han sido eliminados");
         error_msg = "";
         window.location.reload();
     } else if (status == 204) {
@@ -328,6 +404,10 @@ async function deleteAll(){
 };
 
 async function deleteListing(lat,lon){
+    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este recurso?");
+    if (!confirmDelete) {
+        return; // Si el usuario cancela la eliminación, no se realiza ninguna acción
+    }
     let response = await fetch(API + "/" + lat + "/" + lon,{
             method: "DELETE"
         });
@@ -347,6 +427,37 @@ async function deleteListing(lat,lon){
         window.scrollTo(0, 0);
     }
 };
+
+
+async function cleanFilter(){
+            selectedFilter.name= "",
+            selectedFilter.host_since= "",
+            selectedFilter.host_location= "",
+            selectedFilter.host_response_time= "",
+            selectedFilter.host_response_rate= "",
+            selectedFilter.host_acceptance_rate= "",
+            selectedFilter.neighbourhood= "",
+            selectedFilter.city= "",
+            selectedFilter.latitude= "",
+            selectedFilter.longitude= "",
+            selectedFilter.property_type= "",
+            selectedFilter.room_type= "",
+            selectedFilter.guest_number= "",
+            selectedFilter.bedroom_number= "",
+            selectedFilter.amenities_list= "",
+            selectedFilter.price= "",
+            selectedFilter.minimum_nights_number= "",
+            selectedFilter.maximum_nights_number= "",
+            selectedFilter.instant_bookable= "",
+            year = "",
+            minprice = "",
+            maxprice = "",
+            from = "",
+            to = "",
+            pagination = 0;
+            getListings();
+};
+
 
 </script>
 
@@ -368,12 +479,16 @@ async function deleteListing(lat,lon){
         <Col cols={{ xs:4 }}>
             <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Crear Nuevo Dato</Button>
         </Col>
-        <Col cols={{ xs:4 }}>
-            <Button color="danger" on:click="{deleteAll}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
-        </Col>
         <Col>
             <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtros</Button>
         </Col>
+        <Col>
+            <Button color="secondary" on:click={cleanFilter}><Fa icon={faList}/> Limpiar filtros</Button>
+        </Col>
+        <Col cols={{ xs:4 }}>
+            <Button color="danger" on:click="{deleteAll}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
+        </Col>
+        
     </Row>
 </Container>
 <br/>  
@@ -533,19 +648,19 @@ async function deleteListing(lat,lon){
                     <Col>
                         <FormGroup>
                             <Label for="year">Año (extraído de fecha)</Label>
-                            <Input type="number" id="yearInput"/>
+                            <Input type="number" id="yearInput" bind:value={year}/>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for="min_price">Precio mínimo</Label>
-                            <Input type="number" id="minpriceInput"/>
+                            <Input type="number" id="minpriceInput" bind:value={minprice}/>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for="max_price">Precio máximo</Label>
-                            <Input type="number" id="maxpriceInput"/>
+                            <Input type="number" id="maxpriceInput" bind:value={maxprice}/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -553,13 +668,13 @@ async function deleteListing(lat,lon){
                     <Col>
                         <FormGroup>
                             <Label for="from">Desde (año)</Label>
-                            <Input type="number" id="fromInput"/>
+                            <Input type="number" id="fromInput" bind:value={from}/>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for="to">Hasta (año)</Label>
-                            <Input type="number" id="toInput"/>
+                            <Input type="number" id="toInput" bind:value={to}/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -570,6 +685,7 @@ async function deleteListing(lat,lon){
             <Container style="justify-content: center; text-align: center;">
           <Button color="primary" on:click={searchListings}><Fa icon={faCheck}/> Aplicar filtros</Button>
           <Button color="secondary" on:click={toggle}><Fa icon={faXmark}/> Cerrar</Button>
+          <Button color="secondary" on:click={cleanFilter}><Fa icon={faList}/> Limpiar filtros</Button>
             </Container>
         </ModalFooter>
         <Container>
@@ -616,7 +732,7 @@ async function deleteListing(lat,lon){
                         <FormGroup>
                             <Label for="hostSince">Fecha de registro de anfitrión</Label>
                             <Input
-                                type="date"
+                                type="text"
                                 id="hostSince"
                                 name="hostSince"
                                 bind:value={newListing.host_since}
@@ -884,7 +1000,7 @@ async function deleteListing(lat,lon){
             <Col class='mb-3'>
                 <Card>
                     <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
-                        <CardTitle><Fa icon={faHouse}/> {listing.name}</CardTitle>
+                        <CardTitle><Fa icon={faHouse}/> <a style = "color: white" href={`airbnb-listings/${listing.latitude}/${listing.longitude}`}>{listing.name}</a></CardTitle>
                     </CardHeader>
                     <CardBody>
                         <CardText>
@@ -927,6 +1043,7 @@ async function deleteListing(lat,lon){
 
 <hr>
 <!--______________________________________Paginación_____________________________________-->
+<!--
 <Container class="text-center">
     <Row>
         <Col cols={{ xs:6 }}>
@@ -937,9 +1054,18 @@ async function deleteListing(lat,lon){
         </Col>
     </Row>
 </Container>
+-->
+<Container class="d-flex justify-content-center">
+    <Pagination>
+                <Button color="primary" on:click={() => {firstPage();}} disabled={pagination === 0}><Fa icon={faAngleDoubleLeft}></Fa></Button>            
+                <Button color="info" on:click={()=>{prevPage();}} disabled={pagination === 0}><Fa icon={faArrowLeft}/> Anterior</Button>
+                <Button color="info" on:click={() => {countData();nextPage();}} disabled={pagination === valor}>Siguiente <Fa icon={faArrowRight}/></Button>
+                <Button color="primary" last on:click={()=>{lastPage();}} disabled={pagination === valor}><Fa icon={faAngleDoubleRight}></Fa></Button>
+    </Pagination>
+</Container>
 
 <hr>
-<br>
+
 
 
 

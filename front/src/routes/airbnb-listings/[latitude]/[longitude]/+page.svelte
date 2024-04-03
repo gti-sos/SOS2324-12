@@ -7,7 +7,7 @@
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
-    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
+    import {faTrash, faPencil, faSpinner, faPlus, faHouse, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
     import Fa from 'svelte-fa';
 
 
@@ -44,6 +44,7 @@
     maximum_nights_number: "",
     instant_bookable: ""
     };
+
 
     onMount(async () => {
             getResource();
@@ -115,7 +116,7 @@
             const status = await response.status;
             if (status == 200){
                 getResource();
-                success2_msg = "El dato con latitud "+latitude+" y longitud "+longitude+" se ha actuallizado correctamente";
+                success2_msg = "El dato con latitud "+latitude+" y longitud "+longitude+" se ha actualizado correctamente. A continuación, serás redirigido al listado de recursos";
                 error_msg = "";
                 window.scrollTo(0, 0);
             } else if (status == 404){
@@ -135,6 +136,78 @@
         <!--______________________________________Cabecera_____________________________________-->
         <Container style="justify-content: center; text-align: center;">
                 <h1> Datos del recurso</h1>
+        </Container>
+        <Container fluid>
+            <Row>
+                <Col>
+                    <Card>
+                        <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
+                            <CardTitle><Fa icon={faHouse}/> {updatedListing.name}</CardTitle>
+                        </CardHeader>
+                        <CardBody>
+                            <CardText>
+                                <Row>
+                                    <Col class='mb-3'>
+                                        <strong>Fecha de registro del anfitrión: </strong>{updatedListing.host_since}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Ubicación del anfitrión: </strong>{updatedListing.host_location}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tiempo de respuesta del anfitrión: </strong>{updatedListing.host_response_time}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tasa de respuesta del anfitrión: </strong>{updatedListing.host_response_rate}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tasa de aceptación del anfitrión: </strong>{updatedListing.host_acceptance_rate}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Barrio: </strong>{updatedListing.neighbourhood}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Ciudad: </strong>{updatedListing.city}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Latitud: </strong>{updatedListing.latitude}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Longitud: </strong>{updatedListing.longitude}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tipo de propiedad: </strong>{updatedListing.property_type}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tipo de habitación: </strong>{updatedListing.room_type}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Número de huéspedes: </strong>{updatedListing.guest_number}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Número de habitaciones: </strong>{updatedListing.bedroom_number}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Lista de comodidades: </strong>
+                                        {updatedListing.amenities_list}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Precio: </strong>{updatedListing.price}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Número mínimo de noches: </strong>{updatedListing.minimum_nights_number}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Número máximo de noches: </strong>{updatedListing.maximum_nights_number}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>¿Reserva instantánea? </strong>{updatedListing.instant_bookable}
+                                    </Col>
+                                </Row>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
     
         <br/>
@@ -157,7 +230,7 @@
     
     <Container class="mb-3">
         <Row>
-            <Col class="text-center">
+            <Col class="text-center" id="editar">
                 <h1>
                     Editar recurso
                 </h1>
@@ -178,7 +251,7 @@
                             <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="fechaRegistro">Fecha de registro de anfitrión</Label>
-                                <Input type="date" id="fechaRegistro" bind:value={updatedListing.host_since} placeholder="Nueva fecha de registro de anfitrión"/>
+                                <Input type="text" id="fechaRegistro" bind:value={updatedListing.host_since} placeholder="Nueva fecha de registro de anfitrión"/>
                             </FormGroup>
                             </Col>
                             <Col class='mb-3'>
