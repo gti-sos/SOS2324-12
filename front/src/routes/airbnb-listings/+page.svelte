@@ -528,6 +528,13 @@ function fillFormWithTestData() {
     };
   }
 
+let showDetails = false;
+let selectedData = {};
+
+function toggleDetails(dato) {
+		selectedData = dato;
+		showDetails = !showDetails;
+}
 </script>
 
 
@@ -1160,29 +1167,46 @@ function fillFormWithTestData() {
                     <CardBody class='tarjetas-datos'>
                         <CardText>
                             <strong>Fecha de registro de anfitrión:</strong> {listing.host_since} <br>
-                            <strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
-                            <strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>
-                            <strong>Tasa de respuesta del anfitrión:</strong> {listing.host_response_rate} <br>
-                            <strong>Tasa de aceptación del anfitrión:</strong> {listing.host_acceptance_rate} <br>
-                            <strong>Barrio: </strong>{listing.neighbourhood} <br>
+                            <!--<strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>-->
+                            <!--<strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>-->
+                           <!-- <strong>Tasa de respuesta del anfitrión:</strong> {listing.host_response_rate} <br>-->
+                            <!--<strong>Tasa de aceptación del anfitrión:</strong> {listing.host_acceptance_rate} <br>-->
+                            <!--<strong>Barrio: </strong>{listing.neighbourhood} <br>-->
                             <strong>Ciudad:</strong> {listing.city} <br>
-                            <strong>Latitud:</strong> {listing.latitude} <br>
-                            <strong>Longitud: </strong>{listing.longitude} <br>
-                            <strong>Tipo de propiedad:</strong> {listing.property_type} <br>
-                            <strong>Tipo de habitación:</strong> {listing.room_type} <br>
-                            <strong>Número de huéspedes:</strong> {listing.guest_number} <br>
-                            <strong>Número de habitaciones:</strong> {listing.bedroom_number} <br>
-                            <strong>Lista de comodidades:</strong> {listing.amenities_list} <br>
+                            <!--<strong>Latitud:</strong> {listing.latitude} <br>-->
+                            <!--<strong>Longitud: </strong>{listing.longitude} <br>-->
+                            <!--<strong>Tipo de propiedad:</strong> {listing.property_type} <br>-->
+                            <!--<strong>Tipo de habitación:</strong> {listing.room_type} <br>-->
+                            <!--<strong>Número de huéspedes:</strong> {listing.guest_number} <br>-->
+                            <!--<strong>Número de habitaciones:</strong> {listing.bedroom_number} <br>-->
+                           <!-- <strong>Lista de comodidades:</strong> {listing.amenities_list} <br>-->
                             <strong>Precio:</strong> {listing.price} <br>
-                            <strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>
-                            <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
-                            <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
+                            <!--<strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>-->
+                            <!--<strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>-->
+                            <!--<strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>-->
+                            {#if showDetails && selectedData === listing}
+								<strong>Ubicación del anfitrión:</strong> {listing.host_location} <br>
+                                <strong>Tiempo de respuesta del anfitrión:</strong> {listing.host_response_time} <br>
+                                <strong>Tasa de respuesta del anfitrión:</strong> {listing.host_response_rate} <br>
+                                <strong>Tasa de aceptación del anfitrión:</strong> {listing.host_acceptance_rate} <br>
+                                <strong>Barrio: </strong>{listing.neighbourhood} <br>
+                                <strong>Latitud:</strong> {listing.latitude} <br>
+                                <strong>Longitud: </strong>{listing.longitude} <br>
+                                <strong>Tipo de propiedad:</strong> {listing.property_type} <br>
+                                <strong>Tipo de habitación:</strong> {listing.room_type} <br>
+                                <strong>Número de huéspedes:</strong> {listing.guest_number} <br>
+                                <strong>Número de habitaciones:</strong> {listing.bedroom_number} <br>
+                                <strong>Lista de comodidades:</strong> {listing.amenities_list} <br>
+                                <strong>Número mínimo de noches: </strong>{listing.minimum_nights_number} <br>
+                                <strong>Número máximo de noches:</strong> {listing.maximum_nights_number} <br>
+                                <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
+							{/if}
                         </CardText>
                         <Container style="justify-content: center; text-align: center;">
-                        <Button color="danger" id ="deleteResourceButton" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
+                        <Button color="info" on:click={() => toggleDetails(listing)}><Fa icon={faPlus}/></Button>
+                        <Button color="danger" id ="deleteResourceButton" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/></Button>
                         <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
-                            <Fa icon={faPencil}/> Editar
-                        </Button>
+                            <Fa icon={faPencil}/></Button>
                         </Container>
                     </CardBody>
                 </Card>
