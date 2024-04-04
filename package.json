@@ -1,7 +1,7 @@
 {
   "name": "sos2324-12",
-  "version": "2.2.1",
-  "description": "F03",
+  "version": "2.5.2",
+  "description": "D02",
   "main": "index.js",
   "scripts": {
     "start": "node index",

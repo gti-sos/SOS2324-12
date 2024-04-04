@@ -358,7 +358,6 @@ async function createListing(){
         error_msg = "";
         showForm = false;
         await getListings();
-
     } else if (status == 400){
         error_msg = "Petición invalida. Revisa si has introducido todos los datos";
         success_msg = "";
