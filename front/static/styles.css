@@ -159,4 +159,8 @@ a:hover {
     z-index: 1000; /* Asegura que el menú se muestre encima del contenido */
 }
 
+.small-input {
+    width: 75px; /* Ajusta el tamaño según tus preferencias */
+}
+
 

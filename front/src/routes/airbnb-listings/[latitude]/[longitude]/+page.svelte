@@ -56,7 +56,6 @@
             }, 10000);
                 });
 
-
     async function getResource(){
         const response = await fetch(API+`/${latitude}/${longitude}`,{
                                         method: "GET"               
@@ -116,7 +115,7 @@
             const status = await response.status;
             if (status == 200){
                 getResource();
-                success2_msg = "El dato con latitud "+latitude+" y longitud "+longitude+" se ha actualizado correctamente. A continuación, serás redirigido al listado de recursos";
+                success2_msg = "El dato con latitud "+latitude+" y longitud "+longitude+" se ha actualizado correctamente";
                 error_msg = "";
                 window.scrollTo(0, 0);
             } else if (status == 404){
@@ -144,7 +143,7 @@
                         <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
                             <CardTitle><Fa icon={faHouse}/> {updatedListing.name}</CardTitle>
                         </CardHeader>
-                        <CardBody>
+                        <CardBody class='tarjetas-datos-edit'>
                             <CardText>
                                 <Row>
                                     <Col class='mb-3'>
@@ -200,7 +199,7 @@
                                         <strong>Número máximo de noches: </strong>{updatedListing.maximum_nights_number}
                                     </Col>
                                     <Col class='mb-3'>
-                                        <strong>¿Reserva instantánea? </strong>{updatedListing.instant_bookable}
+                                        <strong>¿Reserva instantánea? </strong>{updatedListing.instant_bookable ? "Sí" : "No"} 
                                     </Col>
                                 </Row>
                             </CardText>
@@ -245,115 +244,152 @@
                             <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="nombre">Nombre</Label>
-                                <Input id="nombre" bind:value={updatedListing.name} placeholder="Nuevo nombre"/>
+                                <Input id="nombre" invalid={!updatedListing.name} bind:value={updatedListing.name} placeholder="Nuevo nombre"/>
                             </FormGroup>
                             </Col>
                             <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="fechaRegistro">Fecha de registro de anfitrión</Label>
-                                <Input type="text" id="fechaRegistro" bind:value={updatedListing.host_since} placeholder="Nueva fecha de registro de anfitrión"/>
+                                <Input type="text" id="fechaRegistro" invalid={!updatedListing.host_since} bind:value={updatedListing.host_since} placeholder="Nueva fecha de registro de anfitrión"/>
                             </FormGroup>
                             </Col>
                             <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="ubicacionAnfitrion">Ubicación del anfitrión</Label>
-                                <Input id="ubicacionAnfitrion" bind:value={updatedListing.host_location} placeholder="Nueva ubicación del anfitrión"/>
+                                <Input id="ubicacionAnfitrion" invalid={!updatedListing.host_location} bind:value={updatedListing.host_location} placeholder="Nueva ubicación del anfitrión"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="respuestaTiempo">Tiempo de respuesta del anfitrión</Label>
-                                <Input id="respuestaTiempo" bind:value={updatedListing.host_response_time} placeholder="Nuevo tiempo de respuesta del anfitrión"/>
+                                <Input type="select" 
+                                    id="respuestaTiempo" 
+                                    name="respuestaTiempo"
+                                    placeholder="Nuevo tiempo de respuesta"
+                                    bind:value={updatedListing.host_response_time}
+                                    invalid={!updatedListing.host_response_time}
+                                    required>
+                                {#each ["within an hour","within a few hours","within a day","a few days or more"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="tasaRespuesta">Tasa de respuesta del anfitrión</Label>
-                                <Input id="tasaRespuesta" bind:value={updatedListing.host_response_rate} placeholder="Nueva tasa de respuesta del anfitrión"/>
+                                <Input id="tasaRespuesta" invalid={!updatedListing.host_response_rate} bind:value={updatedListing.host_response_rate} placeholder="Nueva tasa de respuesta del anfitrión" min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="tasaAceptacion">Tasa de aceptación del anfitrión</Label>
-                                <Input id="tasaAceptacion" bind:value={updatedListing.host_acceptance_rate} placeholder="Nueva tasa de aceptación del anfitrión"/>
+                                <Input id="tasaAceptacion" invalid={!updatedListing.host_acceptance_rate} bind:value={updatedListing.host_acceptance_rate} placeholder="Nueva tasa de aceptación del anfitrión" min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="barrio">Barrio</Label>
-                                <Input id="barrio" bind:value={updatedListing.neighbourhood} placeholder="Nuevo barrio"/>
+                                <Input id="barrio" invalid={!updatedListing.neighbourhood} bind:value={updatedListing.neighbourhood} placeholder="Nuevo barrio"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="ciudad">Ciudad</Label>
-                                <Input id="ciudad" bind:value={updatedListing.city} placeholder="Nueva ciudad"/>
+                                <Input id="ciudad" invalid={!updatedListing.city} bind:value={updatedListing.city} placeholder="Nueva ciudad"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="latitud">Latitud</Label>
-                                <Input type="number" id="latitud" bind:value={updatedListing.latitude} placeholder="Nueva latitud"/>
+                                <Input type="number" id="latitud" invalid={!updatedListing.latitude} bind:value={updatedListing.latitude} placeholder="Nueva latitud"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="longitud">Longitud</Label>
-                                <Input type="number" id="longitud" bind:value={updatedListing.longitude} placeholder="Nueva longitud"/>
+                                <Input type="number" id="longitud" invalid={!updatedListing.longitude} bind:value={updatedListing.longitude} placeholder="Nueva longitud"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="tipoPropiedad">Tipo de propiedad</Label>
-                                <Input id="tipoPropiedad" bind:value={updatedListing.property_type} placeholder="Nuevo tipo de propiedad"/>
+                                <Input type="select" 
+                                    id="tipoPropiedad" 
+                                    name="tipoPropiedad"
+                                    bind:value={updatedListing.property_type}
+                                    invalid={!updatedListing.property_type}
+                                    required>
+                                {#each ["Entire apartment","Private room in apartment","Private room in house","Entire house","Entire condominium"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="tipoHabitacion">Tipo de habitación</Label>
-                                <Input id="tipoHabitacion" bind:value={updatedListing.room_type} placeholder="Nuevo tipo de habitación"/>
+                                <Input type="select" 
+                                    id="tipoHabitacion" 
+                                    name="tipoHabitacion"
+                                    bind:value={updatedListing.room_type}
+                                    invalid={!updatedListing.room_type}
+                                    required>
+                                {#each ["Entire place","Private room","Hotel room","Shared room"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="numHuespedes">Número de huéspedes</Label>
-                                <Input type="number" id="numHuespedes" bind:value={updatedListing.guest_number} placeholder="Nuevo número de huéspedes"/>
+                                <Input type="number" id="numHuespedes" invalid={!updatedListing.guest_number} bind:value={updatedListing.guest_number} placeholder="Nuevo número de huéspedes" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="numHabitaciones">Número de habitaciones</Label>
-                                <Input type="number" id="numHabitaciones" bind:value={updatedListing.bedroom_number} placeholder="Nuevo número de habitaciones"/>
+                                <Input type="number" id="numHabitaciones" invalid={!updatedListing.bedroom_number} bind:value={updatedListing.bedroom_number} placeholder="Nuevo número de habitaciones" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="comodidades">Lista de comodidades</Label>
-                                <Input id="comodidades" bind:value={updatedListing.amenities_list} placeholder="Nueva lista de comodidades"/>
+                                <Input id="comodidades" invalid={!updatedListing.amenities_list} bind:value={updatedListing.amenities_list} placeholder="Nueva lista de comodidades"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="precio">Precio</Label>
-                                <Input type="number" id="precio" bind:value={updatedListing.price} placeholder="Nuevo precio"/>
+                                <Input type="number" id="precio" invalid={!updatedListing.price} bind:value={updatedListing.price} placeholder="Nuevo precio" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="numMinNoches">Número mínimo de noches</Label>
-                                <Input type="number" id="numMinNoches" bind:value={updatedListing.minimum_nights_number} placeholder="Nuevo número mínimo de noches"/>
+                                <Input type="number" id="numMinNoches" invalid={!updatedListing.minimum_nights_number} bind:value={updatedListing.minimum_nights_number} placeholder="Nuevo número mínimo de noches" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="numMaxNoches">Número máximo de noches</Label>
-                                <Input type="number" id="numMaxNoches" bind:value={updatedListing.maximum_nights_number} placeholder="Nuevo número máximo de noches"/>
+                                <Input type="number" id="numMaxNoches" invalid={!updatedListing.maximum_nights_number} bind:value={updatedListing.maximum_nights_number} placeholder="Nuevo número máximo de noches" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
                                 <Label for="reservaInstantanea">¿Reserva instantánea?</Label>
-                                <Input id="reservaInstantanea" bind:value={updatedListing.instant_bookable} placeholder="Nueva reserva instantánea"/>
+                                <Input type="select" 
+                                        id="reservaInstantanea" 
+                                        name="reservaInstantanea"
+                                        bind:value={updatedListing.instant_bookable}
+                                        invalid={!updatedListing.instant_bookable}
+                                        required>
+                                    {#each ["TRUE","FALSE"] as option}
+                                        <option>{option}</option>
+                                    {/each}
+                                </Input>
                             </FormGroup>
                         </Col>
                     </Row>

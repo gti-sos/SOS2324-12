@@ -1384,37 +1384,44 @@ function loadBackend_JMS_v2(app,db){
 
     // POST => Create a new listing
     app.post(API_BASE_JMS + "/", (req, res) => {
-
-      const newData =  req.body;
-      const expectedFields = ["name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
-      ];
+      const newData = req.body;
+      const expectedFields = ["name", "host_since", "host_location", "host_response_time", "host_response_rate", "host_acceptance_rate", "neighbourhood", "city", "latitude", "longitude", "property_type", "room_type", "guest_number", "bedroom_number", "amenities_list", "price", "minimum_nights_number", "maximum_nights_number", "instant_bookable"];
+  
+      const validResponseTimes = ["within an hour", "within a few hours", "within a day", "a few days or more"];
+  
       const receivedFields = Object.keys(newData);
       const isValidData = expectedFields.every(field => receivedFields.includes(field));
-
+  
       if (!isValidData) {
-        res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
+          res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
       } else {
           // Verificar si ya existe un documento con el mismo cci en la base de datos
-          db.findOne({latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
+          db.findOne({ latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
               if (err) {
-                res.status(500).send("Internal Error"); // Error interno del servidor
+                  res.status(500).send("Internal Error"); // Error interno del servidor
               } else {
                   if (existingData) {
-                    res.status(409).send("Conflict, data already exists");  //Datos existentes
+                      res.status(409).send("Conflict, data already exists");  //Datos existentes
                   } else {
-                      // Si no existe, insertar el nuevo documento
-                      db.insert(newData, (err, insertedData) => {
-                          if (err) {
-                            res.status(500).send("Internal Error"); // Error interno del servidor
-                          } else {
-                            res.status(201).send("Created");
-                          }
-                      });
+                      // Verificar si el valor de host_response_time es válido
+                      if (!validResponseTimes.includes(newData.host_response_time)) {
+                          res.status(400).send("Bad Request, invalid host_response_time"); // host_response_time inválido
+                      } else {
+                          // Si no existe, insertar el nuevo documento
+                          db.insert(newData, (err, insertedData) => {
+                              if (err) {
+                                  res.status(500).send("Internal Error"); // Error interno del servidor
+                              } else {
+                                  res.status(201).send("Created");
+                              }
+                          });
+                      }
                   }
               }
           });
       }
-    }),
+    });
+  
 
     // PUT => Can't update root directory
     app.put(API_BASE_JMS + "/", (req,res)=> {

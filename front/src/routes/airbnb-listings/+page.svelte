@@ -22,6 +22,8 @@ if(dev)
 let listings = []; // Data
 let showForm = false;
 let showFilter = false;
+let confirmModal = false;
+
 let newListing ={
     name: "",
     host_since: "",
@@ -73,6 +75,8 @@ let to = "";
 let error_msg = '';
 let success_msg = '';
 let success2_msg = '';
+let success3_msg = '';
+
 
 let size = "lg";
 const toggle = () => {
@@ -83,6 +87,11 @@ const toggle2 = () => {
     size = "lg";
     showForm = !showForm;
 };
+const toggle3 = () => {
+    size = "lg";
+    confirmModal = !confirmModal;
+};
+
 
 // Paginacion
 
@@ -134,7 +143,7 @@ async function countData(){
 
 onMount(async () => {
     await getListings();
-    // Temporizador para ocultar automáticamente las alertas después de 5 segundos
+    // Temporizador para ocultar automáticamente las alertas después de 10 segundos
     setTimeout(() => {
         error_msg = "";
         success_msg = "";
@@ -152,6 +161,7 @@ async function getInitialListings(){
         getListings();
         success2_msg = "Datos iniciales cargados correctamente";
         error_msg = "";
+        
         window.scrollTo(0, 0);
     } else if (status == 200) {
         error_msg = "La base de datos ya está cargada";
@@ -163,6 +173,7 @@ async function getInitialListings(){
         window.scrollTo(0, 0);
     }
 };
+
 async function getListings() {
     // Construye los parámetros de búsqueda
     let searchParams = new URLSearchParams();
@@ -205,49 +216,34 @@ async function getListings() {
     if (response.status == 200) {
         // Actualiza los datos después de una búsqueda exitosa
         success_msg = "Mostrando los datos solicitados";
+        error_msg = "";
         let data = await response.json();
         listings = data;
+        cities = await fetchCities();
+        host_locations = await fetchHostlocations();
+        neighs = await fetchNeigh();
         window.scrollTo(0, 0);
         console.log(data);
     } else {
         // Manejo de errores
         if (response.status == 400) {
             error_msg = 'Error en la estructura de los datos';
+            success2_msg = "";
+            success_msg = "";
             window.scrollTo(0, 0);
         } else if (response.status == 404) {
             error_msg = 'No se encontraron datos';
+            success2_msg = "";
+            success_msg = "";
             window.scrollTo(0, 0);
         } else if (status == 500) {
-        error_msg = "Ha ocurrido un error en el servidor";
-        success_msg = "";
-        window.scrollTo(0, 0);
+            error_msg = "Ha ocurrido un error en el servidor";
+            success_msg = "";
+            success2_msg = "";
+            window.scrollTo(0, 0);
     }
-    }
-}
-/*
-async function getListings() {
-    let response = await fetch(`${API}?limit=${pageSize}&offset=${pagination*10}`, {
-            method: "GET"
-        });
-    const status = await response.status;
-    if (status == 200){
-        let data = await response.json();
-        listings = data;
-        totalItems = data.length;
-        success_msg = "Mostrando datos";
-        error_msg = "";
-        window.scrollTo(0, 0);
-    } else if (status == 404) {
-        error_msg = "No hay datos cargados en la base de datos o ya no hay más datos"
-        success_msg = "";
-        window.scrollTo(0, 0);
-    } else if (status == 500) {
-        error_msg = "Ha ocurrido un error en el servidor";
-        success_msg = "";
-        window.scrollTo(0, 0);
     }
 };
-*/
 
 async function searchListings() {
     try {
@@ -320,6 +316,7 @@ async function searchListings() {
         if (response.status == 200) {
             // Actualiza los datos después de una búsqueda exitosa
             success_msg = "Mostrando los datos solicitados";
+            error_msg = "";
             let data = await response.json();
             listings = data;
             console.log(data);
@@ -336,7 +333,6 @@ async function searchListings() {
         console.log(error);
     }
 };
-
 
 async function createListing(){
     if (!newListing.name || !newListing.host_since || 
@@ -379,18 +375,16 @@ async function createListing(){
 };
 
 async function deleteAll(){
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar todos los datos?");
-    if (!confirmDelete) {
-        return; // Si el usuario cancela la eliminación, no se realiza ninguna acción
-    }
     let response = await fetch(API,{
             method: "DELETE"
         });
     const status = response.status;
     if (status == 200){
-        success2_msg = "Todos los datos han sido eliminados";
+        success3_msg = "Todos los datos han sido eliminados. Recargando página...";
         error_msg = "";
-        window.location.reload();
+        setTimeout(() => {
+            window.location.reload();
+            }, 3000); // Espera de 3 segundos (3000 milisegundos)
     } else if (status == 204) {
         error_msg = "No se encontraron datos para eliminar, es posible que la base de datos esté vacía";
         success_msg = "";
@@ -404,10 +398,6 @@ async function deleteAll(){
 };
 
 async function deleteListing(lat,lon){
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este recurso?");
-    if (!confirmDelete) {
-        return; // Si el usuario cancela la eliminación, no se realiza ninguna acción
-    }
     let response = await fetch(API + "/" + lat + "/" + lon,{
             method: "DELETE"
         });
@@ -427,7 +417,6 @@ async function deleteListing(lat,lon){
         window.scrollTo(0, 0);
     }
 };
-
 
 async function cleanFilter(){
             selectedFilter.name= "",
@@ -455,9 +444,89 @@ async function cleanFilter(){
             from = "",
             to = "",
             pagination = 0;
+            success2_msg = "Filtros limpiados correctamente";
+            error_msg = "";
+            success_msg = "";
             getListings();
 };
 
+let cities = [];
+let host_locations = [];
+let neighs = [];
+async function loadCities() {
+    cities = await fetchCities(); // Obtener las ciudades cuando se carga el componente
+}
+
+async function fetchCities() {
+  try {
+    const response = await fetch(API,{
+        method: "GET"});
+    if (!response.ok) {
+      throw new Error('Error al obtener las ciudades');
+    }
+    const data = await response.json();
+    const cities = [...new Set(data.map(resource => resource.city))];
+    return cities;
+  } catch (error) {
+    console.error('Error al obtener las ciudades:', error.message);
+    return [];
+  }
+}
+async function fetchHostlocations() {
+  try {
+    const response = await fetch(API,{
+        method: "GET"});
+    if (!response.ok) {
+      throw new Error('Error al obtener');
+    }
+    const data = await response.json();
+    const host_locations = [...new Set(data.map(resource => resource.host_location))];
+    return host_locations;
+  } catch (error) {
+    console.error('Error al obtener:', error.message);
+    return [];
+  }
+}
+async function fetchNeigh() {
+  try {
+    const response = await fetch(API,{
+        method: "GET"});
+    if (!response.ok) {
+      throw new Error('Error al obtener');
+    }
+    const data = await response.json();
+    const neighs = [...new Set(data.map(resource => resource.neighbourhood))];
+    return neighs;
+  } catch (error) {
+    console.error('Error al obtener:', error.message);
+    return [];
+  }
+}
+
+// Función para llenar el formulario con datos de prueba
+function fillFormWithTestData() {
+    newListing = {
+      name: 'Ejemplo',
+      host_since: '16/11/2023',
+      host_location: 'Ejemplo',
+      host_response_time: 'within a few hours',
+      host_response_rate: 100,
+      host_acceptance_rate: 100,
+      neighbourhood: 'Ejemplo',
+      city: 'Ejemplo',
+      latitude: 10020,
+      longitude: 10030,
+      property_type: 'Entire apartment',
+      room_type: 'Private room',
+      guest_number: 1,
+      bedroom_number: 1,
+      amenities_list: 'Ejemplo',
+      price: 100,
+      minimum_nights_number: 1,
+      maximum_nights_number: 30,
+      instant_bookable: 'TRUE'
+    };
+  }
 
 </script>
 
@@ -486,7 +555,7 @@ async function cleanFilter(){
             <Button color="secondary" on:click={cleanFilter}><Fa icon={faList}/> Limpiar filtros</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="danger" on:click="{deleteAll}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
+            <Button color="danger" id = "deleteAllButton" on:click="{() => {confirmModal = true;}}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
         </Col>
         
     </Row>
@@ -524,19 +593,23 @@ async function cleanFilter(){
                         <Col>
                             <FormGroup>
                                 <Label for="name">Nombre</Label>
-                                <Input type="text" id="name" bind:value={selectedFilter.name} required />
+                                <Input type="text" id="name" bind:value={selectedFilter.name} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="hostSince">Fecha de registro del anfitrión</Label>
-                                <Input type="text" id="hostSince" bind:value={selectedFilter.host_since} required />
+                                <Input type="text" id="hostSince" placeholder="DD/MM/YYYY" bind:value={selectedFilter.host_since} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="hostLocation">Ubicación del anfitrión</Label>
-                                <Input type="text" id="hostLocation" bind:value={selectedFilter.host_location} required />
+                                <Input type="select" id="hostLocation" bind:value={selectedFilter.host_location}>
+                                    {#each host_locations as loc}
+                                      <option value={loc}>{loc}</option>
+                                    {/each}
+                                  </Input>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -544,25 +617,34 @@ async function cleanFilter(){
                         <Col>
                             <FormGroup>
                                 <Label for="responseTime">Tiempo de respuesta</Label>
-                                <Input type="text" id="responseTime" bind:value={selectedFilter.response_time} required />
+                                <Input type="select" id="responseTime" bind:value={selectedFilter.host_response_time}>
+                                    <option></option>
+                                    {#each ["within an hour","within a few hours","within a day","a few days or more"] as option}
+                                        <option>{option}</option>
+                                    {/each}
+                                </Input>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="responseRate">Tasa de respuesta</Label>
-                                <Input type="number" id="responseRate" bind:value={selectedFilter.response_rate} required />
+                                <Input type="number" id="responseRate" bind:value={selectedFilter.host_response_rate} min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="acceptanceRate">Tasa de aceptación</Label>
-                                <Input type="number" id="acceptanceRate" bind:value={selectedFilter.acceptance_rate} required />
+                                <Input type="number" id="acceptanceRate" bind:value={selectedFilter.host_acceptance_rate} min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="neighbourhood">Barrio</Label>
-                                <Input type="text" id="neighbourhood" bind:value={selectedFilter.neighbourhood} required />
+                                <Input type="select" id="neighbourhood" bind:value={selectedFilter.neighbourhood}>
+                                    {#each neighs as nei}
+                                      <option value={nei}>{nei}</option>
+                                    {/each}
+                                  </Input>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -570,25 +652,35 @@ async function cleanFilter(){
                         <Col>
                             <FormGroup>
                                 <Label for="city">Ciudad</Label>
-                                <Input type="text" id="city" bind:value={selectedFilter.city} required />
+                                <Input type="select" id="city" bind:value={selectedFilter.city}>
+                                    {#each cities as city}
+                                      <option value={city}>{city}</option>
+                                    {/each}
+                                  </Input>
+                                <!--<Button outline color= "info" on:click={loadCities}>Cargar Ciudades</Button>-->
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="latitude">Latitud</Label>
-                                <Input type="number" id="latitude" bind:value={selectedFilter.latitude} required />
+                                <Input type="number" id="latitude" bind:value={selectedFilter.latitude} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="longitude">Longitud</Label>
-                                <Input type="number" id="longitude" bind:value={selectedFilter.longitude} required />
+                                <Input type="number" id="longitude" bind:value={selectedFilter.longitude} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="propertyType">Tipo de propiedad</Label>
-                                <Input type="text" id="propertyType" bind:value={selectedFilter.property_type} required />
+                                <Input type="select" id="propertyType" bind:value={selectedFilter.property_type}>
+                                    <option></option>
+                                    {#each ["Entire apartment","Private room in apartment","Private room in house","Entire house","Entire condominium"] as option}
+                                        <option>{option}</option>
+                                    {/each}
+                                </Input>
                             </FormGroup>
                         </Col>
                     </Row>
@@ -596,25 +688,30 @@ async function cleanFilter(){
                         <Col>
                             <FormGroup>
                                 <Label for="roomType">Tipo de habitación</Label>
-                                <Input type="text" id="roomType" bind:value={selectedFilter.room_type} required />
+                                <Input type="select" id="roomType" bind:value={selectedFilter.room_type}>
+                                    <option></option>
+                                    {#each ["Entire place","Private room","Hotel room","Shared room"] as option}
+                                        <option>{option}</option>
+                                    {/each}
+                                </Input>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="guestNumber">Número de huéspedes</Label>
-                                <Input type="number" id="guestNumber" bind:value={selectedFilter.guest_number} required />
+                                <Input type="number" id="guestNumber" bind:value={selectedFilter.guest_number} min="1" />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="bedroomNumber">Número de habitaciones</Label>
-                                <Input type="number" id="bedroomNumber" bind:value={selectedFilter.bedroom_number} required />
+                                <Input type="number" id="bedroomNumber" bind:value={selectedFilter.bedroom_number} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="amenitiesList">Lista de comodidades</Label>
-                                <Input type="text" id="amenitiesList" bind:value={selectedFilter.amenities_list} required />
+                                <Input type="text" id="amenitiesList" bind:value={selectedFilter.amenities_list} />
                             </FormGroup>
                         </Col>
                     </Row>
@@ -622,19 +719,19 @@ async function cleanFilter(){
                         <Col>
                             <FormGroup>
                                 <Label for="price">Precio</Label>
-                                <Input type="number" id="price" bind:value={selectedFilter.price} required />
+                                <Input type="number" id="price" bind:value={selectedFilter.price} min="1" />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="minimumNights">Número de noches mínimas</Label>
-                                <Input type="number" id="minimumNights" bind:value={selectedFilter.minimum_nights} required />
+                                <Input type="number" id="minimumNights" bind:value={selectedFilter.minimum_nights} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
                                 <Label for="maximumNights">Número de noches máximas</Label>
-                                <Input type="number" id="maximumNights" bind:value={selectedFilter.maximum_nights} required />
+                                <Input type="number" id="maximumNights" bind:value={selectedFilter.maximum_nights} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
@@ -654,13 +751,15 @@ async function cleanFilter(){
                     <Col>
                         <FormGroup>
                             <Label for="min_price">Precio mínimo</Label>
-                            <Input type="number" id="minpriceInput" bind:value={minprice}/>
+                            <Input type="range" id="minpriceInput" bind:value={minprice} min="1" max="1000" step="5"/>
+                            <Input type="number" bind:value={minprice} min="0" max="1000" class="small-input"/>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for="max_price">Precio máximo</Label>
-                            <Input type="number" id="maxpriceInput" bind:value={maxprice}/>
+                            <Input type="range" id="maxpriceInput" bind:value={maxprice} min="10" max="1000" step="5"/>
+                            <Input type="number" bind:value={maxprice} min="0" max="1000" class="small-input"/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -668,13 +767,13 @@ async function cleanFilter(){
                     <Col>
                         <FormGroup>
                             <Label for="from">Desde (año)</Label>
-                            <Input type="number" id="fromInput" bind:value={from}/>
+                            <Input type="number" id="fromInput" bind:value={from} min="1"/>
                         </FormGroup>
                     </Col>
                     <Col>
                         <FormGroup>
                             <Label for="to">Hasta (año)</Label>
-                            <Input type="number" id="toInput" bind:value={to}/>
+                            <Input type="number" id="toInput" bind:value={to} min="1"/>
                         </FormGroup>
                     </Col>
                 </Row>
@@ -683,7 +782,7 @@ async function cleanFilter(){
         </ModalBody>
         <ModalFooter>
             <Container style="justify-content: center; text-align: center;">
-          <Button color="primary" on:click={searchListings}><Fa icon={faCheck}/> Aplicar filtros</Button>
+          <Button color="primary" on:click={() => { searchListings(); toggle(); }}><Fa icon={faCheck}/> Aplicar filtros</Button>
           <Button color="secondary" on:click={toggle}><Fa icon={faXmark}/> Cerrar</Button>
           <Button color="secondary" on:click={cleanFilter}><Fa icon={faList}/> Limpiar filtros</Button>
             </Container>
@@ -712,11 +811,13 @@ async function cleanFilter(){
     <Modal isOpen={showForm} {toggle2} {size}>
         <ModalHeader {toggle2}>Crear dato</ModalHeader>
         <ModalBody>
-            
+            <Container style="justify-content: center; text-align: center;">
+                <Button color="primary" on:click={fillFormWithTestData}>Rellenar con datos de prueba</Button>
+                </Container>
             <Container class='mb-3'>
                 <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
                     <Col class='mb-3'>
-                        <FormGroup>
+                        <FormGroup >
                             <Label for="name">Nombre</Label>
                             <Input
                                 type="text"
@@ -724,6 +825,7 @@ async function cleanFilter(){
                                 name="name"
                                 placeholder="Escribe un nombre"
                                 bind:value={newListing.name}
+                                invalid={!newListing.name}
                                 required
                             />
                         </FormGroup>
@@ -735,7 +837,9 @@ async function cleanFilter(){
                                 type="text"
                                 id="hostSince"
                                 name="hostSince"
+                                placeholder="DD/MM/YYYY"
                                 bind:value={newListing.host_since}
+                                invalid={!newListing.host_since}
                                 required
                             />
                         </FormGroup>
@@ -749,6 +853,7 @@ async function cleanFilter(){
                                 name="hostLocation"
                                 placeholder="Escribe una ubicación"
                                 bind:value={newListing.host_location}
+                                invalid={!newListing.host_location}
                                 required
                             />
                         </FormGroup>
@@ -756,14 +861,17 @@ async function cleanFilter(){
                     <Col class='mb-3'>
                         <FormGroup>
                             <Label for="responseTime">Tiempo de respuesta del anfitrión</Label>
-                            <Input
-                                type="text"
-                                id="responseTime"
-                                name="responseTime"
-                                placeholder="Escribe un tiempo de respuesta"
-                                bind:value={newListing.host_response_time}
-                                required
-                            />
+                            <Input type="select" 
+                                    id="responseTime" 
+                                    name="responseTime"
+                                    placeholder="Escribe un tiempo de respuesta"
+                                    bind:value={newListing.host_response_time}
+                                    invalid={!newListing.host_response_time}
+                                    required>
+                                {#each ["within an hour","within a few hours","within a day","a few days or more"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                         </FormGroup>
                     </Col>
                     <Col class='mb-3'>
@@ -774,7 +882,9 @@ async function cleanFilter(){
                                 id="responseRate"
                                 name="responseRate"
                                 placeholder="Escribe una tasa de respuesta"
+                                min="0" max="1" step="0.01"
                                 bind:value={newListing.host_response_rate}
+                                invalid={!newListing.host_response_rate}
                                 required
                             />
                         </FormGroup>
@@ -787,7 +897,9 @@ async function cleanFilter(){
                                 id="acceptanceRate"
                                 name="acceptanceRate"
                                 placeholder="Escribe una tasa de aceptación"
+                                min="0" max="1" step="0.01"
                                 bind:value={newListing.host_acceptance_rate}
+                                invalid={!newListing.host_acceptance_rate}
                                 required
                             />
                         </FormGroup>
@@ -801,6 +913,7 @@ async function cleanFilter(){
                                 name="neighbourhood"
                                 placeholder="Escribe un barrio"
                                 bind:value={newListing.neighbourhood}
+                                invalid={!newListing.neighbourhood}
                                 required
                             />
                         </FormGroup>
@@ -814,6 +927,7 @@ async function cleanFilter(){
                                 name="city"
                                 placeholder="Escribe una ciudad"
                                 bind:value={newListing.city}
+                                invalid={!newListing.city}
                                 required
                             />
                         </FormGroup>
@@ -827,6 +941,7 @@ async function cleanFilter(){
                                 name="latitude"
                                 placeholder="Escribe una latitud"
                                 bind:value={newListing.latitude}
+                                invalid={!newListing.latitude}
                                 required
                             />
                         </FormGroup>
@@ -840,6 +955,7 @@ async function cleanFilter(){
                                 name="longitude"
                                 placeholder="Escribe una longitud"
                                 bind:value={newListing.longitude}
+                                invalid={!newListing.longitude}
                                 required
                             />
                         </FormGroup>
@@ -847,27 +963,31 @@ async function cleanFilter(){
                     <Col class='mb-3'>
                         <FormGroup>
                             <Label for="propertyType">Tipo de propiedad</Label>
-                            <Input
-                                type="text"
-                                id="propertyType"
-                                name="propertyType"
-                                placeholder="Escribe un tipo de propiedad"
-                                bind:value={newListing.property_type}
-                                required
-                            />
+                            <Input type="select" 
+                                    id="propertyType" 
+                                    name="propertyType"
+                                    bind:value={newListing.property_type}
+                                    invalid={!newListing.property_type}
+                                    required>
+                                {#each ["Entire apartment","Private room in apartment","Private room in house","Entire house","Entire condominium"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                         </FormGroup>
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
                             <Label for="roomType">Tipo de habitación</Label>
-                            <Input
-                                type="text"
-                                id="roomType"
-                                name="roomType"
-                                placeholder="Escribe un tipo de habitación"
-                                bind:value={newListing.room_type}
-                                required
-                            />
+                            <Input type="select" 
+                                    id="roomType" 
+                                    name="roomType"
+                                    bind:value={newListing.room_type}
+                                    invalid={!newListing.room_type}
+                                    required>
+                                {#each ["Entire place","Private room","Hotel room","Shared room"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
                         </FormGroup>
                     </Col>
                     <Col class='mb-3'>
@@ -877,8 +997,10 @@ async function cleanFilter(){
                                 type="number"
                                 id="guestNumber"
                                 name="guestNumber"
+                                min="1"
                                 placeholder="Escribe un número de huéspedes"
                                 bind:value={newListing.guest_number}
+                                invalid={!newListing.guest_number}
                                 required
                             />
                         </FormGroup>
@@ -890,8 +1012,10 @@ async function cleanFilter(){
                                 type="number"
                                 id="bedroomNumber"
                                 name="bedroomNumber"
+                                min="1"
                                 placeholder="Escribe un número de habitaciones"
                                 bind:value={newListing.bedroom_number}
+                                invalid={!newListing.bedroom_number}
                                 required
                             />
                         </FormGroup>
@@ -905,6 +1029,7 @@ async function cleanFilter(){
                                 name="amenitiesList"
                                 placeholder="Escribe una lista de comodidades"
                                 bind:value={newListing.amenities_list}
+                                invalid={!newListing.amenities_list}
                                 required
                             />
                         </FormGroup>
@@ -916,8 +1041,10 @@ async function cleanFilter(){
                                 type="number"
                                 id="price"
                                 name="price"
+                                min="1"
                                 placeholder="Escribe un precio"
                                 bind:value={newListing.price}
+                                invalid={!newListing.price}
                                 required
                             />
                         </FormGroup>
@@ -929,8 +1056,10 @@ async function cleanFilter(){
                                 type="number"
                                 id="minimumNights"
                                 name="minimumNights"
+                                min="1"
                                 placeholder="Escribe un número mínimo de noches"
                                 bind:value={newListing.minimum_nights_number}
+                                invalid={!newListing.minimum_nights_number}
                                 required
                             />
                         </FormGroup>
@@ -942,8 +1071,10 @@ async function cleanFilter(){
                                 type="number"
                                 id="maximumNights"
                                 name="maximumNights"
+                                min="1"
                                 placeholder="Escribe un número máximo de noches"
                                 bind:value={newListing.maximum_nights_number}
+                                invalid={!newListing.maximum_nights_number}
                                 required
                             />
                         </FormGroup>
@@ -951,13 +1082,17 @@ async function cleanFilter(){
                     <Col class='mb-3'>
                         <FormGroup>
                             <Label for="instantBookable">¿Reserva instantánea?</Label>
-                            <Input
-                                type="checkbox"
-                                id="instantBookable"
-                                name="instantBookable"
-                                bind:checked={newListing.instant_bookable}
-                                required
-                            />
+                            <Input type="select" 
+                                    id="instantBookable" 
+                                    name="instantBookable"
+                                    bind:value={newListing.instant_bookable}
+                                    invalid={!newListing.instant_bookable}
+                                    required>
+                                {#each ["TRUE","FALSE"] as option}
+                                    <option>{option}</option>
+                                {/each}
+                            </Input>
+
                         </FormGroup>
                     </Col>
                 </Row>
@@ -990,6 +1125,26 @@ async function cleanFilter(){
     
     {/if}
 
+    {#if confirmModal}
+    <Modal isOpen={confirmModal} {toggle3} {size}>
+        <ModalHeader {toggle3}>¿Estás seguro de que deseas eliminar todos los datos?</ModalHeader>
+        <ModalBody>
+            <Container style="justify-content: center; text-align: center;">
+                {#if success3_msg != ""}
+                <Alert color="success">
+                    <strong>Éxito:</strong> {success3_msg}
+                </Alert>
+                {/if}
+            </Container>
+            <Container style="justify-content: center; text-align: center;">
+                <Button color="success" id = "deleteAllButtonConfirm" on:click={deleteAll}><Fa icon={faCheck}/> Confirmar</Button>
+                <Button color="secondary" on:click={toggle3}><Fa icon={faXmark}/> Cerrar</Button>
+            </Container>
+        </ModalBody>
+    </Modal>
+    {/if}
+    
+
 {#if listings && listings.length > 0}
     <!--_______________________________________________Datos_________________________________________________-->
 <Container>
@@ -998,9 +1153,9 @@ async function cleanFilter(){
     <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
         {#each listings as listing}
             <Col class='mb-3'>
-                <Card>
+                <Card class="tarjeta">
                     <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
-                        <CardTitle><Fa icon={faHouse}/> <a style = "color: white" href={`airbnb-listings/${listing.latitude}/${listing.longitude}`}>{listing.name}</a></CardTitle>
+                        <CardTitle class="card-title"><Fa icon={faHouse}/> <a style = "color: white" href={`airbnb-listings/${listing.latitude}/${listing.longitude}`}>{listing.name}</a></CardTitle>
                     </CardHeader>
                     <CardBody class='tarjetas-datos'>
                         <CardText>
@@ -1024,7 +1179,7 @@ async function cleanFilter(){
                             <strong>¿Reserva instantánea?: </strong>{listing.instant_bookable ? "Sí" : "No"} <br>
                         </CardText>
                         <Container style="justify-content: center; text-align: center;">
-                        <Button color="danger" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
+                        <Button color="danger" id ="deleteResourceButton" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/> Borrar</Button>
                         <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
                             <Fa icon={faPencil}/> Editar
                         </Button>
