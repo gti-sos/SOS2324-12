@@ -1,7 +1,6 @@
 <script>
 
 import {onMount} from "svelte";
-    import {onMount} from "svelte";
     import { dev } from '$app/environment';
     import { Button, Icon, FormGroup, Label, Table, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 

@@ -425,7 +425,7 @@ async function cleanFilter(){
                 selectedFilter.total_improved_piped= "",
                 selectedFilter.total_improved_other= "",
                 selectedFilter.total_unimproved_other= "",
-                selectedFilter.total_unimproved_surface= "",,
+                selectedFilter.total_unimproved_surface= "",
             year = "",
             iso_code = "",
             country = "",
@@ -1064,6 +1064,7 @@ function fillFormWithTestData() {
                         <Button color="warning" on:click={() => { window.location.href = `world-consumption-of-drinking-water-data/1/${listing.iso_code}/${listing.year}`}}>
                             <Fa icon={faPencil}/> Editar
                         </Button>
+                        </Container>
                     </CardBody>
                 </Card>
             </Col>
