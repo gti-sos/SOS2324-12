@@ -1,18 +1,21 @@
 <script>
 
 import {onMount} from "svelte";
+    import {onMount} from "svelte";
     import { dev } from '$app/environment';
-    import { Button, Icon, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
+    import { Button, Icon, FormGroup, Label, Table, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
+    import {faTrash, faPencil, faSpinner, faPlus, faHouse, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
+    import Fa from 'svelte-fa';
 
 
 // Rutas
 
-let API = '/api/v1/world-consumption-of-drinking-water-data';
+let API = '/api/v2/world-consumption-of-drinking-water-data';
 if(dev)
     API = 'http://localhost:10000'+API;
 
@@ -142,6 +145,71 @@ onMount(async () => {
         <Container style="justify-content: center; text-align: center;">
                 <h1> Datos del recurso</h1>
         </Container>
+        <Container fluid>
+            <Row>
+                <Col>
+                    <Card>
+                        <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
+                            <CardTitle><Fa icon={faHouse}/> {updatedListing.iso_code}</CardTitle>
+                        </CardHeader>
+                        <CardBody class='tarjetas-datos-edit'>
+                            <CardText>
+                                <Row>
+                                    <Col class='mb-3'>
+                                        <strong>Pais </strong>{updatedListing.country}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Año </strong>{updatedListing.year}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos urban_improved_total </strong>{updatedListing.urban_improved_total}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos urban_improved_piped </strong>{updatedListing.urban_improved_piped}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos urban_improved_other </strong>{updatedListing.urban_improved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos urban_unimproved_other </strong>{updatedListing.urban_unimproved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos rural_improved_total </strong>{updatedListing.rural_improved_total}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos rural_improved_piped </strong>{updatedListing.rural_improved_piped}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos rural_improved_other </strong>{updatedListing.rural_improved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos rural_unimproved_other </strong>{updatedListing.rural_unimproved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos rural_unimproved_surface </strong>{updatedListing.rural_unimproved_surface}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos total_improved_total </strong>{updatedListing.total_improved_total}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos total_improved_piped </strong>{updatedListing.total_improved_piped}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos total_improved_other </strong>{updatedListing.total_improved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos total_unimproved_other </strong>{updatedListing.total_unimproved_other}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Datos total_unimproved_surface </strong>{updatedListing.total_unimproved_surface}
+                                    </Col>
+                                </Row>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
+        </Container>
     
         <br/>
 
@@ -161,15 +229,18 @@ onMount(async () => {
         </Alert>
         {/if}
     
-        <Container class="mb-3">
+    <Container class="mb-3">
         <Row>
-            <Col class="text-center">
+            <Col class="text-center" id="editar">
                 <h1>
                     Editar recurso
                 </h1>
             </Col>
             <br>
             <hr>
+            <Row class="text-center">
+                <Button color="success" on:click={() => { window.location.href = `/world-consumption-of-drinking-water-data/`}}><Fa icon={faLongArrowLeft}/> Volver</Button>
+            </Row>
             <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
                     <Col class='mb-3'>
                         <FormGroup>
@@ -380,9 +451,9 @@ onMount(async () => {
                     </Col>
             </Row>
                 <Col class="text-center">
-                    <Button color="primary" on:click={updateResource}>Actualizar</Button>
+                    <Button color="primary" on:click={updateResource}><Fa icon={faCheck}/> Actualizar</Button>
                 </Col>
         </Row>
-        </Container>
+    </Container>
 </Container>    
 </main>

@@ -235,6 +235,7 @@
                 </h1>
             </Col>
             <br>
+            <hr>
             <Row class="text-center">
                 <Button color="success" on:click={() => { window.location.href = `/airbnb-listings/`}}><Fa icon={faLongArrowLeft}/> Volver</Button>
             </Row>
