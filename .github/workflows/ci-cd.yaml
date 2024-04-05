@@ -30,6 +30,7 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
       
+      - run: cd front; npm i --save @fortawesome/fontawesome-svg-core && npm install --save @fortawesome/free-solid-svg-icons && npm install --save @fortawesome/react-fontawesome; cd ..
       - run: cd front; npm install; cd ..
       - run: cd front; npm run build; cd ..
     
