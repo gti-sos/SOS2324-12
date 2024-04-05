@@ -30,7 +30,8 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
       
-      - run: cd front; npm install; cd ..
+      - run: npm install --save @fortawesome/free-solid-svg-icons
+      - run: cd front; npm install --save @fortawesome/free-solid-svg-icons && npm install; cd ..
       - run: cd front; npm run build; cd ..
     
       - name: Deploy
