@@ -8,7 +8,6 @@
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import Fa from 'svelte-fa';
     import {faTrash, faPencil, faSpinner, faPlus, faFilter, faMagnifyingGlass, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse, faAngleDoubleLeft, faAngleDoubleRight, faList} from '@fortawesome/free-solid-svg-icons';
-    import { faGithub } from '@fortawesome/free-brands-svg-icons';
 // Rutas
 
 let API = '/api/v2/world-consumption-of-drinking-water-data';

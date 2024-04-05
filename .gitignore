@@ -132,10 +132,6 @@ dist
 #gcloud keys
 gc-sa-key.json
 
-#package-lock
-package-lock.json
-front/package-lock.json
-
 #front node_modules
 front/node_modules
 

@@ -10,8 +10,7 @@
 <script>
     import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
     import Fa from 'svelte-fa';
-    import { faServer, faFile, faChartPie, faLink, faTextSlash, faUsers, faInfo} from '@fortawesome/free-solid-svg-icons';
-    import { faGithub } from '@fortawesome/free-brands-svg-icons';
+    import { faServer, faFile, faChartPie, faLink, faUsers, faInfo} from '@fortawesome/free-solid-svg-icons';
     import { dev } from '$app/environment';
 
     let API = '/api/v1';
@@ -64,7 +63,8 @@
             <Col sm="12" md="6">
                 <Card>
                     <CardHeader>
-                        <CardTitle><Fa icon={faGithub}/> Repository</CardTitle>
+                        <CardTitle><img src="/icono-github.png" alt="GitHub" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                            Repository</CardTitle>
                     </CardHeader>
                     <CardBody>
                         <CardText><a href="https://github.com/gti-sos/SOS2324-12">gti-sos/SOS2324-12</a></CardText>
