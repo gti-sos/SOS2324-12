@@ -5,9 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd front; rm -r package-lock.json node_modules; npm install; cd ..
+      - run: cd front; rm -r package-lock.json; npm install; cd ..
       - run: cd front; npm run build; cd ..
-      - run: rm -r package-lock.json node_modules
+      - run: rm -r package-lock.json
       - run: npm install
       - run: npx playwright install --with-deps
       - run: npm i --save-dev @types/jest
