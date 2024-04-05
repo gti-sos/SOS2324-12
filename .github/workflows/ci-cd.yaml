@@ -5,8 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd front; npm install; cd ..
+      - run: cd front; rm -r package-lock.json node_modules; npm install; cd ..
       - run: cd front; npm run build; cd ..
+      - run: rm -r package-lock.json node_modules
       - run: npm install
       - run: npx playwright install --with-deps
       - run: npm i --save-dev @types/jest
@@ -30,7 +31,7 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
       
-      - run: cd front; npm i --save @fortawesome/free-solid-svg-icons; cd ..
+      - run: cd front; rm -r package-lock.json node_modules; npm i --save @fortawesome/free-solid-svg-icons; cd ..
       - run: cd front; npm install; cd ..
       - run: cd front; npm run build; cd ..
     
