@@ -134,6 +134,8 @@ gc-sa-key.json
 
 #front node_modules
 front/node_modules
+
+#playwright
 /test-results/
 /playwright-report/
 /blob-report/

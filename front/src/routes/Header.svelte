@@ -37,10 +37,21 @@
                 APIS
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings [v1] (Jose Martinez)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings">airbnb-listings [v2] (Jose Martinez)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data [v1] (Jose Joaquin Mena-Bernal)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/global-food-prices">global-food-prices [v1] (Borja Flores Avecilla)</DropdownItem>
+                <Dropdown direction="right" nav autoClose={true}>
+                    <DropdownToggle nav class="nav-link" caret>v1</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem class="menu-item" href = "{API}/airbnb-listings">airbnb-listings</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API}/global-food-prices">global-food-prices</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <Dropdown direction="right" nav autoClose={true}>
+                    <DropdownToggle nav class="nav-link" caret>v2</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings">airbnb-listings</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API_v2}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -60,9 +71,9 @@
                 Frontends
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "/airbnb-listings">airbnb-listings (Jose Martinez)</DropdownItem>
-                <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data (José Joaquin Mena)</DropdownItem>
-                <DropdownItem class="menu-item" href = "/global-food-prices">global-food-prices (Borja Flores Avecilla)</DropdownItem>
+                <DropdownItem class="menu-item" href = "/airbnb-listings">airbnb-listings</DropdownItem>
+                <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data</DropdownItem>
+                <DropdownItem class="menu-item" href = "/global-food-prices">global-food-prices</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
@@ -71,10 +82,21 @@
                 Documentaciones
             </DropdownToggle>
             <DropdownMenu>
-                <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings [v1] (Jose)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings/docs">airbnb-listings [v2] (Jose)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices [v1] (Borja)</DropdownItem>
-                <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data [v1](Jose Joaquin)</DropdownItem>
+                <Dropdown direction="right" nav autoClose={true}>
+                    <DropdownToggle nav class="nav-link" caret>v1</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem class="menu-item" href = "{API}/airbnb-listings/docs">airbnb-listings</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API}/global-food-prices/docs">global-food-prices</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
+                <Dropdown direction="right" nav autoClose={true}>
+                    <DropdownToggle nav class="nav-link" caret>v2</DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings/docs">airbnb-listings</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API_v2}/world-consumption-of-drinking-water-data/docs">world-consumption-of-drinking-water-data</DropdownItem>
+                    </DropdownMenu>
+                </Dropdown>
             </DropdownMenu>
         </Dropdown>
     </Nav>

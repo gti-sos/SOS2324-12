@@ -332,7 +332,7 @@ let initialData = [
     "instant_bookable": "TRUE"
   },
   {
-    "name": "Appartement 2 piÃ¨ces proche canal st martin /Gare",
+    "name": "Appartement 2 piÇŸ¶ùces proche canal st martin /Gare",
     "host_since": "27/09/2016",
     "host_location": "France",
     "host_response_time": "within an hour",
@@ -762,6 +762,390 @@ let initialData = [
     "minimum_nights_number": 30,
     "maximum_nights_number": 1125,
     "instant_bookable": "TRUE"
+  },
+  {
+    "name": "Studio on Park in Fort Greene, Brooklyn",
+    "host_since": "29/07/2012",
+    "host_location": "United States",
+    "host_response_time": "within a few hours",
+    "host_response_rate": 0.64,
+    "host_acceptance_rate": 0.97,
+    "neighbourhood": "Fort Greene",
+    "city": "New York",
+    "latitude": 40.68834,
+    "longitude": -73.97417,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 1,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Lockbox",
+      "Smoke alarm",
+      "Essentials",
+      "Hangers",
+      "Washer",
+      "Dedicated workspace",
+      "Wifi",
+      "Dryer",
+      "Heating",
+      "Private entrance",
+      "Air conditioning",
+      "Long term stays allowed",
+      "Kitchen"
+    ],
+    "price": 100,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "FALSE"
+  },
+  {
+    "name": "Brooklyn Comfy & Luminous 2 rooms studio",
+    "host_since": "03/06/2018",
+    "host_location": "United States",
+    "host_response_time": "within an hour",
+    "host_response_rate": 0.62,
+    "host_acceptance_rate": 0.33,
+    "neighbourhood": "Bushwick",
+    "city": "New York",
+    "latitude": 40.69941,
+    "longitude": -73.92159,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 2,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Refrigerator",
+      "Microwave",
+      "Shampoo",
+      "Air conditioning",
+      "Free street parking",
+      "Coffee maker",
+      "Iron",
+      "Hangers",
+      "Smoke alarm",
+      "Dedicated workspace",
+      "Fire extinguisher",
+      "Hot water",
+      "Long term stays allowed",
+      "Lockbox",
+      "Hair dryer",
+      "Essentials",
+      "Dishes and silverware",
+      "TV",
+      "Wifi",
+      "Heating",
+      "Cooking basics",
+      "First aid kit",
+      "Private entrance",
+      "Carbon monoxide alarm"
+    ],
+    "price": 120,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "FALSE"
+  },
+  {
+    "name": "Bright and Stylish Atelier in New York City",
+    "host_since": "23/08/2012",
+    "host_location": "United States",
+    "host_response_time": "within a few hours",
+    "host_response_rate": 0.87,
+    "host_acceptance_rate": 0.22,
+    "neighbourhood": "Kips Bay",
+    "city": "New York",
+    "latitude": 40.73868,
+    "longitude": -73.98037,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 2,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Breakfast",
+      "Refrigerator",
+      "Microwave",
+      "Shampoo",
+      "Air conditioning",
+      "Kitchen",
+      "Iron",
+      "Hangers",
+      "Smoke alarm",
+      "Dedicated workspace",
+      "Fire extinguisher",
+      "Long term stays allowed",
+      "Hair dryer",
+      "Essentials",
+      "Wifi",
+      "Heating",
+      "Stove",
+      "Indoor fireplace",
+      "Private entrance",
+      "Laundromat nearby",
+      "Carbon monoxide alarm"
+    ],
+    "price": 375,
+    "minimum_nights_number": 4,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "FALSE"
+  },
+  {
+    "name": "One bedroom close to all",
+    "host_since": "22/10/2019",
+    "host_location": "United States",
+    "host_response_time": "within an hour",
+    "host_response_rate": 0.91,
+    "host_acceptance_rate": 0.16,
+    "neighbourhood": "Midtown",
+    "city": "New York",
+    "latitude": 40.74301,
+    "longitude": -73.98243,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 4,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Refrigerator",
+      "Single level home",
+      "Microwave",
+      "Shampoo",
+      "Air conditioning",
+      "Bathtub",
+      "Kitchen",
+      "Coffee maker",
+      "Oven",
+      "Iron",
+      "Hangers",
+      "Smoke alarm",
+      "Dedicated workspace",
+      "Fire extinguisher",
+      "Hot water",
+      "Long term stays allowed",
+      "Extra pillows and blankets",
+      "Hair dryer",
+      "Bed linens",
+      "Essentials",
+      "Dishes and silverware",
+      "TV",
+      "Wifi",
+      "Cable TV",
+      "Heating",
+      "Paid parking off premises",
+      "Cooking basics",
+      "Stove",
+      "Cleaning before checkout",
+      "Window guards",
+      "Carbon monoxide alarm",
+      "Ethernet connection"
+    ],
+    "price": 109,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "TRUE"
+  },
+  {
+    "name": "1BR apt#2 in brownstone sleep 4. CLEAN CDC Req.",
+    "host_since": "11/11/2013",
+    "host_location": "United States",
+    "host_response_time": "within a few hours",
+    "host_response_rate": 0.74,
+    "host_acceptance_rate": 0.15,
+    "neighbourhood": "Bedford-Stuyvesant",
+    "city": "New York",
+    "latitude": 40.6819,
+    "longitude": -73.94256,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 4,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Nespresso machine",
+      "Refrigerator",
+      "Shampoo",
+      "Air conditioning",
+      "Kitchen",
+      "Oven",
+      "Smoke alarm",
+      "Hangers",
+      "Fire extinguisher",
+      "Shower gel",
+      "Long term stays allowed",
+      "Extra pillows and blankets",
+      "Bed linens",
+      "Essentials",
+      "TV",
+      "Wifi",
+      "Heating",
+      "Cooking basics",
+      "Stove",
+      "Luggage dropoff allowed",
+      "Private entrance",
+      "Conditioner",
+      "Carbon monoxide alarm",
+      "Pour-over coffee"
+    ],
+    "price": 95,
+    "minimum_nights_number": 4,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "TRUE"
+  },
+  {
+    "name": "Stay in style! Modern, vibrant, all new appliances",
+    "host_since": "12/12/2014",
+    "host_location": "United States",
+    "host_response_time": "within a few hours",
+    "host_response_rate": 0.98,
+    "host_acceptance_rate": 0.25,
+    "neighbourhood": "Gramercy",
+    "city": "New York",
+    "latitude": 40.73743,
+    "longitude": -73.98832,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 2,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Heating",
+      "TV",
+      "Shampoo",
+      "Essentials",
+      "Long term stays allowed",
+      "Iron",
+      "Hangers",
+      "Air conditioning",
+      "Smoke alarm",
+      "Carbon monoxide alarm",
+      "Wifi",
+      "Kitchen"
+    ],
+    "price": 110,
+    "minimum_nights_number": 10,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "TRUE"
+  },
+  {
+    "name": "Midtown West Furnished Luxury 1 Bed / 1 Bath Apt.",
+    "host_since": "01/01/2020",
+    "host_location": "United States",
+    "host_response_time": "within an hour",
+    "host_response_rate": 0.44,
+    "host_acceptance_rate": 0.48,
+    "neighbourhood": "Hell's Kitchen",
+    "city": "New York",
+    "latitude": 40.76148,
+    "longitude": -73.98765,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 4,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Refrigerator",
+      "Microwave",
+      "Air conditioning",
+      "Free street parking",
+      "Kitchen",
+      "Coffee maker",
+      "Oven",
+      "Iron",
+      "Hangers",
+      "Smoke alarm",
+      "Washer",
+      "Dryer",
+      "Hot water",
+      "Long term stays allowed",
+      "Paid parking on premises",
+      "Extra pillows and blankets",
+      "Hair dryer",
+      "Bed linens",
+      "Essentials",
+      "Dishes and silverware",
+      "Gym",
+      "TV",
+      "Dishwasher",
+      "Wifi",
+      "Cable TV",
+      "Heating",
+      "Cooking basics",
+      "Stove",
+      "Bread maker",
+      "Private entrance",
+      "Carbon monoxide alarm"
+    ],
+    "price": 135,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "FALSE"
+  },
+  {
+    "name": "1 bdr apt#3 in a renovated bright brownstone",
+    "host_since": "11/11/2013",
+    "host_location": "United States",
+    "host_response_time": "within a few hours",
+    "host_response_rate": 0.56,
+    "host_acceptance_rate": 0.3,
+    "neighbourhood": "Bedford-Stuyvesant",
+    "city": "New York",
+    "latitude": 40.6821,
+    "longitude": -73.94153,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 4,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "Breakfast",
+      "Smoke alarm",
+      "Essentials",
+      "Hangers",
+      "TV",
+      "Wifi",
+      "Shampoo",
+      "Heating",
+      "Private entrance",
+      "Fire extinguisher",
+      "Air conditioning",
+      "Long term stays allowed",
+      "Carbon monoxide alarm",
+      "Kitchen"
+    ],
+    "price": 88,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "TRUE"
+  },
+  {
+    "name": "The Renovated Midtown Apartment",
+    "host_since": "28/02/2020",
+    "host_location": "United States",
+    "host_response_time": "within an hour",
+    "host_response_rate": 0.52,
+    "host_acceptance_rate": 0.15,
+    "neighbourhood": "Midtown",
+    "city": "New York",
+    "latitude": 40.75563,
+    "longitude": -73.96418,
+    "property_type": "Entire apartment",
+    "room_type": "Entire place",
+    "guest_number": 4,
+    "bedroom_number": 1,
+    "amenities_list": [
+      "First aid kit",
+      "Hair dryer",
+      "Iron",
+      "Hangers",
+      "Essentials",
+      "Washer",
+      "TV",
+      "Smoke alarm",
+      "Dryer",
+      "Fire extinguisher",
+      "Heating",
+      "Wifi",
+      "Air conditioning",
+      "Long term stays allowed",
+      "Kitchen"
+    ],
+    "price": 130,
+    "minimum_nights_number": 30,
+    "maximum_nights_number": 1125,
+    "instant_bookable": "FALSE"
   }
 ];
 //
@@ -776,104 +1160,166 @@ function loadBackend_JMS_v2(app,db){
     // Permite establecer un periodo con from y to
     // Permite buscar por cualquier parametro con ?parametro=valor
     // Permite paginacion con limit y offset
+    // Permite filtrar por un rango de precios con ?min_price=valor&max_price=valor
+    // Permite filtrar por año (extraido de la fecha de registro del host) con ?year=valor
+    // Método para manejar las solicitudes GET a la ruta raíz
+    // Método para manejar las solicitudes GET a la ruta raíz
+      // Método para manejar las solicitudes GET a la ruta raíz
+      app.get(API_BASE_JMS + "/", (req, res) => {
+        const { amenities_list, from, to, min_price, max_price, limit, offset, name, year, ...queryParams } = req.query;
+    
+        if (amenities_list !== undefined) {
+            const amenitiesArray = amenities_list.split(',');
+            queryParams.amenities_list = { $in: amenitiesArray };
+        };
+    
+        if (name !== undefined) {
+            const nameRegex = new RegExp(name, 'i');
+            queryParams.name = nameRegex;
+        };
+    
+        if (year !== undefined && /^\d{4}$/.test(year)) {
+            const limitNum = parseInt(limit) || 10;
+            const offsetNum = parseInt(offset) || 0;
+            const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
+    
+            db.find({ host_since: { $regex: yearRegex } })
+                .skip(offsetNum)
+                .limit(limitNum)
+                .exec((err, listings) => {
+                    if (err) {
+                        res.status(500).send("Internal Error");
+                    } else {
+                        if (listings.length === 0) {
+                            return res.status(404).send("[]");
+                        } else {
+                            const responseBody = listings.map((listing) => { 
+                                delete listing._id; 
+                                return listing; 
+                            });
+                            return res.status(200).send(responseBody);
+                        }
+                    }
+                });
+        } else if (from !== undefined && to !== undefined) {
+            const fromYear = parseInt(from);
+            const toYear = parseInt(to);
+            if (isNaN(fromYear) || isNaN(toYear)) {
+                return res.status(400).send("Invalid year format. Please provide valid year values.");
+            }
+    
+            db.find({}, (err, listings) => {
+                if (err) {
+                    return res.status(500).send("Internal Server Error");
+                } 
+    
+                const filteredListings = listings.filter(listing => {
+                    const listingYear = new Date(listing.host_since).getFullYear();
+                    return listingYear >= fromYear && listingYear <= toYear;
+                });
+    
+                const hasOtherFilters = Object.keys(queryParams).length > 0;
+    
+                let paginatedListings = filteredListings;
+                if (limit !== undefined) {
+                    const limitNum = parseInt(limit);
+                    if (offset !== undefined) {
+                        const offsetNum = parseInt(offset);
+                        paginatedListings = filteredListings.slice(offsetNum, offsetNum + limitNum);
+                    } else {
+                        paginatedListings = filteredListings.slice(0, limitNum);
+                    }
+                }
+    
+                if (filteredListings.length === 0 && !hasOtherFilters) {
+                    return res.status(404).send("[]");
+                }
+    
+                let responseBody = paginatedListings.map((listing) => {
+                    delete listing._id;
+                    return listing;
+                });
+    
+                res.status(200).send(responseBody);
+            });
+        } else if (min_price !== undefined && max_price !== undefined) {
+            if (isNaN(parseFloat(min_price)) || isNaN(parseFloat(max_price))) {
+                return res.status(400).send("Bad Request. Please provide valid numerical values for min_price and max_price.");
+            }
+    
+            db.find({ price: { $gte: parseFloat(min_price), $lte: parseFloat(max_price) }, ...queryParams })
+                .exec((err, listings) => {
+                    if (err) {
+                        return res.status(500).send("Internal Server Error");
+                    }
+    
+                    if (listings.length === 0) {
+                        return res.status(404).send("[]");
+                    }
+    
+                    let paginatedListings = listings;
+                    if (limit !== undefined) {
+                        const limitNum = parseInt(limit);
+                        if (offset !== undefined) {
+                            const offsetNum = parseInt(offset);
+                            paginatedListings = listings.slice(offsetNum, offsetNum + limitNum);
+                        } else {
+                            paginatedListings = listings.slice(0, limitNum);
+                        }
+                    }
+    
+                    let responseBody = paginatedListings.map((listing) => {
+                        delete listing._id;
+                        return listing;
+                    });
+    
+                    res.status(200).send(responseBody);
+                });
+        } else if (Object.keys(queryParams).length === 0) {
+            db.find({}, handleDbResponse);
+        } else {
+            db.find(queryParams, handleDbResponse);
+            if (queryParams.host_response_rate) queryParams.host_response_rate = parseFloat(queryParams.host_response_rate);
+            if (queryParams.host_acceptance_rate) queryParams.host_acceptance_rate = parseFloat(queryParams.host_acceptance_rate);
+            if (queryParams.latitude) queryParams.latitude = parseFloat(queryParams.latitude);
+            if (queryParams.longitude) queryParams.longitude = parseFloat(queryParams.longitude);
+            if (queryParams.guest_number) queryParams.guest_number = parseInt(queryParams.guest_number);
+            if (queryParams.bedroom_number) queryParams.bedroom_number = parseInt(queryParams.bedroom_number);
+            if (queryParams.price) queryParams.price = parseFloat(queryParams.price);
+            if (queryParams.minimum_nights_number) queryParams.minimum_nights_number = parseInt(queryParams.minimum_nights_number);
+            if (queryParams.maximum_nights_number) queryParams.maximum_nights_number = parseInt(queryParams.maximum_nights_number);
+        }
+    
+        function handleDbResponse(err, listings) {
+            if (err) {
+                return res.status(500).send("Internal Server Error");
+            }
+    
+            if (listings.length === 0) {
+                return res.status(404).send("[]");
+            }
+    
+            let paginatedListings = listings;
+            if (limit !== undefined) {
+                const limitNum = parseInt(limit);
+                if (offset !== undefined) {
+                    const offsetNum = parseInt(offset);
+                    paginatedListings = listings.slice(offsetNum, offsetNum + limitNum);
+                } else {
+                    paginatedListings = listings.slice(0, limitNum);
+                }
+            }
+    
+            let responseBody = paginatedListings.map((listing) => {
+                delete listing._id;
+                return listing;
+            });
+    
+            res.status(200).send(responseBody);
+        }
+    });
+    
 
-    app.get(API_BASE_JMS + "/", (req, res) => {
-      const { from, to, limit, offset, ...queryParams } = req.query;
-
-      // Verifica si hay parámetros 'from' y 'to'
-      if (from !== undefined && to !== undefined) {
-          const fromYear = parseInt(from);
-          const toYear = parseInt(to);
-          if (isNaN(fromYear) || isNaN(toYear)) {
-              return res.status(400).send("Invalid year format. Please provide valid year values.");
-          }
-
-          // Filtra los resultados dentro del rango de años especificado
-          db.find({}, (err, listings) => {
-              if (err) {
-                  return res.status(500).send("Internal Server Error");
-              }
-
-              const filteredListings = listings.filter(listing => {
-                  const listingYear = new Date(listing.host_since).getFullYear();
-                  return listingYear >= fromYear && listingYear <= toYear;
-              });
-
-              // Verificar si se encontraron resultados
-              if (filteredListings.length === 0) {
-                  return res.status(404).send("[]");
-              }
-
-              // Aplicar paginación si los parámetros limit y offset están presentes
-              let paginatedListings = filteredListings;
-              if (limit !== undefined) {
-                  const limitNum = parseInt(limit);
-                  if (offset !== undefined) {
-                      const offsetNum = parseInt(offset);
-                      paginatedListings = filteredListings.slice(offsetNum, offsetNum + limitNum);
-                  } else {
-                      paginatedListings = filteredListings.slice(0, limitNum);
-                  }
-              }
-
-              // Eliminar el campo _id de los resultados y enviar la respuesta
-              let responseBody = paginatedListings.map((listing) => {
-                  delete listing._id;
-                  return listing;
-              });
-
-              res.status(200).send(responseBody);
-          });
-      } else if (Object.keys(queryParams).length === 0) {
-          // No hay parámetros de consulta, devolver todos los recursos
-          db.find({}, handleDbResponse);
-      } else {
-          // Hay parámetros de consulta, filtrar por esos parámetros
-          db.find(queryParams, handleDbResponse);
-          if (queryParams.host_response_rate) queryParams.host_response_rate = parseFloat(queryParams.host_response_rate);
-          if (queryParams.host_acceptance_rate) queryParams.host_acceptance_rate = parseFloat(queryParams.host_acceptance_rate);
-          if (queryParams.latitude) queryParams.latitude = parseFloat(queryParams.latitude);
-          if (queryParams.longitude) queryParams.longitude = parseFloat(queryParams.longitude);
-          if (queryParams.guest_number) queryParams.guest_number = parseInt(queryParams.guest_number);
-          if (queryParams.bedroom_number) queryParams.bedroom_number = parseInt(queryParams.bedroom_number);
-          if (queryParams.price) queryParams.price = parseFloat(queryParams.price);
-          if (queryParams.minimum_nights_number) queryParams.minimum_nights_number = parseInt(queryParams.minimum_nights_number);
-          if (queryParams.maximum_nights_number) queryParams.maximum_nights_number = parseInt(queryParams.maximum_nights_number);
-      }
-
-      function handleDbResponse(err, listings) {
-          if (err) {
-              return res.status(500).send("Internal Server Error");
-          }
-
-          // Verificar si se encontraron resultados
-          if (listings.length === 0) {
-              return res.status(404).send("[]");
-          }
-
-          // Aplicar paginación si los parámetros limit y offset están presentes
-          let paginatedListings = listings;
-          if (limit !== undefined) {
-              const limitNum = parseInt(limit);
-              if (offset !== undefined) {
-                  const offsetNum = parseInt(offset);
-                  paginatedListings = listings.slice(offsetNum, offsetNum + limitNum);
-              } else {
-                  paginatedListings = listings.slice(0, limitNum);
-              }
-          }
-
-          // Eliminar el campo _id de los resultados y enviar la respuesta
-          let responseBody = paginatedListings.map((listing) => {
-              delete listing._id;
-              return listing;
-          });
-
-          res.status(200).send(responseBody);
-      }
-    }),
-
-  
     // GET => loadInitialData (al hacer un GET cree 10 o más datos en el array de NodeJS si está vacío)
     app.get(API_BASE_JMS+"/loadInitialData",(req,res) => {
       db.find({},(err,listings) => {
@@ -896,44 +1342,6 @@ function loadBackend_JMS_v2(app,db){
           res.status(200).send("Database already contains data, initial data won't be loaded again.");
         }
       }); 
-    }),
-
-    // GET => Search data by year
-    app.get(API_BASE_JMS + "/year/:year", (req, res) => {
-      const year = req.params.year;
-      const limit = parseInt(req.query.limit) || 10; // Límite predeterminado de 10 resultados
-      const offset = parseInt(req.query.offset) || 0; // Desplazamiento predeterminado de 0
-
-      // Verificar si el año tiene un formato válido (cuatro dígitos)
-      if (!(/^\d{4}$/.test(year))) {
-        return res.status(400).send("Bad Request. Please provide a valid year in YYYY format.");
-      };
-
-      const yearRegex = new RegExp(`\\d{2}/\\d{2}/${year}`);
-      
-      db.find({ host_since: { $regex: yearRegex } })
-        .skip(offset) // Aplicar desplazamiento
-        .limit(limit) // Aplicar límite
-        .exec((err, listings) => {
-          if (err) {
-            res.status(500).send("Internal Error");
-          } else {
-            if (listings.length === 0) {
-              res.status(404).send("[]");
-            } else {
-              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
-              if (listings.length === 1) {
-                const responseBody = listings[0];
-                delete responseBody._id;
-                return res.status(200).send(responseBody);
-              } else {
-                // Si hay más de un elemento, devolver el array normalmente
-                const responseBody = listings.map((listing => { delete listing._id; return listing; }));
-                return res.status(200).send(responseBody);
-              }
-            }
-          }
-        });
     }),
 
 
@@ -974,93 +1382,46 @@ function loadBackend_JMS_v2(app,db){
     });
 
 
-    // GET => Búsqueda por precio minimo y maximo
-    // Se debe especificar min_price y max_price
-    app.get(API_BASE_JMS + "/price", (req, res) => {
-      const { min_price, max_price, limit, offset } = req.query;
-
-      // Verificar si se proporcionan los parámetros mínimos y máximos de precio
-      if (!min_price || !max_price) {
-          return res.status(400).send("Bad Request. Please provide both min_price and max_price parameters.");
-      }
-
-      // Parsear los parámetros de paginación
-      const limitNum = parseInt(limit) || 10; // Valor predeterminado: 10
-      const offsetNum = parseInt(offset) || 0; // Valor predeterminado: 0
-
-      // Convertir los precios a números
-      const minPriceNum = parseFloat(min_price);
-      const maxPriceNum = parseFloat(max_price);
-
-      // Verificar si los precios son números válidos
-      if (isNaN(minPriceNum) || isNaN(maxPriceNum)) {
-          return res.status(400).send("Bad Request. Please provide valid numerical values for min_price and max_price.");
-      }
-
-      // Realizar la consulta a la base de datos para filtrar por precio
-      db.find({ price: { $gte: minPriceNum, $lte: maxPriceNum } })
-          .limit(limitNum)
-          .skip(offsetNum)
-          .exec((err, listings) => {
+    // POST => Create a new listing
+    app.post(API_BASE_JMS + "/", (req, res) => {
+      const newData = req.body;
+      const expectedFields = ["name", "host_since", "host_location", "host_response_time", "host_response_rate", "host_acceptance_rate", "neighbourhood", "city", "latitude", "longitude", "property_type", "room_type", "guest_number", "bedroom_number", "amenities_list", "price", "minimum_nights_number", "maximum_nights_number", "instant_bookable"];
+  
+      const validResponseTimes = ["within an hour", "within a few hours", "within a day", "a few days or more"];
+  
+      const receivedFields = Object.keys(newData);
+      const isValidData = expectedFields.every(field => receivedFields.includes(field));
+  
+      if (!isValidData) {
+          res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
+      } else {
+          // Verificar si ya existe un documento con el mismo cci en la base de datos
+          db.findOne({ latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
               if (err) {
-                  return res.status(500).send("Internal Server Error");
-              }
-
-              // Verificar si se encontraron resultados
-              if (listings.length === 0) {
-                  return res.status(404).send("[]");
-              }
-
-              // Si solo hay un elemento en el array, devolverlo como un objeto JSON
-              if (listings.length === 1) {
-                const responseBody = listings[0];
-                delete responseBody._id;
-                return res.status(200).send(responseBody);
+                  res.status(500).send("Internal Error"); // Error interno del servidor
               } else {
-                // Si hay más de un elemento, devolver el array normalmente
-                const responseBody = listings.map((listing) => {
-                    delete listing._id;
-                    return listing;
-                });
-                return res.status(200).send(responseBody);
+                  if (existingData) {
+                      res.status(409).send("Conflict, data already exists");  //Datos existentes
+                  } else {
+                      // Verificar si el valor de host_response_time es válido
+                      if (!validResponseTimes.includes(newData.host_response_time)) {
+                          res.status(400).send("Bad Request, invalid host_response_time"); // host_response_time inválido
+                      } else {
+                          // Si no existe, insertar el nuevo documento
+                          db.insert(newData, (err, insertedData) => {
+                              if (err) {
+                                  res.status(500).send("Internal Error"); // Error interno del servidor
+                              } else {
+                                  res.status(201).send("Created");
+                              }
+                          });
+                      }
+                  }
               }
           });
-    }),
-
-
-  // POST => Create a new listing
-  app.post(API_BASE_JMS + "/", (req, res) => {
-
-    const newData =  req.body;
-    const expectedFields = ["name","host_since","host_location","host_response_time","host_response_rate","host_acceptance_rate","neighbourhood","city","latitude","longitude","property_type","room_type","guest_number","bedroom_number","amenities_list","price","minimum_nights_number","maximum_nights_number","instant_bookable"
-    ];
-    const receivedFields = Object.keys(newData);
-    const isValidData = expectedFields.every(field => receivedFields.includes(field));
-
-    if (!isValidData) {
-      res.status(400).send("Bad Request, please provide valid data"); // Datos inválidos
-    } else {
-        // Verificar si ya existe un documento con el mismo cci en la base de datos
-        db.findOne({latitude: newData.latitude, longitude: newData.longitude }, (err, existingData) => {
-            if (err) {
-              res.status(500).send("Internal Error"); // Error interno del servidor
-            } else {
-                if (existingData) {
-                  res.status(409).send("Conflict, data already exists");  //Datos existentes
-                } else {
-                    // Si no existe, insertar el nuevo documento
-                    db.insert(newData, (err, insertedData) => {
-                        if (err) {
-                          res.status(500).send("Internal Error"); // Error interno del servidor
-                        } else {
-                          res.status(201).send("Created");
-                        }
-                    });
-                }
-            }
-        });
-    }
-  }),
+      }
+    });
+  
 
     // PUT => Can't update root directory
     app.put(API_BASE_JMS + "/", (req,res)=> {
@@ -1068,7 +1429,7 @@ function loadBackend_JMS_v2(app,db){
     }),
 
       // PUT => Update resource by latitude and longitude
-      app.put(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
+    app.put(API_BASE_JMS + "/:latitude/:longitude", (req, res) => {
         const latitude = parseFloat(req.params.latitude);
         const longitude = parseFloat(req.params.longitude);
         let data = req.body;

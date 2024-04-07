@@ -768,7 +768,7 @@ function loadBackend_JMR_v2(app,db) {
 
     // REDIRECT al portal de documentación
   app.get(API_BASE_JMR + "/docs", (req, res) => {
-    res.redirect("https://documenter.getpostman.com/view/33042137/2sA2xh3tPY");
+    res.redirect("https://documenter.getpostman.com/view/33042137/2sA35LVK84");
   });
 
     // GET => Lista todos los datos

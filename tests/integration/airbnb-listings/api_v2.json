@@ -534,7 +534,7 @@
 					]
 				},
 				{
-					"name": "/year/YYYY",
+					"name": "?year=2020",
 					"event": [
 						{
 							"listen": "test",
@@ -550,8 +550,7 @@
 									"})\r",
 									"\r",
 									"pm.test(\"Host_since year matches requested year\", function () {\r",
-									"    var yearurl = pm.request.url + \"\"\r",
-									"    var year = yearurl.split(\"/\").pop(); // Extraemos el año de la URL\r",
+									"    var year = 2020;\r",
 									"    var jsonData = pm.response.json();\r",
 									"    jsonData.forEach(function(item) {\r",
 									"        var dateString = item.host_since; // Obtener la cadena de fecha de host_since\r",
@@ -572,13 +571,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/year/2020",
+							"raw": "{{SERVER}}?year=2020",
 							"host": [
 								"{{SERVER}}"
 							],
-							"path": [
-								"year",
-								"2020"
+							"query": [
+								{
+									"key": "year",
+									"value": "2020"
+								}
 							]
 						},
 						"description": "The request fetches data from the \"airbnb-listings\" API endpoint located at [https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2020](https://sos2324-12.appspot.com/api/v1/airbnb-listings/year/2020). This methods allows limit&offset parameters. It retrieves Airbnb listings data specifically for the year 2020. A successful GET request typically returns a `200 OK.`"
@@ -818,11 +819,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER}}/40.66542/-73.96062",
+									"raw": "http://localhost:10000/api/v2/airbnb-listings/40.66542/-73.96062",
+									"protocol": "http",
 									"host": [
-										"{{SERVER}}"
+										"localhost"
 									],
+									"port": "10000",
 									"path": [
+										"api",
+										"v2",
+										"airbnb-listings",
 										"40.66542",
 										"-73.96062"
 									]
@@ -871,7 +877,7 @@
 					]
 				},
 				{
-					"name": "/price?min_price=XX&max_price=YY",
+					"name": "?min_price=XX&max_price=YY",
 					"event": [
 						{
 							"listen": "test",
@@ -902,12 +908,9 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER}}/price?min_price=10&max_price=50",
+							"raw": "{{SERVER}}?min_price=10&max_price=50",
 							"host": [
 								"{{SERVER}}"
-							],
-							"path": [
-								"price"
 							],
 							"query": [
 								{
@@ -920,7 +923,7 @@
 								}
 							]
 						},
-						"description": "This GET /listings/price method allows users to filter listings by price, specifying a minimum and maximum price range. Results can be paginated using the limit and offset parameters. If the minimum and maximum prices are not provided or are not valid numeric values, an error message is returned. If no results are found within the specified price range, a 404 error message is returned."
+						"description": "This GET method allows users to filter listings by price, specifying a minimum and maximum price range. Results can be paginated using the limit and offset parameters. If the minimum and maximum prices are not provided or are not valid numeric values, an error message is returned. If no results are found within the specified price range, a 404 error message is returned."
 					},
 					"response": [
 						{
@@ -929,11 +932,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER}}/price?min_price=10&max_price=50&limit=1",
+									"raw": "http://localhost:10000/api/v2/airbnb-listings/price?min_price=10&max_price=50&limit=1",
+									"protocol": "http",
 									"host": [
-										"{{SERVER}}"
+										"localhost"
 									],
+									"port": "10000",
 									"path": [
+										"api",
+										"v2",
+										"airbnb-listings",
 										"price"
 									],
 									"query": [
@@ -1221,11 +1229,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER}}/price/200/250",
+									"raw": "http://localhost:10000/api/v2/airbnb-listings/price/200/250",
+									"protocol": "http",
 									"host": [
-										"{{SERVER}}"
+										"localhost"
 									],
+									"port": "10000",
 									"path": [
+										"api",
+										"v2",
+										"airbnb-listings",
 										"price",
 										"200",
 										"250"
@@ -1309,11 +1322,16 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER}}/price/9999/13250",
+									"raw": "http://localhost:10000/api/v2/airbnb-listings/price/9999/13250",
+									"protocol": "http",
 									"host": [
-										"{{SERVER}}"
+										"localhost"
 									],
+									"port": "10000",
 									"path": [
+										"api",
+										"v2",
+										"airbnb-listings",
 										"price",
 										"9999",
 										"13250"
