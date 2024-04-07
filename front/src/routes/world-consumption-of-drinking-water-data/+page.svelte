@@ -10,7 +10,7 @@ import {onMount} from "svelte";
 
 // Rutas
 
-let API = '/api/v2/world-consumption-of-drinking-water-data';
+let API = '/api/v1/world-consumption-of-drinking-water-data';
 if(dev)
     API = 'http://localhost:10000'+API;
   
@@ -262,6 +262,7 @@ async function createListing(){
     || !newListing.urban_unimproved_other || !newListing.rural_improved_total || !newListing.rural_improved_piped || 
     !newListing.rural_improved_other || !newListing.rural_unimproved_other || !newListing.rural_unimproved_surface || !newListing.total_improved_total || 
     !newListing.total_improved_piped || !newListing.total_improved_other || !newListing.total_unimproved_other || !newListing.total_unimproved_surface) {
+        
         error_msg = "Por favor, completa todos los campos.";
         success_msg = "";
         return;
