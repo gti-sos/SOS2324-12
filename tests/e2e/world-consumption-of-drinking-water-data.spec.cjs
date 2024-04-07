@@ -30,7 +30,7 @@ test('has title SOS2324-12 Project', async () => {
   await expect(page).toHaveTitle(/SOS2324-12 Project/);
 });
 
-test('load and list airbnb rentals', async () => {
+test('load and list water data', async () => {
   test.setTimeout(60000);
   await page.goto('http://localhost:10000/api/v2/world-consumption-of-drinking-water-data/loadInitialData');
   await page.goto('http://localhost:10000/world-consumption-of-drinking-water-data');
@@ -101,7 +101,7 @@ test('create resource', async () => {
 test('edit resource', async () => {
   test.setTimeout(60000);
   await page.goto('http://localhost:10000/api/v2/world-consumption-of-drinking-water-data/loadInitialData');
-  await page.goto('http://localhost:10000/world-consumption-of-drinking-water-data/CHL/2015');
+  await page.goto('http://localhost:10000/world-consumption-of-drinking-water-data/1/CHL/2015');
   await page.waitForLoadState('load');
   await page.waitForTimeout(1000);
   await page.fill('#urban_improved_other', '33');
