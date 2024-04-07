@@ -750,7 +750,7 @@ function fillFormWithTestData() {
 
     {#if showForm}
     <Modal isOpen={showForm} {toggle2} {size}>
-        <ModalHeader {toggle2}>Crear datos</ModalHeader>
+        <ModalHeader {toggle2}>Crear dato</ModalHeader>
         <ModalBody>
           <Container style="justify-content: center; text-align: center;">
                 <Button color="primary" on:click={fillFormWithTestData}>Rellenar con datos de prueba</Button>
