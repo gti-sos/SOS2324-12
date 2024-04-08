@@ -69,12 +69,13 @@ test('create resource', async () => {
 
 test('edit resource', async () => {
   test.setTimeout(60000);
-
   await page.goto('http://localhost:10000/airbnb-listings/40.75563/-73.96418');
   await page.waitForLoadState('load');
+  await page.waitForTimeout(1000);
   await page.selectOption('#respuestaTiempo', 'a few days or more');
   await page.click('button:text("Actualizar")');
-  const successMessage = await page.$('text=El dato con latitud 40.75563 y longitud -73.96418 se ha actualizado correctamente');
+  await page.waitForTimeout(1000);
+  let successMessage = await page.$('text=El dato con latitud 40.75563 y longitud -73.96418 se ha actualizado correctamente');
   expect(successMessage).not.toBeNull();
 });
 
