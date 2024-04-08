@@ -75,11 +75,11 @@ test('create resource', async () => {
   await page.goto('http://localhost:10000/global-food-prices');
   await page.waitForLoadState('load');
   await page.click('text="Crear Nuevo Dato"');
-  await page.waitForSelector('text="Crear dato"');
+  await page.fill('text="Crear dato"');
   await page.fill('#adm0_id', '1');
   await page.fill('#adm0_name', 'Ejemplo');
   await page.fill('#adm1_id', '1');
-  await page.selectOption('#adm1_name', 'Ejemplo');
+  await page.fill('#adm1_name', 'Ejemplo');
   await page.fill('#mkt_id', '100');
   await page.fill('#mkt_name', 'Ejemplo');
   await page.fill('#cm_id', '1');
