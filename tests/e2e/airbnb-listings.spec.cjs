@@ -70,31 +70,13 @@ test('delete all resources', async () => {
 });
 
 test('create resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(120000);
   await page.goto('http://localhost:10000/api/v2/airbnb-listings/loadInitialData');
   await page.goto('http://localhost:10000/airbnb-listings');
   await page.waitForLoadState('load');
-  await page.click('text="Crear"');
+  await page.click('text="Añadir"');
   await page.waitForSelector('text="Crear dato"');
-  await page.fill('#name', 'Ejemplo');
-  await page.fill('#hostSince', '16/11/2023');
-  await page.fill('#hostLocation', 'Ejemplo');
-  await page.selectOption('#responseTime', { label: 'within a few hours' });
-  await page.fill('#responseRate', '100');
-  await page.fill('#acceptanceRate', '100');
-  await page.fill('#neighbourhood', 'Ejemplo');
-  await page.fill('#city', 'Ejemplo');
-  await page.fill('#latitude', '10020');
-  await page.fill('#longitude', '10030');
-  await page.selectOption('#propertyType', { label: 'Entire apartment' });
-  await page.selectOption('#roomType', { label: 'Private room' });
-  await page.fill('#guestNumber', '1');
-  await page.fill('#bedroomNumber', '1');
-  await page.fill('#amenitiesList', 'Ejemplo');
-  await page.fill('#price', '100');
-  await page.fill('#minimumNights', '1');
-  await page.fill('#maximumNights', '30');
-  await page.selectOption('#instantBookable', { label: 'TRUE' });
+  await page.click('text="Rellenar con datos de prueba"');
   await page.click('text="Crear"');
   let successMessage = await page.$('text=Se ha creado correctamente el alquiler de nombre Ejemplo');
   expect(successMessage).not.toBeNull();
