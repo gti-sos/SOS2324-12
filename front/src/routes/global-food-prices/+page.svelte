@@ -781,11 +781,11 @@
 	<Row cols={{ xs: 2, sm: 3, md: 3, lg: 3, xl: 4 }}>
 		{#each listings as listing}
 			<Col class="mb-3">
-				<Card>
+				<Card class="tarjeta">
 					<CardHeader>
 						<CardTitle>{listing.cm_name}</CardTitle>
 					</CardHeader>
-					<CardBody>
+					<CardBody class='tarjetas-datos'>
 						<CardText>
 							<strong>País ID:</strong>{listing.adm0_id} <br />
 							<strong>Nombre del país:</strong>
@@ -822,6 +822,7 @@
 						</CardText>
 						<Button
 							color="danger"
+							id ="deleteResourceButton"
 							on:click={() =>
 								deleteListing(
 									listing.adm0_id,
