@@ -123,9 +123,11 @@
                                         <CardBody>
                                             <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faServer}/> API</CardSubtitle><br>
                                             <Button size="sm" color="primary" href="{API}/global-food-prices/" >v1</Button>
+                                            <Button size="sm" color="primary" href="{API_v2}/global-food-prices/">v2</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faFile}/> Documentation</CardSubtitle><br>
                                             <Button size="sm" color="info" href="{API}/global-food-prices/docs">v1</Button>
+                                            <Button size="sm" color="info" href="{API_v2}/global-food-prices/docs">v2</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/global-food-prices/">global-food-prices</Button>
