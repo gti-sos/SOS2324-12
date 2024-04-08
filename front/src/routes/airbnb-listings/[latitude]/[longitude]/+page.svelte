@@ -130,82 +130,7 @@
 </script>
 <main>
     <Container class="content-container" style="justify-content: center;"> 
-        <!--______________________________________Cabecera_____________________________________-->
-        <Container style="justify-content: center; text-align: center;">
-                <h1> Datos del recurso</h1>
-        </Container>
-        <Container fluid>
-            <Row>
-                <Col>
-                    <Card>
-                        <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
-                            <CardTitle><Fa icon={faHouse}/> {updatedListing.name}</CardTitle>
-                        </CardHeader>
-                        <CardBody class='tarjetas-datos-edit'>
-                            <CardText>
-                                <Row>
-                                    <Col class='mb-3'>
-                                        <strong>Fecha de registro del anfitrión: </strong>{updatedListing.host_since}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Ubicación del anfitrión: </strong>{updatedListing.host_location}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Tiempo de respuesta del anfitrión: </strong>{updatedListing.host_response_time}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Tasa de respuesta del anfitrión: </strong>{updatedListing.host_response_rate}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Tasa de aceptación del anfitrión: </strong>{updatedListing.host_acceptance_rate}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Barrio: </strong>{updatedListing.neighbourhood}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Ciudad: </strong>{updatedListing.city}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Latitud: </strong>{updatedListing.latitude}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Longitud: </strong>{updatedListing.longitude}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Tipo de propiedad: </strong>{updatedListing.property_type}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Tipo de habitación: </strong>{updatedListing.room_type}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Número de huéspedes: </strong>{updatedListing.guest_number}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Número de habitaciones: </strong>{updatedListing.bedroom_number}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Lista de comodidades: </strong>
-                                        {updatedListing.amenities_list}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Precio: </strong>{updatedListing.price}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Número mínimo de noches: </strong>{updatedListing.minimum_nights_number}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>Número máximo de noches: </strong>{updatedListing.maximum_nights_number}
-                                    </Col>
-                                    <Col class='mb-3'>
-                                        <strong>¿Reserva instantánea? </strong>{updatedListing.instant_bookable ? "Sí" : "No"} 
-                                    </Col>
-                                </Row>
-                            </CardText>
-                        </CardBody>
-                    </Card>
-                </Col>
-            </Row>
-        </Container>
+        
     
         <br/>
 
@@ -224,7 +149,85 @@
             <strong>Éxito:</strong> {success2_msg}
         </Alert>
         {/if}
-    
+
+        {#if updatedListing.latitude !== undefined}
+        <!--______________________________________Cabecera_____________________________________-->
+        <Container style="justify-content: center; text-align: center;">
+            <h1> Datos del recurso</h1>
+    </Container>
+    <Container fluid>
+        <Row>
+            <Col>
+                <Card>
+                    <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
+                        <CardTitle><Fa icon={faHouse}/> {updatedListing.name}</CardTitle>
+                    </CardHeader>
+                    <CardBody class='tarjetas-datos-edit'>
+                        <CardText>
+                            <Row>
+                                <Col class='mb-3'>
+                                    <strong>Fecha de registro del anfitrión: </strong>{updatedListing.host_since}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Ubicación del anfitrión: </strong>{updatedListing.host_location}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Tiempo de respuesta del anfitrión: </strong>{updatedListing.host_response_time}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Tasa de respuesta del anfitrión: </strong>{updatedListing.host_response_rate}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Tasa de aceptación del anfitrión: </strong>{updatedListing.host_acceptance_rate}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Barrio: </strong>{updatedListing.neighbourhood}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Ciudad: </strong>{updatedListing.city}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Latitud: </strong>{updatedListing.latitude}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Longitud: </strong>{updatedListing.longitude}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Tipo de propiedad: </strong>{updatedListing.property_type}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Tipo de habitación: </strong>{updatedListing.room_type}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Número de huéspedes: </strong>{updatedListing.guest_number}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Número de habitaciones: </strong>{updatedListing.bedroom_number}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Lista de comodidades: </strong>
+                                    {updatedListing.amenities_list}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Precio: </strong>{updatedListing.price}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Número mínimo de noches: </strong>{updatedListing.minimum_nights_number}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>Número máximo de noches: </strong>{updatedListing.maximum_nights_number}
+                                </Col>
+                                <Col class='mb-3'>
+                                    <strong>¿Reserva instantánea? </strong>{updatedListing.instant_bookable ? "Sí" : "No"} 
+                                </Col>
+                            </Row>
+                        </CardText>
+                    </CardBody>
+                </Card>
+            </Col>
+        </Row>
+    </Container>
+    <hr>
     <Container class="mb-3">
         <Row>
             <Col class="text-center" id="editar">
@@ -397,6 +400,8 @@
                     </Col>
         </Row>
     </Container>
+        {/if}
+    
     </Container>
 </main>
 
