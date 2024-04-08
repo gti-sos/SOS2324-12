@@ -559,7 +559,7 @@ function toggleDetails(dato) {
             <Button color="warning" on:click="{getInitialListings}"><Fa icon={faSpinner}/> Cargar datos</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Crear</Button>
+            <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Añadir</Button>
         </Col>
         <Col>
             <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtros</Button>
