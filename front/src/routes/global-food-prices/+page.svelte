@@ -46,7 +46,7 @@
 	} from '@fortawesome/free-solid-svg-icons';
 
 	// Rutas
-	let API = '/api/v1/global-food-prices';
+	let API = '/api/v2/global-food-prices';
 	if (dev) API = 'http://localhost:10000' + API;
 
 	// ===============================================
@@ -609,25 +609,25 @@
 						<Row>
 							<Col>
 								<FormGroup>
-									<Label for="adm0_id">Country ID</Label>
+									<Label for="adm0_id">Pais ID</Label>
 									<Input type="number" id="adm0_id" bind:value={selectedFilter.adm0_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="adm0_name">Country Name</Label>
+									<Label for="adm0_name">Nombre del pais</Label>
 									<Input type="select" id="adm0_name" bind:value={selectedFilter.adm0_name}/>
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="adm1_id">Locality ID</Label>
+									<Label for="adm1_id">Localidad ID</Label>
 									<Input type="number" id="adm1_id" bind:value={selectedFilter.adm1_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="adm1_name">Locality name</Label>
+									<Label for="adm1_name">Nombre de la localidad</Label>
 									<Input type="select" id="adm1_name" bind:value={selectedFilter.adm1_name}/>
 								</FormGroup>
 							</Col>
@@ -635,25 +635,25 @@
 						<Row>
 							<Col>
 								<FormGroup>
-									<Label for="mkt_id">Market ID</Label>
+									<Label for="mkt_id">Mercado ID</Label>
 									<Input type="number" id="mkt_id" bind:value={selectedFilter.mkt_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="mkt_name">Market name</Label>
+									<Label for="mkt_name">Nombre del mercado</Label>
 									<Input type="text" id="mkt_name" bind:value={selectedFilter.mkt_name} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="cm_id">Commodity Purchase ID</Label>
+									<Label for="cm_id">Producto ID</Label>
 									<Input type="number" id="cm_id" bind:value={selectedFilter.cm_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="cm_name">Commodity Purchase name</Label>
+									<Label for="cm_name">Nombre del producto</Label>
 									<Input type="text" id="cm_name" bind:value={selectedFilter.cm_name} required />
 								</FormGroup>
 							</Col>
@@ -661,25 +661,25 @@
 						<Row>
 							<Col>
 								<FormGroup>
-									<Label for="cur_id">Currency ID</Label>
+									<Label for="cur_id">Moneda ID</Label>
 									<Input type="number" id="cur_id" bind:value={selectedFilter.cur_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="cur_name">Currency name</Label>
+									<Label for="cur_name">Nombre de la moneda</Label>
 									<Input type="text" id="cur_name" bind:value={selectedFilter.cur_name} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="pt_id">Product ID</Label>
+									<Label for="pt_id">Compra ID</Label>
 									<Input type="number" id="pt_id" bind:value={selectedFilter.pt_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="pt_name">Product name</Label>
+									<Label for="pt_name">Tipo de compra</Label>
 									<Input type="text" id="pt_name" bind:value={selectedFilter.pt_name} required />
 								</FormGroup>
 							</Col>
@@ -687,19 +687,19 @@
 						<Row>
 							<Col>
 								<FormGroup>
-									<Label for="um_id">Measurement ID</Label>
+									<Label for="um_id">Medida ID</Label>
 									<Input type="number" id="um_id" bind:value={selectedFilter.um_id} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="um_name">Unit of goods measurement</Label>
+									<Label for="um_name">Unidad de medida</Label>
 									<Input type="text" id="um_name" bind:value={selectedFilter.um_name} required />
 								</FormGroup>
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="mp_month">Month recorded</Label>
+									<Label for="mp_month">Mes</Label>
 									<Input
 										type="number"
 										id="mp_month"
@@ -710,7 +710,7 @@
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="mp_year">Year recorder</Label>
+									<Label for="mp_year">Año</Label>
 									<Input type="number" id="mp_year" bind:value={selectedFilter.mp_year} required />
 								</FormGroup>
 							</Col>
@@ -718,7 +718,7 @@
 						<Row>
 							<Col>
 								<FormGroup>
-									<Label for="mp_price">Price</Label>
+									<Label for="mp_price">Precio</Label>
 									<Input
 										type="number"
 										id="mp_price"
@@ -729,11 +729,33 @@
 							</Col>
 							<Col>
 								<FormGroup>
-									<Label for="mp_commoditysource">Source supplying price information</Label>
+									<Label for="mp_commoditysource">Fuente de datos</Label>
 									<Input
 										type="text"
 										id="mp_commoditysource"
 										bind:value={selectedFilter.mp_commoditysource}
+										required
+									/>
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label for="from">Desde el año</Label>
+									<Input
+										type="number"
+										id="from"
+										bind:value={from}
+										required
+									/>
+								</FormGroup>
+							</Col>
+							<Col>
+								<FormGroup>
+									<Label for="to">Hasta el año</Label>
+									<Input
+										type="number"
+										id="to"
+										bind:value={to}
 										required
 									/>
 								</FormGroup>

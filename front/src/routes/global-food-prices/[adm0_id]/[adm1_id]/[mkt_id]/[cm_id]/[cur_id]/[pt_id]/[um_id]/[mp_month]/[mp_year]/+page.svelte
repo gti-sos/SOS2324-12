@@ -13,7 +13,7 @@
 
 
     // Rutas
-    let API = '/api/v1/global-food-prices';
+    let API = '/api/v2/global-food-prices';
     if(dev)
         API = 'http://localhost:10000'+API;
     
@@ -79,6 +79,7 @@
             success_msg = "";
             window.scrollTo(0, 0);
         } else if (status == 200){
+            if (response.adm0_id = "undefined")
             success_msg = "Este es el dato solicitado";
             error_msg = "";
             window.scrollTo(0, 0);
