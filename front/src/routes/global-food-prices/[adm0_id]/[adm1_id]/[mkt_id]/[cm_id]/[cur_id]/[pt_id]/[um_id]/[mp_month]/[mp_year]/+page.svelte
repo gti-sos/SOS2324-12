@@ -7,6 +7,8 @@
     import { query_selector_all } from 'svelte/internal';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
+    import {faHouse, faCheck, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
+    import Fa from 'svelte-fa';
 
 
 
@@ -110,7 +112,7 @@
             const status = await response.status;
             if (status == 200){
                 getResource();
-                success2_msg = "El dato se ha actuallizado correctamente";
+                success2_msg = "El dato se ha actualizado correctamente";
                 error_msg = "";
                 window.scrollTo(0, 0);
             } else if (status == 404){
@@ -130,6 +132,78 @@
         <!--______________________________________Cabecera_____________________________________-->
         <Container style="justify-content: center; text-align: center;">
                 <h1> Datos del recurso</h1>
+        </Container>
+        <Container fluid>
+            <Row>
+                <Col>
+                    <Card>
+                        <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid; justify-content: center; text-align: center;">
+                            <CardTitle><Fa icon={faHouse}/> {updatedListing.cm_name}</CardTitle>
+                        </CardHeader>
+                        <CardBody class='tarjetas-datos-edit'>
+                            <CardText>
+                                <Row>
+                                    <Col class='mb-3'>
+                                        <strong>País ID: </strong>{updatedListing.adm0_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre del país: </strong>{updatedListing.adm0_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Localidad ID: </strong>{updatedListing.adm1_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre de la localidad: </strong>{updatedListing.adm1_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Mercado ID: </strong>{updatedListing.mkt_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre del mercado: </strong>{updatedListing.mkt_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Producto ID: </strong>{updatedListing.cm_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre del producto: </strong>{updatedListing.cm_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Moneda ID: </strong>{updatedListing.cur_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre de la moneda: </strong>{updatedListing.cur_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Compra ID: </strong>{updatedListing.pt_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Tipo de compra: </strong>{updatedListing.pt_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Medida ID: </strong>{updatedListing.um_id}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Nombre de la medida: </strong>
+                                        {updatedListing.um_name}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Mes de la medida: </strong>{updatedListing.mp_month}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Año de la medida: </strong>{updatedListing.mp_year}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Precio: </strong>{updatedListing.mp_price}
+                                    </Col>
+                                    <Col class='mb-3'>
+                                        <strong>Fuente de datos: </strong>{updatedListing.mp_commoditysource ? "Sí" : "No"} 
+                                    </Col>
+                                </Row>
+                            </CardText>
+                        </CardBody>
+                    </Card>
+                </Col>
+            </Row>
         </Container>
     
         <br/>
@@ -152,11 +226,16 @@
     
     <Container class="mb-3">
         <Row>
-            <Col class="text-center">
+            <Col class="text-center" id="editar">
                 <h1>
                     Editar recurso
                 </h1>
             </Col>
+            <br>
+            <hr>
+            <Row class="text-center">
+                <Button color="success" on:click={() => { window.location.href = `/global-food-prices/`}}><Fa icon={faLongArrowLeft}/> Volver</Button>
+            </Row>
             <br>
             <hr>
             <Row cols={{ xs: 2, sm: 2, md: 3, lg: 3, xl: 3 }}>
