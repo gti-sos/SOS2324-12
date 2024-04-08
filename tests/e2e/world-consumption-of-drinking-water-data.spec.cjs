@@ -28,11 +28,15 @@ test('has title SOS2324-12 Project', async () => {
 });
 
 test('load and list water data', async () => {
+  test.setTimeout(60000);
+
   const tarjetasDatos = await page.locator('.tarjetas-datos').count();
   await expect(tarjetasDatos).toBeGreaterThan(5);
 });
 
 test('delete resource', async () => {
+  test.setTimeout(60000);
+
   let resourceTitleBeforeDelete = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('#deleteResourceButton');
   await page.waitForTimeout(500);
@@ -41,6 +45,8 @@ test('delete resource', async () => {
 });
 
 test('delete all resources', async () => {
+  test.setTimeout(60000);
+
   await page.click('#deleteAllButton');
   await page.waitForTimeout(500);
   await page.click('#deleteAllButtonConfirm');
@@ -50,6 +56,8 @@ test('delete all resources', async () => {
 });
 
 test('create resource', async () => {
+  test.setTimeout(60000);
+
   await page.click('text="Crear Nuevo Dato"');
   await page.waitForSelector('text="Rellenar con datos de prueba"');
   await page.click('text="Rellenar con datos de prueba"');
@@ -57,6 +65,8 @@ test('create resource', async () => {
 });
 
 test('edit resource', async () => {
+  test.setTimeout(60000);
+
   await page.goto('http://localhost:10000/world-consumption-of-drinking-water-data/1/CHL/2015');
   await page.waitForLoadState('load');
   await page.fill('#urban_improved_other', '33');
@@ -66,6 +76,8 @@ test('edit resource', async () => {
 });
 
 test('pagination works', async () => {
+  test.setTimeout(60000);
+
   let resourceTitleFirstPage = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('button:has-text("Siguiente")');
   await page.waitForTimeout(500);

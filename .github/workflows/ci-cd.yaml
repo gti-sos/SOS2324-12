@@ -1,12 +1,12 @@
 name: CI / CD
-on: [push,pull_request]
+on: [push, pull_request]
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: cd front; npm install; cd ..
-      - run: cd front; npm run build; cd ..
+      - run: cd front && npm install && cd ..
+      - run: cd front && npm run build && cd ..
       - run: npm install
       - run: npx playwright install --with-deps
       - run: npm i --save-dev @types/jest
@@ -31,8 +31,7 @@ jobs:
         run: 'gcloud info'
       
       - run: npm install --save @fortawesome/free-solid-svg-icons
-      - run: cd front; npm install --save @fortawesome/free-solid-svg-icons && npm install; cd ..
-      - run: cd front; npm run build; cd ..
+      - run: cd front && npm install --save @fortawesome/free-solid-svg-icons && npm install && npm run build && cd ..
     
       - name: Deploy
         run: gcloud app deploy

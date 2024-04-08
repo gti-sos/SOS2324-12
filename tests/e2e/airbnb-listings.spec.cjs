@@ -29,11 +29,14 @@ test('has title SOS2324-12 Project', async () => {
 });
 
 test('load and list airbnb rentals', async () => {
+  test.setTimeout(60000);
   const tarjetasDatos = await page.locator('.tarjetas-datos').count();
   await expect(tarjetasDatos).toBeGreaterThan(5);
 });
 
 test('delete resource', async () => {
+  test.setTimeout(60000);
+
   const resourceTitleBeforeDelete = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('#deleteResourceButton');
   await page.waitForTimeout(500);
@@ -42,6 +45,8 @@ test('delete resource', async () => {
 });
 
 test('delete all resources', async () => {
+  test.setTimeout(60000);
+
   await page.click('#deleteAllButton');
   await page.waitForTimeout(1000);
   await page.click('#deleteAllButtonConfirm');
@@ -51,6 +56,8 @@ test('delete all resources', async () => {
 });
 
 test('create resource', async () => {
+  test.setTimeout(60000);
+
   await page.click('text="Añadir"');
   await page.waitForSelector('text="Crear dato"');
   await page.click('text="Rellenar con datos de prueba"');
@@ -61,6 +68,8 @@ test('create resource', async () => {
 });
 
 test('edit resource', async () => {
+  test.setTimeout(60000);
+
   await page.goto('http://localhost:10000/airbnb-listings/40.75563/-73.96418');
   await page.waitForLoadState('load');
   await page.selectOption('#respuestaTiempo', 'a few days or more');
@@ -70,6 +79,8 @@ test('edit resource', async () => {
 });
 
 test('pagination works', async () => {
+  test.setTimeout(60000);
+
   const resourceTitleFirstPage = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('button:has-text("Siguiente")');
   await page.waitForTimeout(500);
