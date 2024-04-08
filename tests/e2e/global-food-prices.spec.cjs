@@ -32,7 +32,7 @@ test('has title SOS2324-12 Project', async () => {
 
 test('load and list airbnb rentals', async () => {
   test.setTimeout(60000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
+  await page.goto('http://localhost:10000/api/v2/global-food-prices/loadInitialData');
   await page.goto('http://localhost:10000/global-food-prices');
   await page.waitForLoadState('load');
   await page.waitForTimeout(1000);
@@ -41,7 +41,7 @@ test('load and list airbnb rentals', async () => {
 
 test('delete resource', async () => {
   test.setTimeout(60000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
+  await page.goto('http://localhost:10000/api/v2/global-food-prices/loadInitialData');
   await page.waitForTimeout(1000);
   await page.goto('http://localhost:10000/global-food-prices');
   await page.waitForLoadState('load');
@@ -54,7 +54,7 @@ test('delete resource', async () => {
 });
 test('delete all resources', async () => {
   test.setTimeout(90000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
+  await page.goto('http://localhost:10000/api/v2/global-food-prices/loadInitialData');
   await page.waitForTimeout(1000);
   await page.goto('http://localhost:10000/global-food-prices');
   await page.waitForLoadState('load');
@@ -72,7 +72,7 @@ test('delete all resources', async () => {
 
 test('edit resource', async () => {
   test.setTimeout(60000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
+  await page.goto('http://localhost:10000/api/v2/global-food-prices/loadInitialData');
   await page.goto('http://localhost:10000/global-food-prices/1/275/267/145/87/15/5/10/2008');
   await page.waitForLoadState('load');
   await page.waitForTimeout(1000);
