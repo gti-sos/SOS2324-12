@@ -22322,8 +22322,12 @@ function loadBackend_BFA_v2(app, db) {
         return res.status(500).send("Internal Server Error");
       }
 
+      if (listings.length === 0) {
+        return res.status(404).send("[]");
+    }
+
       // Si solo hay un elemento en el array, devolverlo como un objeto JSON
-      if (listings.length === 1) {
+      else if (listings.length === 1) {
         const responseBody = listings[0];
         delete responseBody._id;
         res.status(200).send(responseBody);
