@@ -140,3 +140,7 @@ front/node_modules
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+#package-lock
+package-lock.json
+/front/package-lock.json
