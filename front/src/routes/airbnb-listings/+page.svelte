@@ -408,6 +408,32 @@ async function deleteListing(lat,lon){
     if (status == 200){
         success2_msg = "El recurso con latitud "+lat+" y longitud "+lon+" ha sido eliminado";
         error_msg = "";
+        
+         // Verifica si newListing coincide con el recurso eliminado y, de ser así, actualízalo a null o elimínalo
+         if (newListing.latitude === lat && newListing.longitude === lon) {
+            newListing = {
+    name: "",
+    host_since: "",
+    host_location: "",
+    host_response_time: "",
+    host_response_rate: "",
+    host_acceptance_rate: "",
+    neighbourhood: "",
+    city: "",
+    latitude: "",
+    longitude: "",
+    property_type: "",
+    room_type: "",
+    guest_number: "",
+    bedroom_number: "",
+    amenities_list: "",
+    price: "",
+    minimum_nights_number: "",
+    maximum_nights_number: "",
+    instant_bookable: ""
+                }; 
+            };
+
         getListings();
         window.scrollTo(0, 0);
     } else if (status == 204) {
