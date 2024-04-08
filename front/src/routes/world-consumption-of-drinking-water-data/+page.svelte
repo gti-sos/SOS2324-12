@@ -1036,8 +1036,8 @@ function fillFormWithTestData() {
         {#each listings as listing}
             <Col class='mb-3'>
                 <Card class="tarjeta">
-                    <CardHeader style="background-color: #008080; color: white; text-decoration-style: solid;">
-                        <CardTitle class="card-title"><Fa icon={faHouse}/> <a style = "color: white" href={`world-consumption-of-drinking-water-data/1/${listing.iso_code}/${listing.year}`}>{listing.country}</a></CardTitle>
+                    <CardHeader style="text-decoration-style: solid;">
+                        <CardTitle class="card-title"><a style = "color: black" href={`world-consumption-of-drinking-water-data/1/${listing.iso_code}/${listing.year}`}>{listing.country}</a></CardTitle>
                     </CardHeader>
                     <CardBody class='tarjetas-datos'>
                         <CardText>

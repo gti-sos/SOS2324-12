@@ -5,7 +5,7 @@
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { page } from '$app/stores'; 
-    import {faHouse, faCheck, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
+    import {faCalendar, faLocationPin, faClock, faWaveSquare, faBuilding, faCity, faGlobe, faList, faBed, faPerson, faEuro, faMoon, faKitchenSet, faBook, faHouse, faCheck, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
     import Fa from 'svelte-fa';
 
 
@@ -242,25 +242,25 @@
             <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
                             <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="nombre">Nombre</Label>
+                                <Label for="nombre"><Fa icon={faHouse}/> Nombre</Label>
                                 <Input id="nombre" invalid={!updatedListing.name} bind:value={updatedListing.name} placeholder="Nuevo nombre"/>
                             </FormGroup>
                             </Col>
                             <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="fechaRegistro">Fecha de registro de anfitrión</Label>
+                                <Label for="fechaRegistro"><Fa icon={faCalendar}/> Fecha de registro de anfitrión</Label>
                                 <Input type="text" id="fechaRegistro" invalid={!updatedListing.host_since} bind:value={updatedListing.host_since} placeholder="Nueva fecha de registro de anfitrión"/>
                             </FormGroup>
                             </Col>
                             <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="ubicacionAnfitrion">Ubicación del anfitrión</Label>
+                                <Label for="ubicacionAnfitrion"><Fa icon={faLocationPin}/> Ubicación del anfitrión</Label>
                                 <Input id="ubicacionAnfitrion" invalid={!updatedListing.host_location} bind:value={updatedListing.host_location} placeholder="Nueva ubicación del anfitrión"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="respuestaTiempo">Tiempo de respuesta del anfitrión</Label>
+                                <Label for="respuestaTiempo"><Fa icon={faClock}/> Tiempo de respuesta del anfitrión</Label>
                                 <Input type="select" 
                                     id="respuestaTiempo" 
                                     name="respuestaTiempo"
@@ -276,43 +276,43 @@
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="tasaRespuesta">Tasa de respuesta del anfitrión</Label>
+                                <Label for="tasaRespuesta"><Fa icon={faWaveSquare}/> Tasa de respuesta del anfitrión</Label>
                                 <Input id="tasaRespuesta" invalid={!updatedListing.host_response_rate} bind:value={updatedListing.host_response_rate} placeholder="Nueva tasa de respuesta del anfitrión" min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="tasaAceptacion">Tasa de aceptación del anfitrión</Label>
+                                <Label for="tasaAceptacion"><Fa icon={faWaveSquare}/> Tasa de aceptación del anfitrión</Label>
                                 <Input id="tasaAceptacion" invalid={!updatedListing.host_acceptance_rate} bind:value={updatedListing.host_acceptance_rate} placeholder="Nueva tasa de aceptación del anfitrión" min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="barrio">Barrio</Label>
+                                <Label for="barrio"><Fa icon={faBuilding}/> Barrio</Label>
                                 <Input id="barrio" invalid={!updatedListing.neighbourhood} bind:value={updatedListing.neighbourhood} placeholder="Nuevo barrio"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="ciudad">Ciudad</Label>
+                                <Label for="ciudad"><Fa icon={faCity}/> Ciudad</Label>
                                 <Input id="ciudad" invalid={!updatedListing.city} bind:value={updatedListing.city} placeholder="Nueva ciudad"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="latitud">Latitud</Label>
+                                <Label for="latitud"><Fa icon={faGlobe}/> Latitud</Label>
                                 <Input type="number" id="latitud" invalid={!updatedListing.latitude} bind:value={updatedListing.latitude} placeholder="Nueva latitud"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="longitud">Longitud</Label>
+                                <Label for="longitud"><Fa icon={faGlobe}/> Longitud</Label>
                                 <Input type="number" id="longitud" invalid={!updatedListing.longitude} bind:value={updatedListing.longitude} placeholder="Nueva longitud"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="tipoPropiedad">Tipo de propiedad</Label>
+                                <Label for="tipoPropiedad"><Fa icon={faList}/> Tipo de propiedad</Label>
                                 <Input type="select" 
                                     id="tipoPropiedad" 
                                     name="tipoPropiedad"
@@ -327,7 +327,7 @@
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="tipoHabitacion">Tipo de habitación</Label>
+                                <Label for="tipoHabitacion"><Fa icon={faBed}/> Tipo de habitación</Label>
                                 <Input type="select" 
                                     id="tipoHabitacion" 
                                     name="tipoHabitacion"
@@ -342,43 +342,43 @@
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="numHuespedes">Número de huéspedes</Label>
+                                <Label for="numHuespedes"><Fa icon={faPerson}/> Número de huéspedes</Label>
                                 <Input type="number" id="numHuespedes" invalid={!updatedListing.guest_number} bind:value={updatedListing.guest_number} placeholder="Nuevo número de huéspedes" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="numHabitaciones">Número de habitaciones</Label>
+                                <Label for="numHabitaciones"><Fa icon={faBed}/> Número de habitaciones</Label>
                                 <Input type="number" id="numHabitaciones" invalid={!updatedListing.bedroom_number} bind:value={updatedListing.bedroom_number} placeholder="Nuevo número de habitaciones" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="comodidades">Lista de comodidades</Label>
+                                <Label for="comodidades"><Fa icon={faKitchenSet}/> Lista de comodidades</Label>
                                 <Input id="comodidades" invalid={!updatedListing.amenities_list} bind:value={updatedListing.amenities_list} placeholder="Nueva lista de comodidades"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="precio">Precio</Label>
+                                <Label for="precio"><Fa icon={faEuro}/> Precio</Label>
                                 <Input type="number" id="precio" invalid={!updatedListing.price} bind:value={updatedListing.price} placeholder="Nuevo precio" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="numMinNoches">Número mínimo de noches</Label>
+                                <Label for="numMinNoches"><Fa icon={faMoon}/> Número mínimo de noches</Label>
                                 <Input type="number" id="numMinNoches" invalid={!updatedListing.minimum_nights_number} bind:value={updatedListing.minimum_nights_number} placeholder="Nuevo número mínimo de noches" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="numMaxNoches">Número máximo de noches</Label>
+                                <Label for="numMaxNoches"><Fa icon={faMoon}/> Número máximo de noches</Label>
                                 <Input type="number" id="numMaxNoches" invalid={!updatedListing.maximum_nights_number} bind:value={updatedListing.maximum_nights_number} placeholder="Nuevo número máximo de noches" min="1"/>
                             </FormGroup>
                         </Col>
                         <Col class='mb-3'>
                             <FormGroup>
-                                <Label for="reservaInstantanea">¿Reserva instantánea?</Label>
+                                <Label for="reservaInstantanea"><Fa icon={faBook}/> ¿Reserva instantánea?</Label>
                                 <Input type="select" 
                                         id="reservaInstantanea" 
                                         name="reservaInstantanea"

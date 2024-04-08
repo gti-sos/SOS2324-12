@@ -822,6 +822,7 @@
 						</CardText>
 						<Button
 							color="danger"
+							id ="deleteResourceButton"
 							on:click={() =>
 								deleteListing(
 									listing.adm0_id,

@@ -74,7 +74,7 @@ test('create resource', async () => {
   await page.goto('http://localhost:10000/api/v2/airbnb-listings/loadInitialData');
   await page.goto('http://localhost:10000/airbnb-listings');
   await page.waitForLoadState('load');
-  await page.click('text="Crear Nuevo Dato"');
+  await page.click('text="Crear"');
   await page.waitForSelector('text="Crear dato"');
   await page.fill('#name', 'Ejemplo');
   await page.fill('#hostSince', '16/11/2023');

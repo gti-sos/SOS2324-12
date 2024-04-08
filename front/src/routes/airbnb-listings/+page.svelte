@@ -6,7 +6,7 @@
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     import { Pagination, PaginationItem, PaginationLink } from '@sveltestrap/sveltestrap';
     import Fa from 'svelte-fa';
-    import {faTrash, faPencil, faSpinner, faPlus, faFilter, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse, faAngleDoubleLeft, faAngleDoubleRight, faList} from '@fortawesome/free-solid-svg-icons';
+    import {faTrash, faPencil, faSpinner, faMinus, faCalendar, faLocationPin, faBuilding, faPerson, faKitchenSet, faBed, faPlus, faFilter, faCheck, faXmark, faArrowLeft, faArrowRight, faHouse, faAngleDoubleLeft, faAngleDoubleRight, faList, faClock, faWaveSquare, faCity, faGlobe, faEuro, faMoon, faBook} from '@fortawesome/free-solid-svg-icons';
 // Rutas
 let API = '/api/v2/airbnb-listings';
 if(dev)
@@ -217,6 +217,10 @@ async function getListings() {
         error_msg = "";
         let data = await response.json();
         listings = data;
+        // Agregar el nuevo recurso solo en la primera página
+        if (pagination === 0 && newListing.name.length > 1) {
+            listings.unshift(newListing);
+        }
         cities = await fetchCities();
         host_locations = await fetchHostlocations();
         neighs = await fetchNeigh();
@@ -322,8 +326,10 @@ async function searchListings() {
             // Manejo de errores
             if (response.status == 400) {
                 error_msg = 'Error en la estructura de los datos';
+                success_msg = "";
             } else if (response.status == 404) {
                 error_msg = 'No se encontraron datos';
+                success_msg = "";
             }
         }
     } catch (error) {
@@ -527,10 +533,13 @@ function fillFormWithTestData() {
 
 let showDetails = false;
 let selectedData = {};
+let isClicked = false;
+
 
 function toggleDetails(dato) {
 		selectedData = dato;
 		showDetails = !showDetails;
+        isClicked = !isClicked;
 }
 </script>
 
@@ -547,10 +556,10 @@ function toggleDetails(dato) {
 <Container class="text-center">
     <Row>
         <Col cols={{ xs:4 }}>
-            <Button color="warning" on:click="{getInitialListings}"><Fa icon={faSpinner}/> Cargar Datos Iniciales</Button>
+            <Button color="warning" on:click="{getInitialListings}"><Fa icon={faSpinner}/> Cargar datos</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Crear Nuevo Dato</Button>
+            <Button color="success" on:click={() => {showForm = true;}}><Fa icon={faPlus}/> Crear</Button>
         </Col>
         <Col>
             <Button color="primary" on:click={() => {showFilter = true;}}><Fa icon={faFilter}/> Filtros</Button>
@@ -559,7 +568,7 @@ function toggleDetails(dato) {
             <Button color="secondary" on:click={cleanFilter}><Fa icon={faList}/> Limpiar filtros</Button>
         </Col>
         <Col cols={{ xs:4 }}>
-            <Button color="danger" id = "deleteAllButton" on:click="{() => {confirmModal = true;}}"><Fa icon={faTrash}/> Borrar Todos los Datos</Button>
+            <Button color="danger" id = "deleteAllButton" on:click="{() => {confirmModal = true;}}"><Fa icon={faTrash}/> Borrar datos</Button>
         </Col>
         
     </Row>
@@ -581,7 +590,6 @@ function toggleDetails(dato) {
     </Alert>
     {/if}
 
-<br>
 <hr>
 
     <!-- Bloque condicional if con modal -->
@@ -596,19 +604,19 @@ function toggleDetails(dato) {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="name">Nombre</Label>
+                                <Label for="name"><Fa icon={faHouse}/> Nombre</Label>
                                 <Input type="text" id="name" bind:value={selectedFilter.name} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="hostSince">Fecha de registro del anfitrión</Label>
+                                <Label for="hostSince"><Fa icon={faCalendar}/> Fecha de registro del anfitrión</Label>
                                 <Input type="text" id="hostSince" placeholder="DD/MM/YYYY" bind:value={selectedFilter.host_since} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="hostLocation">Ubicación del anfitrión</Label>
+                                <Label for="hostLocation"><Fa icon={faLocationPin}/> Ubicación del anfitrión</Label>
                                 <Input type="select" id="hostLocation" bind:value={selectedFilter.host_location}>
                                     {#each host_locations as loc}
                                       <option value={loc}>{loc}</option>
@@ -620,7 +628,7 @@ function toggleDetails(dato) {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="responseTime">Tiempo de respuesta</Label>
+                                <Label for="responseTime"><Fa icon={faClock}/> Tiempo de respuesta</Label>
                                 <Input type="select" id="responseTime" bind:value={selectedFilter.host_response_time}>
                                     <option></option>
                                     {#each ["within an hour","within a few hours","within a day","a few days or more"] as option}
@@ -631,19 +639,19 @@ function toggleDetails(dato) {
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="responseRate">Tasa de respuesta</Label>
+                                <Label for="responseRate"><Fa icon={faWaveSquare}/> Tasa de respuesta</Label>
                                 <Input type="number" id="responseRate" bind:value={selectedFilter.host_response_rate} min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="acceptanceRate">Tasa de aceptación</Label>
+                                <Label for="acceptanceRate"><Fa icon={faWaveSquare}/> Tasa de aceptación</Label>
                                 <Input type="number" id="acceptanceRate" bind:value={selectedFilter.host_acceptance_rate} min="0" max="1" step="0.01"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="neighbourhood">Barrio</Label>
+                                <Label for="neighbourhood"><Fa icon={faBuilding}/> Barrio</Label>
                                 <Input type="select" id="neighbourhood" bind:value={selectedFilter.neighbourhood}>
                                     {#each neighs as nei}
                                       <option value={nei}>{nei}</option>
@@ -655,7 +663,7 @@ function toggleDetails(dato) {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="city">Ciudad</Label>
+                                <Label for="city"><Fa icon={faCity}/> Ciudad</Label>
                                 <Input type="select" id="city" bind:value={selectedFilter.city}>
                                     {#each cities as city}
                                       <option value={city}>{city}</option>
@@ -666,19 +674,19 @@ function toggleDetails(dato) {
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="latitude">Latitud</Label>
+                                <Label for="latitude"><Fa icon={faGlobe}/> Latitud</Label>
                                 <Input type="number" id="latitude" bind:value={selectedFilter.latitude} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="longitude">Longitud</Label>
+                                <Label for="longitude"><Fa icon={faGlobe}/> Longitud</Label>
                                 <Input type="number" id="longitude" bind:value={selectedFilter.longitude} />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="propertyType">Tipo de propiedad</Label>
+                                <Label for="propertyType"><Fa icon={faList}/> Tipo de propiedad</Label>
                                 <Input type="select" id="propertyType" bind:value={selectedFilter.property_type}>
                                     <option></option>
                                     {#each ["Entire apartment","Private room in apartment","Private room in house","Entire house","Entire condominium"] as option}
@@ -691,7 +699,7 @@ function toggleDetails(dato) {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="roomType">Tipo de habitación</Label>
+                                <Label for="roomType"><Fa icon={faBed}/> Tipo de habitación</Label>
                                 <Input type="select" id="roomType" bind:value={selectedFilter.room_type}>
                                     <option></option>
                                     {#each ["Entire place","Private room","Hotel room","Shared room"] as option}
@@ -702,19 +710,19 @@ function toggleDetails(dato) {
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="guestNumber">Número de huéspedes</Label>
+                                <Label for="guestNumber"><Fa icon={faPerson}/> Número de huéspedes</Label>
                                 <Input type="number" id="guestNumber" bind:value={selectedFilter.guest_number} min="1" />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="bedroomNumber">Número de habitaciones</Label>
+                                <Label for="bedroomNumber"><Fa icon={faBed}/> Número de habitaciones</Label>
                                 <Input type="number" id="bedroomNumber" bind:value={selectedFilter.bedroom_number} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="amenitiesList">Lista de comodidades</Label>
+                                <Label for="amenitiesList"><Fa icon={faKitchenSet}/> Lista de comodidades</Label>
                                 <Input type="text" id="amenitiesList" bind:value={selectedFilter.amenities_list} />
                             </FormGroup>
                         </Col>
@@ -722,25 +730,25 @@ function toggleDetails(dato) {
                     <Row>
                         <Col>
                             <FormGroup>
-                                <Label for="price">Precio</Label>
+                                <Label for="price"><Fa icon={faEuro}/> Precio</Label>
                                 <Input type="number" id="price" bind:value={selectedFilter.price} min="1" />
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="minimumNights">Número de noches mínimas</Label>
+                                <Label for="minimumNights"><Fa icon={faMoon}/> Número de noches mínimas</Label>
                                 <Input type="number" id="minimumNights" bind:value={selectedFilter.minimum_nights} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="maximumNights">Número de noches máximas</Label>
+                                <Label for="maximumNights"><Fa icon={faMoon}/> Número de noches máximas</Label>
                                 <Input type="number" id="maximumNights" bind:value={selectedFilter.maximum_nights} min="1"/>
                             </FormGroup>
                         </Col>
                         <Col>
                             <FormGroup>
-                                <Label for="instantBookable">Reserva instantánea</Label>
+                                <Label for="instantBookable"><Fa icon={faBook}/> Reserva instantánea</Label>
                                 <Input type="text" id="instantBookable" bind:checked={selectedFilter.instant_bookable} />
                             </FormGroup>
                         </Col>
@@ -817,12 +825,13 @@ function toggleDetails(dato) {
         <ModalBody>
             <Container style="justify-content: center; text-align: center;">
                 <Button color="primary" on:click={fillFormWithTestData}>Rellenar con datos de prueba</Button>
-                </Container>
+            </Container>
+            <hr>
             <Container class='mb-3'>
                 <Row cols={{ xs:2,sm: 2, md: 3, lg: 3, xl:3}}>
                     <Col class='mb-3'>
                         <FormGroup >
-                            <Label for="name">Nombre</Label>
+                            <Label for="name"><Fa icon={faHouse}/> Nombre</Label>
                             <Input
                                 type="text"
                                 id="name"
@@ -836,7 +845,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="hostSince">Fecha de registro de anfitrión</Label>
+                            <Label for="hostSince"><Fa icon={faCalendar}/> Fecha de registro de anfitrión</Label>
                             <Input
                                 type="text"
                                 id="hostSince"
@@ -850,7 +859,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="hostLocation">Ubicación del anfitrión</Label>
+                            <Label for="hostLocation"><Fa icon={faLocationPin}/> Ubicación del anfitrión</Label>
                             <Input
                                 type="text"
                                 id="hostLocation"
@@ -864,7 +873,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="responseTime">Tiempo de respuesta del anfitrión</Label>
+                            <Label for="responseTime"><Fa icon={faClock}/> Tiempo de respuesta del anfitrión</Label>
                             <Input type="select" 
                                     id="responseTime" 
                                     name="responseTime"
@@ -880,7 +889,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="responseRate">Tasa de respuesta del anfitrión</Label>
+                            <Label for="responseRate"><Fa icon={faWaveSquare}/> Tasa de respuesta del anfitrión</Label>
                             <Input
                                 type="number"
                                 id="responseRate"
@@ -895,7 +904,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="acceptanceRate">Tasa de aceptación del anfitrión</Label>
+                            <Label for="acceptanceRate"><Fa icon={faWaveSquare}/> Tasa de aceptación del anfitrión</Label>
                             <Input
                                 type="number"
                                 id="acceptanceRate"
@@ -910,7 +919,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="neighbourhood">Barrio</Label>
+                            <Label for="neighbourhood"><Fa icon={faBuilding}/> Barrio</Label>
                             <Input
                                 type="text"
                                 id="neighbourhood"
@@ -924,7 +933,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="city">Ciudad</Label>
+                            <Label for="city"><Fa icon={faCity}/> Ciudad</Label>
                             <Input
                                 type="text"
                                 id="city"
@@ -938,7 +947,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="latitude">Latitud</Label>
+                            <Label for="latitude"><Fa icon={faGlobe}/> Latitud</Label>
                             <Input
                                 type="number"
                                 id="latitude"
@@ -952,7 +961,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="longitude">Longitud</Label>
+                            <Label for="longitude"><Fa icon={faGlobe}/> Longitud</Label>
                             <Input
                                 type="number"
                                 id="longitude"
@@ -966,7 +975,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="propertyType">Tipo de propiedad</Label>
+                            <Label for="propertyType"><Fa icon={faList}/> Tipo de propiedad</Label>
                             <Input type="select" 
                                     id="propertyType" 
                                     name="propertyType"
@@ -981,7 +990,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="roomType">Tipo de habitación</Label>
+                            <Label for="roomType"><Fa icon={faBed}/> Tipo de habitación</Label>
                             <Input type="select" 
                                     id="roomType" 
                                     name="roomType"
@@ -996,7 +1005,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="guestNumber">Número de huéspedes</Label>
+                            <Label for="guestNumber"><Fa icon={faPerson}/> Número de huéspedes</Label>
                             <Input
                                 type="number"
                                 id="guestNumber"
@@ -1011,7 +1020,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="bedroomNumber">Número de habitaciones</Label>
+                            <Label for="bedroomNumber"><Fa icon={faBed}/> Número de habitaciones</Label>
                             <Input
                                 type="number"
                                 id="bedroomNumber"
@@ -1026,7 +1035,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="amenitiesList">Lista de comodidades</Label>
+                            <Label for="amenitiesList"><Fa icon={faKitchenSet}/> Lista de comodidades</Label>
                             <Input
                                 type="text"
                                 id="amenitiesList"
@@ -1040,7 +1049,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="price">Precio</Label>
+                            <Label for="price"><Fa icon={faEuro}/> Precio</Label>
                             <Input
                                 type="number"
                                 id="price"
@@ -1055,7 +1064,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="minimumNights">Número mínimo de noches</Label>
+                            <Label for="minimumNights"><Fa icon={faMoon}/> Número mínimo de noches</Label>
                             <Input
                                 type="number"
                                 id="minimumNights"
@@ -1070,7 +1079,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="maximumNights">Número máximo de noches</Label>
+                            <Label for="maximumNights"><Fa icon={faMoon}/> Número máximo de noches</Label>
                             <Input
                                 type="number"
                                 id="maximumNights"
@@ -1085,7 +1094,7 @@ function toggleDetails(dato) {
                     </Col>
                     <Col class='mb-3'>
                         <FormGroup>
-                            <Label for="instantBookable">¿Reserva instantánea?</Label>
+                            <Label for="instantBookable"><Fa icon={faBook}/> ¿Reserva instantánea?</Label>
                             <Input type="select" 
                                     id="instantBookable" 
                                     name="instantBookable"
@@ -1151,10 +1160,10 @@ function toggleDetails(dato) {
 
 {#if listings && listings.length > 0}
     <!--_______________________________________________Datos_________________________________________________-->
-<Container>
+<Container style="justify-content: center;">
     
     <!-- AQUI SE MUESTRAN LOS DATOS -->
-    <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}}>
+    <Row cols={{ xs:2,sm: 3, md: 3, lg: 3, xl:4}} class="justify-content-center">
         {#each listings as listing}
             <Col class='mb-3'>
                 <Card class="tarjeta">
@@ -1200,7 +1209,13 @@ function toggleDetails(dato) {
 							{/if}
                         </CardText>
                         <Container style="justify-content: center; text-align: center;">
-                        <Button color="info" on:click={() => toggleDetails(listing)}><Fa icon={faPlus}/></Button>
+                        <Button color="info" on:click={() => toggleDetails(listing)}>
+                            {#if isClicked}
+                            <Fa icon={faMinus} />
+                            {:else}
+                            <Fa icon={faPlus} />
+                            {/if}
+                        </Button>
                         <Button color="danger" id ="deleteResourceButton" on:click={() => deleteListing(listing.latitude, listing.longitude)}><Fa icon={faTrash}/></Button>
                         <Button color="warning" on:click={() => { window.location.href = `airbnb-listings/${listing.latitude}/${listing.longitude}` }}>
                             <Fa icon={faPencil}/></Button>
@@ -1212,12 +1227,6 @@ function toggleDetails(dato) {
     </Row>
 </Container>
 
-
-{:else}
-	<p class="container">No hay datos disponibles</p>
-{/if}
-
-<hr>
 <!--______________________________________Paginación_____________________________________-->
 <!--
 <Container class="text-center">
@@ -1235,10 +1244,15 @@ function toggleDetails(dato) {
     <Pagination>
                 <Button color="primary" on:click={() => {firstPage();}} disabled={pagination === 0}><Fa icon={faAngleDoubleLeft}></Fa></Button>            
                 <Button color="info" on:click={()=>{prevPage();}} disabled={pagination === 0}><Fa icon={faArrowLeft}/> Anterior</Button>
+                <Button color="dark"> Página {pagination + 1}</Button>
                 <Button color="info" on:click={() => {countData();nextPage();}} disabled={pagination === valor}>Siguiente <Fa icon={faArrowRight}/></Button>
                 <Button color="primary" last on:click={()=>{lastPage();}} disabled={pagination === valor}><Fa icon={faAngleDoubleRight}></Fa></Button>
     </Pagination>
 </Container>
+
+{:else}
+	<p class="container">No hay datos disponibles. Es posible que no haya cargado los datos iniciales o el filtro no haya proporcionado más resultados.</p>
+{/if}
 
 <hr>
 

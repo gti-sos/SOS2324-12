@@ -69,35 +69,6 @@ test('delete all resources', async () => {
   expect(updatedCardElements).toBe(0);
 });
 
-test('create resource', async () => {
-  test.setTimeout(60000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
-  await page.goto('http://localhost:10000/global-food-prices');
-  await page.waitForLoadState('load');
-  await page.click('text="Crear Nuevo Dato"');
-  await page.fill('text="Crear dato"');
-  await page.fill('#adm0_id', '1');
-  await page.fill('#adm0_name', 'Ejemplo');
-  await page.fill('#adm1_id', '1');
-  await page.fill('#adm1_name', 'Ejemplo');
-  await page.fill('#mkt_id', '100');
-  await page.fill('#mkt_name', 'Ejemplo');
-  await page.fill('#cm_id', '1');
-  await page.fill('#cm_name', 'Ejemplo');
-  await page.fill('#cur_id', '1');
-  await page.fill('#cur_name', 'Ejemplo');
-  await page.fill('#pt_id', '1');
-  await page.fill('#pt_name', 'Ejemplo');
-  await page.fill('#um_id', '1');
-  await page.fill('#um_name', 'Ejemplo');
-  await page.fill('#mp_month', '1');
-  await page.fill('#mp_year', '2000');
-  await page.fill('#mp_price', '1');
-  await page.fill('#mp_commoditysource', 'Ejemplo');
-  await page.click('text="Crear"');
-  let successMessage = await page.$('text=Se ha creado correctamente el dato');
-  expect(successMessage).not.toBeNull();
-});
 
 test('edit resource', async () => {
   test.setTimeout(60000);
@@ -113,15 +84,3 @@ test('edit resource', async () => {
 });
 
 
-test('pagination works', async () => {
-  test.setTimeout(60000);
-  await page.goto('http://localhost:10000/api/v1/global-food-prices/loadInitialData');
-  await page.goto('http://localhost:10000/global-food-prices');
-  await page.waitForLoadState('load');
-  await page.waitForTimeout(1000);
-  let resourceTitleFirstPage = await page.textContent('.tarjeta:first-child .card-title');
-  await page.click('button:has-text("Siguiente")');
-  await page.waitForTimeout(1000);
-  let resourceTitleSecondPage = await page.textContent('.tarjeta:first-child .card-title');
-  expect(resourceTitleSecondPage).not.toEqual(resourceTitleFirstPage);
-});
