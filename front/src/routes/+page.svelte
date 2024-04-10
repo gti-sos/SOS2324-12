@@ -10,7 +10,7 @@
 <script>
     import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
     import Fa from 'svelte-fa';
-    import { faServer, faFile, faChartPie, faLink, faUsers, faInfo} from '@fortawesome/free-solid-svg-icons';
+    import { faServer, faFile, faChartPie, faLink, faUsers, faInfo, faTable} from '@fortawesome/free-solid-svg-icons';
     import { dev } from '$app/environment';
 
     let API = '/api/v1';
@@ -108,8 +108,11 @@
                                             <Button size="sm" color="info" href="{API}/airbnb-listings/docs">v1</Button>
                                             <Button size="sm" color="info" href="{API_v2}/airbnb-listings/docs">v2</Button>
                                             <CardText><hr></CardText>
-                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Frontend</CardSubtitle><br>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faTable}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/airbnb-listings/">airbnb-listings</Button>
+                                            <CardText><hr></CardText>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Vistas</CardSubtitle><br>
+                                            <Button color="dark" href="/airbnb-listings/vistas">airbnb-listings</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmarsua">José Martínez Suárez</a></CardSubtitle>
                                         </CardBody>
@@ -129,7 +132,7 @@
                                             <Button size="sm" color="info" href="{API}/global-food-prices/docs">v1</Button>
                                             <Button size="sm" color="info" href="{API_v2}/global-food-prices/docs">v2</Button>
                                             <CardText><hr></CardText>
-                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Frontend</CardSubtitle><br>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faTable}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/global-food-prices/">global-food-prices</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
@@ -150,7 +153,7 @@
                                             <Button size="sm" color="info" href="{API}/world-consumption-of-drinking-water-data/docs">v1</Button>
                                             <Button size="sm" color="info" href="{API_v2}/world-consumption-of-drinking-water-data/docs">v2</Button>
                                             <CardText><hr></CardText>
-                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Frontend</CardSubtitle><br>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faTable}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data</Button>
                                             <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
