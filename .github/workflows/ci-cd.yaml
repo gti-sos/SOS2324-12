@@ -11,6 +11,13 @@ jobs:
       - run: npx playwright install --with-deps
       - run: npm test
   
+  codecov:
+    needs: [test]
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v4.0.1
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: gti-sos/SOS2324-12
   deploy:
     needs: [test]   
     runs-on: ubuntu-latest
