@@ -1,4 +1,6 @@
 ## SOS2324-12
+[![Known Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2324-12/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2324-12)
+
 - **Team**
   - [José Joaquín Mena-Bernal Rueda](https://github.com/josmenrue)
   - [Borja Flores Avecilla](https://github.com/borfloave)
