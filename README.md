@@ -1,5 +1,4 @@
 ## SOS2324-12
-[![Build Status][ci-image]][ci-url]
 [![Known Vulnerabilities](https://snyk.io/test/github/gti-sos/SOS2324-12/badge.svg)](https://snyk.io/test/github/gti-sos/SOS2324-12)
 [![codecov](https://codecov.io/gh/gti-sos/SOS2324-12/graph/badge.svg?token=kChmAsmdM1)](https://codecov.io/gh/gti-sos/SOS2324-12)
 
