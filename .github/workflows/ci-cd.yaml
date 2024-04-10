@@ -1,5 +1,11 @@
-name: CI / CD
-on: [push, pull_request]
+name: CI/CD
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,7 +15,6 @@ jobs:
       - run: cd front && npm run build && cd ..
       - run: npm install
       - run: npx playwright install --with-deps
-      - run: npm i --save-dev @types/jest
       - run: npm test
   
   deploy:
@@ -29,9 +34,10 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
-      
-      - run: npm install --save @fortawesome/free-solid-svg-icons
-      - run: cd front && npm install --save @fortawesome/free-solid-svg-icons && npm install && npm run build && cd ..
+
+      - name: 'Install node modules and build'
+        run: npm install --save @fortawesome/free-solid-svg-icons
+        run: cd front && npm install --save @fortawesome/free-solid-svg-icons && npm install && npm run build && cd ..
     
-      - name: Deploy
+      - name: 'Deploy'
         run: gcloud app deploy

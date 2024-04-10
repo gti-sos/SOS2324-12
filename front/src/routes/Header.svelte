@@ -50,6 +50,7 @@
                     <DropdownMenu>
                         <DropdownItem class="menu-item" href = "{API_v2}/airbnb-listings">airbnb-listings</DropdownItem>
                         <DropdownItem class="menu-item" href = "{API_v2}/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data</DropdownItem>
+                        <DropdownItem class="menu-item" href = "{API_v2}/global-food-prices">global-food-prices</DropdownItem>
                     </DropdownMenu>
                 </Dropdown>
             </DropdownMenu>
@@ -74,6 +75,15 @@
                 <DropdownItem class="menu-item" href = "/airbnb-listings">airbnb-listings</DropdownItem>
                 <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data">world-consumption-of-drinking-water-data</DropdownItem>
                 <DropdownItem class="menu-item" href = "/global-food-prices">global-food-prices</DropdownItem>
+            </DropdownMenu>
+        </Dropdown>
+        <Dropdown nav autoClose={true}>
+            <DropdownToggle nav class="nav-link" caret>
+                <img src="/icono-grafica.png" alt="Frontends" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                Vistas
+            </DropdownToggle>
+            <DropdownMenu>
+                <DropdownItem class="menu-item" href = "/airbnb-listings/vistas">airbnb-listings</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
