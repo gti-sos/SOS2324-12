@@ -1,4 +1,4 @@
-name: CI/CD
+name: CI / CD
 on: [push, pull_request]
 jobs:
   test:
@@ -28,10 +28,9 @@ jobs:
 
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
-
-      - name: 'Install node modules and build'
-        run: npm install --save @fortawesome/free-solid-svg-icons
-        run: cd front && npm install --save @fortawesome/free-solid-svg-icons && npm install && npm run build && cd ..
+      
+      - run: npm install --save @fortawesome/free-solid-svg-icons
+      - run: cd front && npm install --save @fortawesome/free-solid-svg-icons && npm install && npm run build && cd ..
     
-      - name: 'Deploy'
+      - name: Deploy
         run: gcloud app deploy
