@@ -16,11 +16,15 @@ jobs:
       - name: Install project dependencies
         run: npm install
 
-      - name: Install Playwright with dependencies
+      - name: Install Playwright & Jest
         run: npx playwright install --with-deps
+        run: npm install --save-dev jest @playwright/test jest-playwright-preset
 
-      - name: Run tests with Jest and generate coverage report
-        run: npm test && npx jest --coverage
+      - name: Run tests with newman and playwright
+        run: npm test  
+
+      - name: Run tests with Jest and generate coverage
+        run: npx jest --coverage
 
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
