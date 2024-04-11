@@ -17,8 +17,7 @@ jobs:
         run: npm install
 
       - name: Install Playwright & Jest
-        run: npx playwright install --with-deps
-        run: npm install --save-dev jest @playwright/test jest-playwright-preset
+        run: npx playwright install --with-deps && npm install --save-dev jest @playwright/test jest-playwright-preset
 
       - name: Run tests with newman and playwright
         run: npm test  
