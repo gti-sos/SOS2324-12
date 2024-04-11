@@ -11,7 +11,7 @@
     "test-world-consumption-of-drinking-water-data": "npx newman run ./tests/integration/world-consumption-of-drinking-water-data/apijota.json -e ./tests/integration/world-consumption-of-drinking-water-data/environments/local.json",
     "test-integration": "npx newman run ./tests/integration/airbnb-listings/api_v2.json -e ./tests/integration/airbnb-listings/environments/local_v2.json && npx newman run ./tests/integration/global-food-prices/GLOBAL-FOOD-PRICES-API-LOCAL.postman_collection.json -e ./tests/integration/global-food-prices/environments/sos.postman_environment.json && npx newman run ./tests/integration/world-consumption-of-drinking-water-data/apijota.json -e ./tests/integration/world-consumption-of-drinking-water-data/environments/local.json",
     "test-e2e": "npx playwright test",
-    "test": "npm run test-integration && npm run test-e2e",
+    "test": "npx jest --coverage && npm run test-integration && npm run test-e2e",
     "posttest": "kill `ps -uax | grep \"node index\" | grep -v \"grep\" | grep -v \"sh\" | awk '{print $2}'`",
     "prepublish": "npm run snyk-protect",
     "snyk-protect": "snyk-protect"

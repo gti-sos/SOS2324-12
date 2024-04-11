@@ -19,10 +19,7 @@ jobs:
       - name: Install Playwright & Jest
         run: npx playwright install --with-deps && npm install --save-dev jest @playwright/test jest-playwright-preset
 
-      - name: Run tests with Jest and generate coverage
-        run: npx jest --coverage
-
-      - name: Run tests with newman and playwright
+      - name: Run tests
         run: npm test  
 
       - name: Upload coverage reports to Codecov
