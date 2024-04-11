@@ -4,19 +4,29 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - run: cd front && npm install && cd ..
-      - run: cd front && npm run build && cd ..
-      - run: npm install
-      - run: npx playwright install --with-deps
-      - run: npm test && npx jest --coverage
-      - name: Upload coverage reports to Codecovs
+      - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: Install dependencies for front-end
+        run: cd front && npm install && cd ..
+
+      - name: Build front-end
+        run: cd front && npm run build && cd ..
+
+      - name: Install project dependencies
+        run: npm install
+
+      - name: Install Playwright with dependencies
+        run: npx playwright install --with-deps
+
+      - name: Run tests with Jest and generate coverage report
+        run: npm test && npx jest --coverage
+
+      - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} 
-          slug: gti-sos/SOS2324-12
-            
+          token: ${{ secrets.CODECOV_TOKEN }}
+          slug: gti-sos/SOS2324-12         
 
   deploy:
     needs: [test]   
