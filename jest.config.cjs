@@ -1,12 +1,12 @@
 module.exports = {
     preset: 'jest-playwright-preset',
-    testMatch: ['**/tests/e2e/jest/**/*.test.cjs'],
+    testMatch: ["<rootDir>/tests/jest/**/*.test.cjs"],
     testEnvironment: "node",
     setupFilesAfterEnv: ["expect-playwright"],
     coverageDirectory: "coverage",
     collectCoverage: true,
     collectCoverageFrom: [
-        "**/tests/e2e/jest/**/*.test.cjs", 
+        "<rootDir>/tests/jest/**/*.test.cjs", 
     ],
   };
   
