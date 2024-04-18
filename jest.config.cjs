@@ -4,9 +4,13 @@ module.exports = {
     testEnvironment: "node",
     setupFilesAfterEnv: ["expect-playwright"],
     coverageDirectory: "coverage",
-    collectCoverage: true,
     collectCoverageFrom: [
-        "<rootDir>/tests/jest/**/*.test.cjs", 
-    ],
+        "<rootDir>/front/**/*.svelte",
+        "<rootDir>/front/**/*.js"
+      ],
+    collectCoverage: true,
+    transform: {
+        "^.+\\.svelte$": ["./front/node_modules/svelte-jester/dist/transformer.cjs", { preprocess: true }]
+      },
   };
   

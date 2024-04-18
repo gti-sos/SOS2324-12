@@ -83,6 +83,7 @@
                 Vistas
             </DropdownToggle>
             <DropdownMenu>
+                <DropdownItem class="menu-item" href = "/analytics">Grupales</DropdownItem>
                 <DropdownItem class="menu-item" href = "/airbnb-listings/vistas">airbnb-listings</DropdownItem>
             </DropdownMenu>
         </Dropdown>
