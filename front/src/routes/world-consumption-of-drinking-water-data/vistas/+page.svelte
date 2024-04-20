@@ -214,10 +214,10 @@
                 <br/>
             {:else}
             <Row><Col><h3> Gráfico de barras apiladas por país y área (urbana/rural)</h3></Col></Row>
-            <Row><Col><div id="container" style="width:100%; height:400px;"></div></Col></Row>
+            <Row><Col><div id="container1" style="width:100%; height:400px;"></div></Col></Row>
             <br/>
             <Row><Col><h3> Gráfica de líneas para mostrar la evolución del acceso al agua mejorado a lo largo del tiempo para cada país</h3></Col></Row>
-            <Row><Col><div id="pieContainer" style="width:100%; height:400px;"></div></Col></Row>
+            <Row><Col><div id="container2" style="width:100%; height:400px;"></div></Col></Row>
             {/if}
             </Container>
         </Container>
