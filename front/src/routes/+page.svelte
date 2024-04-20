@@ -156,6 +156,9 @@
                                             <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faTable}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/world-consumption-of-drinking-water-data/">world-consumption-of-drinking-water-data</Button>
                                             <CardText><hr></CardText>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Vistas</CardSubtitle><br>
+                                            <Button color="dark" href="/world-consumption-of-drinking-water-data/vistas">world-consumption-of-drinking-water-data</Button>
+                                            <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/josmenrue">José Joaquín Mena-Bernal Rueda</a></CardSubtitle>
                                         </CardBody>
                                     </Card>
