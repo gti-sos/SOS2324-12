@@ -63,131 +63,154 @@
         return list;
     };
 
-    async function getChart(){
-        let listings = await getListings();
+    function calculateMean(dataArray) {
+    // Filtrar los valores no numéricos del array
+    const numericValues = dataArray.filter(val => !isNaN(val));
 
-        if (listings.length === 0){
-            info = "La base de datos está vacía, no es posible hacer las gráficas";
+    // Calcular la suma de los valores numéricos
+    const sum = numericValues.reduce((acc, val) => acc + val, 0);
+
+    // Calcular la media
+    const mean = sum / numericValues.length;
+
+    return mean;
+};
+
+    // Función para calcular la media por país
+function calculateMeanByCountry(data, property) {
+    return data.reduce((result, item) => {
+        const country = item.country;
+        const value = parseFloat(item[property]);
+        if (!result[country]) {
+            result[country] = [];
+        }
+        result[country].push(value);
+        return result;
+    }, {});
+};
+
+
+    async function getChart() {
+        const listings = await getListings();
+        console.log(listings);
+        if (listings.length === 0) {
+            console.log("La base de datos está vacía, no es posible hacer las gráficas");
+            info = "La base de datos está vacía, no es posible hacer las gráficas"
             v_info = true;
             f_info();
-        } else {
+    } else {
+        // Preparación de los datos para Highcharts
+    const categories = listings.map(item => item.country);
+    const urbanImproved = listings.map(item => item.urban_improved_piped + item.urban_improved_other);
+    const urbanUnimproved = listings.map(item => item.urban_unimproved_other);
+    const ruralImproved = listings.map(item => item.rural_improved_piped + item.rural_improved_other);
+    const ruralUnimproved = listings.map(item => item.rural_unimproved_other + item.rural_unimproved_surface);
+    console.log(categories);
+    console.log(urbanImproved);
+    console.log(urbanUnimproved);
+    console.log(ruralImproved);
+    console.log(ruralUnimproved);
+    // Calcular la media de los datos por país
+    const meanUrbanImprovedByCountry = calculateMeanByCountry(listings, 'urban_improved_piped');
+        const meanRuralImprovedByCountry = calculateMeanByCountry(listings, 'rural_improved_piped');
 
-        // Función para calcular la media de un conjunto de valores
-        function calculateMean(dataArray) {
-            var sum = dataArray.reduce(function(acc, val) {
-                return acc + val;
-            }, 0);
-            return sum / dataArray.length;
-        }
+        // Obtener los nombres de los países para el eje x
+        const countryNames = Object.keys(meanUrbanImprovedByCountry);
 
-        // Función para obtener los datos y actualizar los gráficos
-        async function updateCharts() {
-            const data = await getListings();
+        // Obtener los valores medios por país
+        const meanUrbanImprovedValues = countryNames.map(country => calculateMean(meanUrbanImprovedByCountry[country]));
+        const meanRuralImprovedValues = countryNames.map(country => calculateMean(meanRuralImprovedByCountry[country]));
 
-            // Preparación de los datos para Highcharts
-            var categories = data.map(item => item.country);
-            var urbanImproved = data.map(item => item.urban_improved);
-            var urbanUnimproved = data.map(item => item.urban_unimproved);
-            var ruralImproved = data.map(item => item.rural_improved);
-            var ruralUnimproved = data.map(item => item.rural_unimproved);
+    // Actualizar gráfico de barras
+    Highcharts.chart('container1', {
+        chart: {
+            type: 'bar'
+        },
+        title: {
+            text: 'Acceso al Agua Mejorado por País (Total)'
+        },
+        xAxis: {
+            categories: categories,
+            title: {
+                text: null
+            }
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Porcentaje',
+                align: 'high'
+            },
+            labels: {
+                overflow: 'justify'
+            }
+        },
+        tooltip: {
+            valueSuffix: '%'
+        },
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        },
+        legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'top',
+            x: -40,
+            y: 80,
+            floating: true,
+            borderWidth: 1,
+            backgroundColor:
+                Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
+            shadow: true
+        },
+        credits: {
+            enabled: false
+        },
+        series: [{
+            name: 'Urban Improved',
+            data: urbanImproved
+        }, {
+            name: 'Rural Improved',
+            data: ruralImproved
+        }, {
+            name: 'Urban Unimproved',
+            data: urbanUnimproved
+        }, {
+            name: 'Rural Unimproved',
+            data: ruralUnimproved
+        }]
+    });
 
-            // Calcular la media de los datos
-            var meanUrbanImproved = calculateMean(urbanImproved);
-            var meanUrbanUnimproved = calculateMean(urbanUnimproved);
-            var meanRuralImproved = calculateMean(ruralImproved);
-            var meanRuralUnimproved = calculateMean(ruralUnimproved);
-
-            // Actualizar gráfico de barras
-            Highcharts.chart('container1', {
-                chart: {
-                    type: 'bar'
-                },
+    Highcharts.chart('container2', {
+            title: {
+                text: 'Evolución del Acceso al Agua Mejorado por País'
+            },
+            xAxis: {
+                categories: countryNames,
                 title: {
-                    text: 'Acceso al Agua Mejorado por País (Total)'
-                },
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        text: null
-                    }
-                },
-                yAxis: {
-                    min: 0,
-                    title: {
-                        text: 'Porcentaje',
-                        align: 'high'
-                    },
-                    labels: {
-                        overflow: 'justify'
-                    }
-                },
-                tooltip: {
-                    valueSuffix: '%'
-                },
-                plotOptions: {
-                    bar: {
-                        dataLabels: {
-                            enabled: true
-                        }
-                    }
-                },
-                legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'top',
-                    x: -40,
-                    y: 80,
-                    floating: true,
-                    borderWidth: 1,
-                    backgroundColor:
-                        Highcharts.defaultOptions.legend.backgroundColor || '#FFFFFF',
-                    shadow: true
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    name: 'Urban Improved',
-                    data: urbanImproved
-                }, {
-                    name: 'Rural Improved',
-                    data: ruralImproved
-                }, {
-                    name: 'Urban Unimproved',
-                    data: urbanUnimproved
-                }, {
-                    name: 'Rural Unimproved',
-                    data: ruralUnimproved
-                }]
-            });
-
-            // Actualizar gráfico de líneas
-            Highcharts.chart('container2', {
+                    text: 'País'
+                }
+            },
+            yAxis: {
                 title: {
-                    text: 'Evolución del Acceso al Agua Mejorado por País'
-                },
-                xAxis: {
-                    categories: categories,
-                    title: {
-                        text: 'País'
-                    }
-                },
-                yAxis: {
-                    title: {
-                        text: 'Porcentaje'
-                    }
-                },
-                series: [{
-                    name: 'Urban Improved',
-                    data: [meanUrbanImproved, meanUrbanImproved, meanUrbanImproved, meanUrbanImproved, meanUrbanImproved, meanUrbanImproved, meanUrbanImproved]
-                }, {
-                    name: 'Rural Improved',
-                    data: [meanRuralImproved, meanRuralImproved, meanRuralImproved, meanRuralImproved, meanRuralImproved, meanRuralImproved, meanRuralImproved]
-                }]
-            });
-    };
-    };
-    };
+                    text: 'Porcentaje'
+                }
+            },
+            series: [{
+                name: 'Urban Improved',
+                data: meanUrbanImprovedValues
+            }, {
+                name: 'Rural Improved',
+                data: meanRuralImprovedValues
+            }]
+        });
+    }
+}
+
     
 </script>
 <main>
