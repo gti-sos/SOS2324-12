@@ -1,6 +1,8 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
 </svelte:head>
 
 <script>
@@ -206,12 +208,12 @@
 
 			// Convertir los datos a un formato aceptado por Highcharts
 
-			var data = [];
+/*			var datos = [];
 
 			// Función para verificar si un elemento existe en el array
 			function existsInData(region) {
-				for (var i = 0; i < data.length; i++) {
-					if (data[i].region === region) {
+				for (var i = 0; i < datos.length; i++) {
+					if (datos[i].name === region) {
 						return i;
 					}
 				}
@@ -223,22 +225,25 @@
 				var regionIndex = existsInData(countryData[i].region);
 				if (regionIndex === -1) {
 					// Si la región no está en el array de datos, se agrega
-					data.push({
-						region: countryData[i].region,
-						values: [
-							{ country: countryData[i].country, averagePriceFood: countryData[i].averagePriceFood }
+					datos.push({
+						name: countryData[i].region,
+						data: [
+							{ name: countryData[i].country, value: countryData[i].averagePriceFood }
 						]
 					});
 				} else {
 					// Si la región ya está en el array de datos, se añade el país y su precio promedio
-					data[regionIndex].values.push({
-						country: countryData[i].country,
-						averagePriceFood: countryData[i].averagePriceFood
-					});
+					let p = countryData[i].country;
+                    let pr = countryData[i].averagePriceFood
+                    if (datos[regionIndex].values.data.includes({name: p, value:pr})) {
+                        datos[regionIndex].values.data.push({
+						name: p,
+						value: pr
+					})};
 				}
 			}
 
-            console.log(data)
+            console.log(datos)
 
 			// Configurar el gráfico de burbujas
 			const chart = Highcharts.chart('container', {
@@ -280,9 +285,10 @@
 						}
 					}
 				},
-				series: data
+				series: datos
 			});
-		}
+*/
+        }
 
 		// FIN GRAFICO DE BURBUJAS
 
@@ -311,7 +317,7 @@
 			for (var producto in precios) {
 				if (precios.hasOwnProperty(producto) && precios[producto].count > 0) {
 					var precioPromedio = precios[producto].total / precios[producto].count;
-					preciosPromedio.push([producto, precioPromedio]);
+					preciosPromedio.push([producto, Math.round(precioPromedio)]);
 				}
 			}
 
@@ -338,25 +344,26 @@
 					type: 'pie',
 					options3d: {
 						enabled: true,
-						alpha: 45
+						alpha: 50
 					}
 				},
 				title: {
-					text: 'Beijing 2022 gold medals by country',
+					text: 'El combustible es mucho más caro que la comida',
 					align: 'left'
 				},
 				subtitle: {
-					text: '3D donut in Highcharts',
+					text: '(valores por kg)',
 					align: 'left'
 				},
 				plotOptions: {
 					pie: {
-						innerSize: 100,
-						depth: 45
+						innerSize: 150,
+						depth: 120
 					}
 				},
 				series: salida
 			});
+
 	}
 </script>
 
@@ -389,7 +396,7 @@
 				<Row><Col><h3>Comparativa de precios medios por país del pan</h3></Col></Row>
 				<Row><Col><div id="container" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
-				<Row><Col><h3>Comparativa precios medios de las comidas</h3></Col></Row>
+				<Row><Col><h3>Comparativa precios medios de los productos</h3></Col></Row>
 				<Row><Col><div id="pieContainer" style="width:100%; height:400px;"></div></Col></Row>
 			{/if}
 		</Container>
