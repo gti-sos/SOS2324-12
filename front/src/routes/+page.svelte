@@ -135,6 +135,9 @@
                                             <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faTable}/> Frontend</CardSubtitle><br>
                                             <Button color="warning" href="/global-food-prices/">global-food-prices</Button>
                                             <CardText><hr></CardText>
+                                            <CardSubtitle style="justify-content: center; text-align: center;"><Fa icon={faChartPie}/> Vistas</CardSubtitle><br>
+                                            <Button color="dark" href="/global-food-prices/vistas">global-food-prices</Button>
+                                            <CardText><hr></CardText>
                                             <CardSubtitle>Developed by <a href="https://github.com/borfloave">Borja Flores Avecilla</a></CardSubtitle>
                                         </CardBody>
                                     </Card>

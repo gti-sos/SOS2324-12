@@ -86,6 +86,7 @@
                 <DropdownItem class="menu-item" href = "/analytics">Grupales</DropdownItem>
                 <DropdownItem class="menu-item" href = "/airbnb-listings/vistas">airbnb-listings</DropdownItem>
                 <DropdownItem class="menu-item" href = "/world-consumption-of-drinking-water-data/vistas">world-consumption-of-drinking-water-data</DropdownItem>
+                <DropdownItem class="menu-item" href = "/global-food-prices/vistas">global-food-prices</DropdownItem>
             </DropdownMenu>
         </Dropdown>
         <Dropdown nav autoClose={true}>
