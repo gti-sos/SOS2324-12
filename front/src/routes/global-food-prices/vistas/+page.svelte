@@ -1,10 +1,3 @@
-<svelte:head>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-</svelte:head>
-
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
@@ -172,7 +165,7 @@
 
 	async function getChart() {
 		let listings = await getListings();
-        let foodData = listings;
+		let foodData = listings;
 
 		if (listings.length === 0) {
 			info = 'La base de datos está vacía, no es posible hacer las gráficas';
@@ -208,7 +201,7 @@
 
 			// Convertir los datos a un formato aceptado por Highcharts
 
-/*			var datos = [];
+			var datos = [];
 
 			// Función para verificar si un elemento existe en el array
 			function existsInData(region) {
@@ -227,29 +220,34 @@
 					// Si la región no está en el array de datos, se agrega
 					datos.push({
 						name: countryData[i].region,
-						data: [
-							{ name: countryData[i].country, value: countryData[i].averagePriceFood }
-						]
+						data: [{ name: countryData[i].country, value: parseFloat(countryData[i].averagePriceFood)}]
 					});
 				} else {
 					// Si la región ya está en el array de datos, se añade el país y su precio promedio
 					let p = countryData[i].country;
-                    let pr = countryData[i].averagePriceFood
-                    if (datos[regionIndex].values.data.includes({name: p, value:pr})) {
-                        datos[regionIndex].values.data.push({
-						name: p,
-						value: pr
-					})};
+					let pr = parseFloat(countryData[i].averagePriceFood);
+
+					let objetoYaPresente = datos[regionIndex].data.some(
+						(item) => item.name === p && item.value === pr
+					);
+
+					// Si el objeto no está presente, añadirlo al array
+					if (!objetoYaPresente) {
+						datos[regionIndex].data.push({
+							name: p,
+							value: pr
+						});
+					}
 				}
 			}
 
-            console.log(datos)
+			console.log(datos);
 
 			// Configurar el gráfico de burbujas
 			const chart = Highcharts.chart('container', {
 				chart: {
 					type: 'packedbubble',
-					height: '100%'
+					height: '30%'
 				},
 				title: {
 					text: 'Average price of Bread on different countries',
@@ -261,8 +259,8 @@
 				},
 				plotOptions: {
 					packedbubble: {
-						minSize: '30%',
-						maxSize: '120%',
+						minSize: '50%',
+						maxSize: '700%',
 						zMin: 0,
 						zMax: 1000,
 						layoutAlgorithm: {
@@ -272,11 +270,6 @@
 						dataLabels: {
 							enabled: true,
 							format: '{point.name}',
-							filter: {
-								property: 'y',
-								operator: '>',
-								value: 250
-							},
 							style: {
 								color: 'black',
 								textOutline: 'none',
@@ -287,8 +280,7 @@
 				},
 				series: datos
 			});
-*/
-        }
+		}
 
 		// FIN GRAFICO DE BURBUJAS
 
@@ -335,37 +327,42 @@
 			}
 		];
 
-        console.log(salida)
+		console.log(salida);
 
 		// Configurar el gráfico de pastel
-		const pie3DChart =
-			Highcharts.chart('pieContainer', {
-				chart: {
-					type: 'pie',
-					options3d: {
-						enabled: true,
-						alpha: 50
-					}
-				},
-				title: {
-					text: 'El combustible es mucho más caro que la comida',
-					align: 'left'
-				},
-				subtitle: {
-					text: '(valores por kg)',
-					align: 'left'
-				},
-				plotOptions: {
-					pie: {
-						innerSize: 150,
-						depth: 120
-					}
-				},
-				series: salida
-			});
-
+		const pie3DChart = Highcharts.chart('pieContainer', {
+			chart: {
+				type: 'pie',
+				options3d: {
+					enabled: true,
+					alpha: 50
+				}
+			},
+			title: {
+				text: 'El combustible es mucho más caro que la comida',
+				align: 'left'
+			},
+			subtitle: {
+				text: '(valores por kg)',
+				align: 'left'
+			},
+			plotOptions: {
+				pie: {
+					innerSize: 150,
+					depth: 120
+				}
+			},
+			series: salida
+		});
 	}
 </script>
+
+<svelte:head>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+</svelte:head>
 
 <main>
 	<Container class="content-container" style="justify-content: center;">
