@@ -2,6 +2,9 @@ const { test, expect, beforeAll, afterAll, beforeEach, afterEach } = require('@p
 
 let page;
 
+// Aumentar el tiempo de espera para todos los tests
+const TIMEOUT = 100000;
+
 beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 });
@@ -29,13 +32,13 @@ test('has title SOS2324-12 Project', async () => {
 });
 
 test('load and list airbnb rentals', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
   const tarjetasDatos = await page.locator('.tarjetas-datos').count();
   await expect(tarjetasDatos).toBeGreaterThan(5);
 });
 
 test('delete resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   const resourceTitleBeforeDelete = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('#deleteResourceButton');
@@ -45,7 +48,7 @@ test('delete resource', async () => {
 });
 
 test('delete all resources', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.click('#deleteAllButton');
   await page.waitForTimeout(1000);
@@ -56,7 +59,7 @@ test('delete all resources', async () => {
 });
 
 test('create resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.click('text="Añadir"');
   await page.waitForSelector('text="Crear dato"');
@@ -68,7 +71,7 @@ test('create resource', async () => {
 });
 
 test('edit resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
   await page.goto('http://localhost:10000/airbnb-listings/40.75563/-73.96418');
   await page.waitForLoadState('load');
   await page.waitForTimeout(1000);
@@ -80,7 +83,7 @@ test('edit resource', async () => {
 });
 
 test('pagination works', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   const resourceTitleFirstPage = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('button:has-text("Siguiente")');

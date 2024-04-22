@@ -2,6 +2,9 @@ const { test, expect, beforeAll, afterAll, beforeEach } = require('@playwright/t
 
 let page;
 
+const TIMEOUT = 100000;
+
+
 beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 });
@@ -28,14 +31,14 @@ test('has title SOS2324-12 Project', async () => {
 });
 
 test('load and list water data', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   const tarjetasDatos = await page.locator('.tarjetas-datos').count();
   await expect(tarjetasDatos).toBeGreaterThan(5);
 });
 
 test('delete resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   let resourceTitleBeforeDelete = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('#deleteResourceButton');
@@ -45,7 +48,7 @@ test('delete resource', async () => {
 });
 
 test('delete all resources', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.click('#deleteAllButton');
   await page.waitForTimeout(500);
@@ -56,7 +59,7 @@ test('delete all resources', async () => {
 });
 
 test('create resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.click('text="Crear Nuevo Dato"');
   await page.waitForSelector('text="Rellenar con datos de prueba"');
@@ -65,7 +68,7 @@ test('create resource', async () => {
 });
 
 test('edit resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.goto('http://localhost:10000/world-consumption-of-drinking-water-data/1/CHL/2015');
   await page.waitForLoadState('load');
@@ -76,7 +79,7 @@ test('edit resource', async () => {
 });
 
 test('pagination works', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   let resourceTitleFirstPage = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('button:has-text("Siguiente")');

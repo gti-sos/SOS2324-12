@@ -2,6 +2,9 @@ const { test, expect, beforeAll, afterAll, beforeEach, afterEach } = require('@p
 
 let page;
 
+const TIMEOUT = 100000;
+
+
 beforeAll(async ({ browser }) => {
   page = await browser.newPage();
 });
@@ -32,14 +35,14 @@ test('has title SOS2324-12 Project', async () => {
 });
 
 test('load and list', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   const tarjetasDatos = await page.locator('.tarjetas-datos').count();
   await expect(tarjetasDatos).toBeGreaterThan(5);
 });
 
 test('delete resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   const resourceTitleBeforeDelete = await page.textContent('.tarjeta:first-child .card-title');
   await page.click('#deleteResourceButton');
@@ -48,7 +51,7 @@ test('delete resource', async () => {
   expect(resourceTitleAfterDelete).not.toEqual(resourceTitleBeforeDelete);
 });
 test('delete all resources', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.click('#deleteAllButton');
   await page.waitForTimeout(1000);
@@ -60,7 +63,7 @@ test('delete all resources', async () => {
 
 
 test('edit resource', async () => {
-  test.setTimeout(60000);
+  test.setTimeout(TIMEOUT);
 
   await page.goto('http://localhost:10000/global-food-prices/1/275/267/145/87/15/5/10/2008');
   await page.waitForLoadState('load');

@@ -1,5 +1,10 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
 </svelte:head>
 
 <script>
@@ -186,6 +191,9 @@ function calculateMeanByCountry(data, property) {
     });
 
     Highcharts.chart('container2', {
+            chart: {
+                type: 'area'
+            },
             title: {
                 text: 'Evolución del Acceso al Agua Mejorado por País'
             },
@@ -198,6 +206,22 @@ function calculateMeanByCountry(data, property) {
             yAxis: {
                 title: {
                     text: 'Porcentaje'
+                },
+                min: 0,
+                max: 100
+            },
+            plotOptions: {
+                area: {
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
                 }
             },
             series: [{

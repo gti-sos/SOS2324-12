@@ -1,6 +1,11 @@
 <svelte:head>
     <script src="https://code.highcharts.com/highcharts.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://code.highcharts.com/modules/treemap.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+
 </svelte:head>
 
 <script>
@@ -159,8 +164,8 @@
             });
         });
 
-        // Filtrar las comodidades con una frecuencia menor a 20
-        const minFrequency = 20;
+        // Filtrar las comodidades con una frecuencia menor 
+        const minFrequency = 13;
         const popularAmenities = Object.entries(amenityFrequency)
             .filter(([amenity, frequency]) => frequency >= minFrequency)
             .reduce((acc, [amenity, frequency]) => {
@@ -181,36 +186,61 @@
             popularAmenities['Others'] = othersFrequency;
         }
 
-        // Convertir el objeto de frecuencia en un arreglo de objetos {name, y}
-        const dataPie = Object.entries(popularAmenities).map(([amenity, frequency]) => ({
-            name: amenity,
-            y: frequency
-        }));
+// Convertir el objeto de frecuencia en un arreglo de objetos {name, value}
+const dataTreemap = Object.entries(popularAmenities).map(([amenity, frequency]) => ({
+    name: amenity,
+    value: frequency
+}));
 
-        // Configurar el gráfico de pastel
-        const pieChart = Highcharts.chart('pieContainer', {
-            chart: {
-                type: 'pie'
-            },
-            title: {
-                text: 'Proporción de comodidades más populares'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: true,
-                        format: '<b>{point.name}</b>: {point.y}'
-                    }
+// Obtener las comodidades asociadas a "Others" si existen
+let othersAmenities = {};
+if ("Others" in popularAmenities) {
+    othersAmenities = Object.entries(amenityFrequency)
+        .filter(([amenity, frequency]) => frequency < minFrequency)
+        .map(([amenity, frequency]) => `${amenity} (${frequency}) `);
+}
+
+console.log("others: " + othersAmenities);
+
+// Configurar el gráfico de treemap
+const treemapChart = Highcharts.chart('treemapContainer', {
+    chart: {
+        type: 'treemap',
+        layoutAlgorithm: 'squarified'
+    },
+    title: {
+            text: 'Proporción de comodidades más populares'
+    },
+    tooltip: {
+        formatter: function() {
+            if (this.point.name === 'Others') {
+                
+                return `<b>${this.point.name}</b><br>Amenities: ${othersAmenities}`;
+            } else {
+                return `<b>${this.point.name}</b>: ${this.point.value}`;
+            }
+        }
+    },
+    series: [{
+        type: 'treemap',
+        layoutAlgorithm: 'squarified',
+        data: dataTreemap,
+        colorByPoint: true,
+        levels: [{
+            level: 1,
+            dataLabels: {
+                enabled: true,
+                style: {
+                    fontSize: '15px',
+                    fontWeight: 'bold'
                 }
             },
-            series: [{
-                name: 'Frecuencia',
-                colorByPoint: true,
-                data: dataPie
-            }]
-        });
+            borderWidth: 3
+        }]
+    }]
+});
+
+
 
     };
 
@@ -268,7 +298,7 @@
             <Row><Col><div id="container" style="width:100%; height:400px;"></div></Col></Row>
             <br/>
             <Row><Col><h3> Proporción de comodidades más populares</h3></Col></Row>
-            <Row><Col><div id="pieContainer" style="width:100%; height:400px;"></div></Col></Row>
+            <Row><Col><div id="treemapContainer" style="width:100%; height:400px;"></div></Col></Row>
             {/if}
             </Container>
         </Container>
