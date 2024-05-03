@@ -15,6 +15,11 @@
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
     
+
+    //Importamos biblioteca gráfica ECHARTS
+    import * as echarts from 'echarts';
+    import worldJSON from '../vistas/world.json';
+
     // VARIABLE RUTA API
     
     let API = '/api/v2/airbnb-listings';
@@ -33,6 +38,7 @@
 
     onMount(async () => {
         getChart();
+        initECharts();
     });
 
     // DATOS
@@ -270,6 +276,71 @@ const treemapChart = Highcharts.chart('treemapContainer', {
         return precioPromedioPorCiudad;
     };
 
+    async function initECharts() {
+    const listings = await getListings();
+
+    const data = listings.map(listing => ({
+        name: listing.name, // Esto se usará para el tooltip
+        value: [
+            listing.longitude,
+            listing.latitude
+        ],
+        price: listing.price,
+        city: listing.city 
+    }));
+
+    renderMap(data);
+}
+
+
+
+function renderMap(data) {
+    var chartDom = document.getElementById('echartsContainer');
+    var myChart = echarts.init(chartDom);
+    echarts.registerMap('world', worldJSON);
+
+    var option = {
+        title: {
+            text: 'Ubicación de Propiedades Airbnb',
+            subtext: 'Cada punto representa una propiedad',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item',
+            formatter: function (params) {
+                // Aquí utilizamos 'params.data' para acceder a los datos de la propiedad
+                return `${params.data.name}<br/> Ciudad: ${params.data.city}<br/>Precio: €${params.data.price}`;
+            }
+        },
+        geo: {
+            map: 'world',
+            roam: true,
+            scaleLimit: { min: 0.1, max: 1000 },
+            itemStyle: {
+                borderColor: '#ccc',
+                borderWidth: 1
+            }
+        },
+        series: [{
+            name: 'Propiedades',
+            type: 'scatter',
+            coordinateSystem: 'geo',
+            data: data,
+            symbolSize: 8, // Tamaño fijo del símbolo, ajustable según necesidades
+            emphasis: {
+                label: {
+                    show: false
+                }
+            }
+        }]
+    };
+
+    myChart.setOption(option);
+}
+
+
+
+
     
 </script>
 <main>
@@ -299,6 +370,9 @@ const treemapChart = Highcharts.chart('treemapContainer', {
             <br/>
             <Row><Col><h3> Proporción de comodidades más populares</h3></Col></Row>
             <Row><Col><div id="treemapContainer" style="width:100%; height:400px;"></div></Col></Row>
+            <br/>
+            <Row><Col><h3> Gráfica Echarts</h3></Col></Row>
+            <Row><Col><div id="echartsContainer" style="width: 100%; height: 600px;"></div></Col></Row>
             {/if}
             </Container>
         </Container>

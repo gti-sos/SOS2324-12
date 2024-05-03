@@ -12,6 +12,8 @@ import {loadBackend_BFA_v2} from "./back/v2/global-food-prices/index-BFA.js";
 import dataStore from "nedb";
 import {handler} from "./front/build/handler.js";
 import cors from "cors";
+import { config } from 'dotenv';
+config();
 
 
 let db_airbnb = new dataStore();
@@ -32,12 +34,12 @@ app.use(bodyParser.json());
 
 const PORT = (process.env.PORT || 10000); 
 const firebaseConfig = {
-    apiKey: "AIzaSyCFdjM2Web0EyCRw9yolxg3iV32IE2mfuw",
-    authDomain: "sos2324-12.firebaseapp.com",
-    projectId: "sos2324-12",
-    storageBucket: "sos2324-12.appspot.com",
-    messagingSenderId: "605410342760",
-    appId: "1:605410342760:web:a9e58c80caa2b9afe788dd"
+    apiKey: process.env.FIREBASE_API_KEY,
+    authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+    projectId: process.env.FIREBASE_PROJECT_ID,
+    storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+    appId: process.env.FIREBASE_APP_ID,
   };  
 const app_firebase = initializeApp(firebaseConfig);
 
