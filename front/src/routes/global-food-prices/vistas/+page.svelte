@@ -1,3 +1,16 @@
+<svelte:head>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://code.highcharts.com/highcharts-more.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script src="https://code.highcharts.com/modules/export-data.js"></script>
+	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script> 
+		google.charts.load('current', {'packages':['line']});
+	</script>
+</svelte:head>
+
 <script>
 	import { onMount } from 'svelte';
 	import { dev } from '$app/environment';
@@ -45,6 +58,7 @@
 
 	onMount(async () => {
 		getChart();
+		drawChart();
 	});
 
 	// DATOS
@@ -356,17 +370,63 @@
 		});
 
 	}
+
+   async function drawChart() {
+
+		const listings = await getListings();
+		let filtrados = []
+		listings.forEach((e) => {
+			if (e.adm0_id == 1 && e.cm_id == 55 && e.mkt_id == 266) {
+				filtrados.push(e);
+			}});
+
+		
+filtrados.sort((a, b) => {
+    if (a.mp_year !== b.mp_year) {
+        return a.mp_year - b.mp_year; // Ordena por año primero
+    } else {
+        return a.mp_month - b.mp_month; // Si los años son iguales, ordena por mes
+    }
+});
+
+
+
+
+		let datos = filtrados.map((e) => {
+			return {
+				fecha: e.mp_month.toString() + "-" + e.mp_year.toString(),
+				precio: e.mp_price
+			}
+		});
+
+		console.log(datos)
+
+		
+
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Año-Mes');
+      data.addColumn('number', 'Precio del pan');
+
+	 datos.forEach((e) => {
+		data.addRow([e.fecha, e.precio])
+	 });
+
+      var options = {
+        chart: {
+          title: 'Precio del pan en Fayzabad, Afghanistan a lo largo del tiempo',
+          subtitle: 'en AFN (afgani afgano)'
+        },
+        width: "100%",
+        height: "50%"
+      };
+
+      var chart = new google.charts.Line(document.getElementById('google-line'));
+
+      chart.draw(data, google.charts.Line.convertOptions(options));
+    }
+
 </script>
-
-<svelte:head>
-	<script src="https://code.highcharts.com/highcharts.js"></script>
-	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
-	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
-	<script src="https://code.highcharts.com/highcharts-more.js"></script>
-	<script src="https://code.highcharts.com/modules/exporting.js"></script>
-	<script src="https://code.highcharts.com/modules/export-data.js"></script>
-
-</svelte:head>
 
 <main>
 	<Container class="content-container" style="justify-content: center;">
@@ -399,6 +459,9 @@
 				<br />
 				<Row><Col><h3>Comparativa precios medios de los productos</h3></Col></Row>
 				<Row><Col><div id="pieContainer" style="width:100%; height:400px;"></div></Col></Row>
+				<br />
+				<Row><Col><h3>Precio del pan en Fayzabad, Afghanistan a lo largo del tiempo</h3></Col></Row>
+				<Row><Col><div id="google-line" style="width:100%; height:400px;"></div></Col></Row>
 			{/if}
 		</Container>
 	</Container>
