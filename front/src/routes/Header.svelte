@@ -31,6 +31,12 @@
                 Inicio 
             </NavLink> 
         </NavItem>
+        <NavItem class="nav-item"> 
+            <NavLink href="/integrations" class="nav-link d-flex align-items-center"> 
+                <img src="/integration.png" alt="Integración" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                Integraciones 
+            </NavLink> 
+        </NavItem>
         <Dropdown nav autoClose={true}>
             <DropdownToggle nav class="nav-link" caret>
                 <img src="/icono-api.png" alt="API" style="width: 20px; height: 20px; margin-right: 5px;"> 
