@@ -39,13 +39,14 @@
                                 <CardTitle style="justify-content: center; text-align: center;">José Martínez</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/weather">Datos metereológicos</Button>
+                                <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
+                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
                             </CardBody>
@@ -57,14 +58,7 @@
                                 <CardTitle style="justify-content: center; text-align: center;">Borja</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
-                                <Button size="sm" color="primary" href="">enlace</Button>
-                                <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
-                                <Button size="sm" color="primary" href="">enlace</Button>
-                                <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/integrations/global-food-prices/">Integraciones Borja</Button>
                                 <CardText><hr></CardText>
                             </CardBody>
                         </Card>
@@ -75,13 +69,10 @@
                                 <CardTitle style="justify-content: center; text-align: center;">Jota</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
-                                <CardSubtitle style="justify-content: center; text-align: center;">Integración ...</CardSubtitle><br>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
                             </CardBody>

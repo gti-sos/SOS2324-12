@@ -77,6 +77,12 @@
                 <DropdownItem class="menu-item" href = "/global-food-prices">global-food-prices</DropdownItem>
             </DropdownMenu>
         </Dropdown>
+        <NavItem class="nav-item"> 
+            <NavLink href="/integrations" class="nav-link d-flex align-items-center"> 
+                <img src="/integrations.png" alt="Casa" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                Integraciones 
+            </NavLink> 
+        </NavItem>
         <Dropdown nav autoClose={true}>
             <DropdownToggle nav class="nav-link" caret>
                 <img src="/icono-grafica.png" alt="Frontends" style="width: 20px; height: 20px; margin-right: 5px;"> 
