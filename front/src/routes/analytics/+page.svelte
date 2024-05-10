@@ -256,6 +256,7 @@ async function getInitialData(){
     if (status == 201 && status2 == 201 && status3 == 201){
         window.location.reload();
     } else {
+        window.location.reload();
         info = "Los datos ya están cargados";
         v_info = true;
         f_info();
