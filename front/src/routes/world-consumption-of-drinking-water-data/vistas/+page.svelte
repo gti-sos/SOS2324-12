@@ -4,12 +4,6 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-     <!-- Incluir el archivo de Billboard.js -->
-    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
-    
-    <!-- Incluir los estilos de Billboard.js -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
-
 </svelte:head>
 
 <script>
@@ -18,6 +12,9 @@
     import { Button, Icon, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
+    import bb, { areaSpline } from 'billboard.js';
+    import { area } from 'billboard.js';
+    import 'billboard.js/dist/billboard.css'; // Importa los estilos CSS de Billboard.js
     
     // VARIABLE RUTA API
     
