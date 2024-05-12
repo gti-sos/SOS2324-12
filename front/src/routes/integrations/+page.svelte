@@ -41,7 +41,7 @@
                             <CardBody>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/weather">Datos metereológicos</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso)</Button>
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
@@ -70,10 +70,6 @@
                             </CardHeader>
                             <CardBody>
                                 <Button size="sm" color="primary" href="/integrations/world-consumption-of-drinking-water-data/">Integraciones Jota</Button>
-                                <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
-                                <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
                             </CardBody>
                         </Card>

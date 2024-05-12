@@ -1,22 +1,23 @@
-<div class="container">
+<script>
+    import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
+</script>
+
+<main>
+    <Container class="content-container" style="justify-content: center;"> 
 
     <div class="card">
         <div class="photo">
-            <a href="http://sos2324-12.appspot.com/integrations/world-consumption-of-drinking-water-data/uses"></a>
+            <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses">world-consumption-of-drinking-water-data</Button>
         </div>
         <h2 class="photo-title">Usos</h2>
     </div>
-
-</div> 
+    </Container>
+</main>
 
 
 
 <style>
 
-   .container{
-       display: grid;
-       grid-template-columns: 50% 50%;
-   }
    
    div.card {
        text-align: center;
@@ -24,9 +25,5 @@
        border-radius: 5%;
    }
 
-   img {
-       max-height: 400px;
-       width: auto;
-   }
 
 </style>

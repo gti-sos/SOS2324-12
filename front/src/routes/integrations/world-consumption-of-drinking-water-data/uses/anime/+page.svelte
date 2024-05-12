@@ -1,5 +1,7 @@
 <script>
     import { onMount } from "svelte";
+    import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
+
 
     let animeData = [];
 
@@ -32,6 +34,9 @@
 
 </script>
 
+<main>
+    <Container class="content-container" style="justify-content: center;"> 
+
 <h1 class="title">Top 50 Animes</h1>
 
 <div class="card-container">
@@ -47,6 +52,9 @@
         <p class="loading">Cargando datos...</p>
     {/if}
 </div>
+
+    </Container>
+</main>
 
 <style>
     /* Estilo de textos */

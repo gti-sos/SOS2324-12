@@ -36,6 +36,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fortawesome/free-solid-svg-icons": "^6.5.2",
+		"billboard.js": "^3.11.3",
 		"echarts": "^5.5.0",
 		"echarts-map": "^3.0.1",
 		"highcharts": "^11.4.1",

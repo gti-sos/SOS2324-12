@@ -4,6 +4,7 @@
 
 <script>
   import { onMount } from 'svelte';
+  import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
 
   
 
@@ -80,6 +81,10 @@
   }
 </script>
 
+<main>
+  <Container class="content-container" style="justify-content: center;"> 
 <div id="chartContainer">
 
 </div>
+  </Container>
+</main>

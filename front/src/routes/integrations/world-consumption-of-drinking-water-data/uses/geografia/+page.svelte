@@ -1,5 +1,6 @@
 <script>
     import { onMount } from "svelte";
+    import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
 
     let geographicalData = [];
 
@@ -29,6 +30,8 @@
 
 </script>
 
+<main>
+    <Container class="content-container" style="justify-content: center;"> 
 <e> Información geográfica </e>
 
 <div class="card-container">
@@ -55,6 +58,8 @@
         <p>Cargando datos...</p>
     {/if}
 </div>
+</Container>
+</main>
 
 <style>
 

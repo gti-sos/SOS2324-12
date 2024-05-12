@@ -5,6 +5,8 @@
 <script>
     
     import { onMount } from "svelte";
+    import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
+
 
     let foodData = {};
 
@@ -91,6 +93,10 @@
         }
 </style>
 
+<main>
+    <Container class="content-container" style="justify-content: center;"> 
 <br>
 <e>Calorías de comidas</e>
 <div class="ct-chart"></div>
+</Container>
+</main>
