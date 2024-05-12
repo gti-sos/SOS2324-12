@@ -237,9 +237,9 @@ function calculateMeanByCountry(data, property) {
     }
 }
 
-/*
+
 // Calcular la suma de los valores de los campos que no son iso_code, country o year para cada entrada
-var summedData = data.map(entry => {
+var summedData = listings.map(entry => {
     // Filtrar los campos que no son iso_code, country o year
     var fields = Object.keys(entry).filter(key => !['iso_code', 'country', 'year'].includes(key));
     // Sumar los valores de los campos restantes
@@ -276,7 +276,7 @@ var chart = bb.generate({
     },
     bindto: "container3"
 });
-*/    
+    
 </script>
 <main>
     <Container class="content-container" style="justify-content: center;"> 
@@ -307,7 +307,7 @@ var chart = bb.generate({
             <Row><Col><div id="container2" style="width:100%; height:400px;"></div></Col></Row>
             <br/>
             <!--
-            <Row><Col><h3> Grádico Billboard.js para enseñar todos lso elementos , su suma de todos los elementos distintos </h3></Col></Row>
+            <Row><Col><h3> Grádico Billboard.js para enseñar todos los elementos , su suma de todos los elementos distintos </h3></Col></Row>
             <Row><Col><div id="container3" style="width:100%; height:400px;"></div></Col></Row>
             -->
             {/if}
