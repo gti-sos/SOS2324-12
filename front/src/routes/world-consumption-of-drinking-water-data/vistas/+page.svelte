@@ -4,6 +4,11 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+     <!-- Incluir el archivo de Billboard.js -->
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.js"></script>
+    
+    <!-- Incluir los estilos de Billboard.js -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
 
 </svelte:head>
 
@@ -235,6 +240,44 @@ function calculateMeanByCountry(data, property) {
     }
 }
 
+// Calcular la suma de los valores de los campos que no son iso_code, country o year para cada entrada
+var summedData = data.map(entry => {
+    // Filtrar los campos que no son iso_code, country o year
+    var fields = Object.keys(entry).filter(key => !['iso_code', 'country', 'year'].includes(key));
+    // Sumar los valores de los campos restantes
+    var sum = fields.reduce((acc, key) => {
+        // Convertir los valores "-" a 0 antes de sumar
+        var value = entry[key] === "-" ? 0 : entry[key];
+        return acc + value;
+    }, 0);
+    return { id: `${entry.year}-${entry.country}`, sum: sum };
+});
+
+// Configurar los datos para la gráfica de Billboard.js
+var chartData = {
+    json: summedData,
+    type: "bar",
+    x: "id",
+    y: "sum"
+};
+
+// Generar la gráfica utilizando Billboard.js
+var chart = bb.generate({
+    data: chartData,
+    axis: {
+        x: {
+            type: "category",
+            tick: {
+                rotate: 45,
+                multiline: false
+            }
+        },
+        y: {
+            label: "Suma de valores"
+        }
+    },
+    bindto: "container3"
+});
     
 </script>
 <main>
@@ -264,6 +307,9 @@ function calculateMeanByCountry(data, property) {
             <br/>
             <Row><Col><h3> Gráfica de líneas para mostrar la evolución del acceso al agua mejorado a lo largo del tiempo para cada país</h3></Col></Row>
             <Row><Col><div id="container2" style="width:100%; height:400px;"></div></Col></Row>
+            <br/>
+            <Row><Col><h3> Grádico Billboard.js para enseñar todos lso elementos , su suma de todos los elementos distintos </h3></Col></Row>
+            <Row><Col><div id="container3" style="width:100%; height:400px;"></div></Col></Row>
             {/if}
             </Container>
         </Container>
