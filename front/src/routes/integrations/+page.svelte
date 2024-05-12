@@ -69,7 +69,7 @@
                                 <CardTitle style="justify-content: center; text-align: center;">Jota</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/integrations/world-consumption-of-drinking-water-data/">Integraciones Jota</Button>
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>
