@@ -39,11 +39,11 @@
                                 <CardTitle style="justify-content: center; text-align: center;">José Martínez</CardTitle>
                             </CardHeader>
                             <CardBody>
-                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/weather">Datos metereológicos</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/weather">Datos metereológicos (integración)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso)</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso-textual)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/covid">Covid-19 (uso-widget)</Button>
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="">enlace</Button>
                                 <CardText><hr></CardText>

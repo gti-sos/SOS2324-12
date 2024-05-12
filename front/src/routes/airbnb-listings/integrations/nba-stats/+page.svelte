@@ -46,7 +46,7 @@
   
       <Row>
         <Col>
-            <select bind:value={temporadaSeleccionada}>
+            <select bind:value={temporadaSeleccionada} on:change={() => seleccionarTemporada(temporadaSeleccionada)}>
                   <option value={2011}>2011</option>
                   <option value={2012}>2012</option>
                   <option value={2013}>2013</option>
@@ -61,7 +61,6 @@
                   <option value={2022}>2022</option>
                   <option value={2023}>2023</option>
               </select>
-              <Button color="primary" on:click={seleccionarTemporada(temporadaSeleccionada)}>Obtener estadisticas</Button>
         </Col>
       </Row>
   
