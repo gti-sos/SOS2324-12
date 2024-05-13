@@ -41,7 +41,7 @@
                             <CardBody>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/weather">Datos metereológicos (integración)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso-textual)</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso-widget)</Button>
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/covid">Covid-19 (uso-widget) (con proxy)</Button>
                                 <CardText><hr></CardText>
@@ -49,7 +49,9 @@
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/spells">Hechizos Harry Potter (uso-widget)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/pizza">Pizza (uso-textual)</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/pizza">Pizza (uso-textual) (con proxy)</Button>
+                                <CardText><hr></CardText>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/rickmorty">Rick & Morty (uso-textual) (con proxy)</Button>
                                 <CardText><hr></CardText>
                             </CardBody>
                         </Card>
