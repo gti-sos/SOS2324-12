@@ -118,61 +118,52 @@
 </main>
 
 <style>
-
     /* Estilo de textos */
-    e {
-        font-family: '';
-        font-size: 60px;
-        color: #290ef5;
+    .title {
+        font-family: 'Arial', sans-serif;
+        font-size: 2.5rem;
+        color: #ff4a9e;
         text-align: center;
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
         margin-bottom: 20px;
     }
 
-    t {
-        font-family: '';
-        font-size: 30px;
-        color: #62afdc;
-        text-align: center;
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
+    .card-title {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.8rem;
+        color: #0e2ac8;
+        margin-bottom: 5px;
     }
 
-    s {
-        font-family: '';
-        font-size: 25px;
-        color: #000000;
+    .card-info {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.4rem;
+        color: #555;
         text-align: center;
-        display: flex;
-        align-items: center; 
-        justify-content: center; 
-        text-decoration: none;
+        margin-bottom: 10px;
     }
-
-
 
     /* Estilos de las cartas */
     .card-container {
         display: flex;
         flex-wrap: wrap;
-        display: flex;
         justify-content: center;
     }
 
     .card {
-        width: 30%; 
-        margin-bottom: 20px;
-        border: 1px solid #ccc;
+        width: calc(30% - 20px);
+        margin: 0 10px 20px;
         border-radius: 10px;
-        padding: 10px;
-        background-color: #f0f8ff; 
-        box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1); 
-        margin-left: 10px;
+        padding: 15px;
+        background-color: #f9f9f9;
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
     }
 
-
+    .loading {
+        font-family: 'Arial', sans-serif;
+        font-size: 1.6rem;
+        color: #888;
+        text-align: center;
+        margin-top: 20px;
+    }
 </style>
 
