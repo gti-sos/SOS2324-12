@@ -49,6 +49,8 @@
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/spells">Hechizos Harry Potter (uso-widget)</Button>
                                 <CardText><hr></CardText>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/pizza">Pizza (uso-textual)</Button>
+                                <CardText><hr></CardText>
                             </CardBody>
                         </Card>
                     </Col>
