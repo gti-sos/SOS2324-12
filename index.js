@@ -45,6 +45,30 @@ app.use("/proxyAPI", function(req, res) {
   });
 });
 
+// Proxy genérico JOTA
+
+app.use("/proxyJOTA1", function (req, res) {
+  const url = 'https://covid-19-statistics.p.rapidapi.com/reports?iso=ESP';
+  const options = {
+      url: url,
+      headers: {
+          'X-RapidAPI-Key': 'a35e4e4bc4msh76b0742b85f42a7p142c2fjsnf4b8084e88bc',
+          'X-RapidAPI-Host': 'covid-19-statistics.p.rapidapi.com'
+      }
+  };
+  request(options, (error, response, body) => {
+      if (error) {
+          console.error(error);
+          res.status(500).send(error);
+      } else {
+          console.log(response.statusCode);
+          console.log(body);
+          res.send(body);
+      }
+  });
+})
+
+
 // Proxy Borja
 app.use("/proxyMelanie", function(req, res) {
   var url = "https://spotify-statistics-and-stream-count.p.rapidapi.com/album/4DhwPZXdLy4LjoHqJxz8DM"; // URL de la API de Spotify

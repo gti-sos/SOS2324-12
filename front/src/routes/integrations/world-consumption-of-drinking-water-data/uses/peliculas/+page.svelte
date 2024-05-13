@@ -9,7 +9,7 @@
 <script>
     import { onMount } from "svelte";
     import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitle, CardText, Button} from '@sveltestrap/sveltestrap';
-    let API_JOTA1 = '/proxyJOTA';
+
 
     let movieData = [];
     let loading = true;
