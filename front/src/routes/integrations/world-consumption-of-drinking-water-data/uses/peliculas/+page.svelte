@@ -101,11 +101,11 @@
 <style>
     /* Estilo de textos */
     .title {
-        font-family: '',;
-        font-size: 2.8rem;
-        color: #ff4a8e;
+        font-family: 'Arial', sans-serif;
+        font-size: 2.5rem;
+        color: #ff4a9e;
         text-align: center;
-        margin-bottom: 22px;
+        margin-bottom: 20px;
     }
 
     .card-title {
