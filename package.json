@@ -33,7 +33,9 @@
     "firebase-admin": "^12.1.0",
     "nedb": "^1.8.0",
     "newman": "^6.0.0",
-    "npx": "^10.0.1"
+    "npx": "^10.0.1",
+    "proxy-addr": "^2.0.7",
+    "request": "^2.88.2"
   },
   "type": "module",
   "devDependencies": {

@@ -3,6 +3,7 @@
     import { onMount } from "svelte";
     import { Container, Row, Col, Table, Dropdown, DropdownMenu, DropdownItem, DropdownToggle, Button } from '@sveltestrap/sveltestrap';
     import * as echarts from 'echarts';
+    import { dev } from '$app/environment';
 
     
 
@@ -10,35 +11,38 @@
       cargarDatos();
     });
 
-    
-    async function cargarDatos() {
-    const url = 'https://coronavirus.m.pipedream.net/';
-    try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const rawData = data.rawData;
-
-        const groupedData = rawData.reduce((acc, item) => {
-            const { Country_Region: country, Confirmed, Deaths } = item;
-            if (!acc[country]) {
-                acc[country] = { confirmed: 0, deaths: 0 };
-            }
-            acc[country].confirmed += Number(Confirmed);
-            acc[country].deaths += Number(Deaths);
-            return acc;
-        }, {});
-
-        const formattedData = Object.keys(groupedData).map(key => ({
-            name: key,
-            value: groupedData[key].confirmed,
-            deaths: groupedData[key].deaths,
-            mortalityRate: (groupedData[key].deaths / groupedData[key].confirmed * 100).toFixed(2)
-        }));
-
-        crearTreemap(formattedData);
-    } catch (error) {
-        console.error(`Error: ${error}`);
+    let API = 'https://sos2324-12.appspot.com'; 
+    if (dev) {
+        API = 'http://localhost:10000'; 
     }
+    async function cargarDatos() {
+        
+        try {
+            const response = await fetch(`${API}/proxyCOVID`);
+            const data = await response.json();
+            const rawData = data.rawData;
+
+            const groupedData = rawData.reduce((acc, item) => {
+                const { Country_Region: country, Confirmed, Deaths } = item;
+                if (!acc[country]) {
+                    acc[country] = { confirmed: 0, deaths: 0 };
+                }
+                acc[country].confirmed += Number(Confirmed);
+                acc[country].deaths += Number(Deaths);
+                return acc;
+            }, {});
+
+            const formattedData = Object.keys(groupedData).map(key => ({
+                name: key,
+                value: groupedData[key].confirmed,
+                deaths: groupedData[key].deaths,
+                mortalityRate: (groupedData[key].deaths / groupedData[key].confirmed * 100).toFixed(2)
+            }));
+
+            crearTreemap(formattedData);
+        } catch (error) {
+            console.error(`Error: ${error}`);
+        }
 }
 
 function crearTreemap(data) {

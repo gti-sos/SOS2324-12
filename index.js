@@ -13,6 +13,7 @@ import dataStore from "nedb";
 import {handler} from "./front/build/handler.js";
 import cors from "cors";
 import { config } from 'dotenv';
+import request from "request";
 config();
 
 
@@ -28,6 +29,19 @@ let db_food_v2 = new dataStore();
 let app = express();
 
 app.use(cors());
+
+// Proxy Jose
+app.use("/proxyCOVID", function(req, res) {
+  var url = "https://coronavirus.m.pipedream.net/"; // URL de la API de Covid
+  console.log("Proxying to: " + url);
+  
+  // Realizar la solicitud a la API de baloncesto
+  request({
+      url: url,
+      qs: req.query
+  }).pipe(res); // Enviar la respuesta de la API de Covid de vuelta al cliente
+});
+
 
 app.use(bodyParser.json());
 
