@@ -135,7 +135,7 @@
         // Preparación de los datos para Highcharts
     var seriesData = [];
     var categories = [];
-    const categories = listings.map(item => item.country);
+    categories = listings.map(item => item.country);
     const urbanImproved = listings.map(item => item.urban_improved_piped + item.urban_improved_other);
     const urbanUnimproved = listings.map(item => item.urban_unimproved_other);
     const ruralImproved = listings.map(item => item.rural_improved_piped + item.rural_improved_other);
