@@ -89,7 +89,7 @@
 
 <div class="card-container">
     {#if loading}
-    <p>Cargando datos...</p>
+    <p class="loading">Cargando datos...</p>
 {:else}
     <div id="myChart" ></div>
 {/if}
