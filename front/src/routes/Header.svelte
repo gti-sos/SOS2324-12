@@ -118,5 +118,11 @@
                 </Dropdown>
             </DropdownMenu>
         </Dropdown>
+        <NavItem class="nav-item"> 
+            <NavLink href="/about" class="nav-link d-flex align-items-center"> 
+                <img src="/youtube.png" alt="videos" style="width: 20px; height: 20px; margin-right: 5px;"> 
+                Vídeos 
+            </NavLink> 
+        </NavItem>
     </Nav>
 </main>

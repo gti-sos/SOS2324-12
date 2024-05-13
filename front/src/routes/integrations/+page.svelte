@@ -43,11 +43,11 @@
                                 <CardText><hr></CardText>
                                 <Button size="sm" color="primary" href="/airbnb-listings/integrations/nba-stats">Estadísticas NBA (uso-textual)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/covid">Covid-19 (uso-widget)</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/covid">Covid-19 (uso-widget) (con proxy)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/superheroes">Superheroes (uso-textual) (con proxy)</Button>
                                 <CardText><hr></CardText>
-                                <Button size="sm" color="primary" href="">enlace</Button>
+                                <Button size="sm" color="primary" href="/airbnb-listings/integrations/spells">Hechizos Harry Potter (uso-widget)</Button>
                                 <CardText><hr></CardText>
                             </CardBody>
                         </Card>

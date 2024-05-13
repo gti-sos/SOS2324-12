@@ -30,16 +30,19 @@ let app = express();
 
 app.use(cors());
 
-// Proxy Jose
-app.use("/proxyCOVID", function(req, res) {
-  var url = "https://coronavirus.m.pipedream.net/"; // URL de la API de Covid
-  console.log("Proxying to: " + url);
-  
-  // Realizar la solicitud a la API de baloncesto
-  request({
-      url: url,
-      qs: req.query
-  }).pipe(res); // Enviar la respuesta de la API de Covid de vuelta al cliente
+// Proxy genérico JOSE
+
+app.use("/proxyAPI", function(req, res) {
+  const url = req.query.url; // Recibe la URL final de la API externa como un parámetro query
+  console.log("Proxying to:", url);
+
+  request({ url: url, qs: req.query }, (error, response, body) => {
+    if (!error && response.statusCode == 200) {
+      res.send(body);
+    } else {
+      res.status(500).send("Error accessing the external API");
+    }
+  });
 });
 
 
