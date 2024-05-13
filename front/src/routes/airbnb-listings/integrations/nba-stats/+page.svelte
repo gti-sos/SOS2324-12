@@ -16,7 +16,6 @@
 
   onMount(async () => {
     await cargarDatosNBA(temporadaSeleccionada);
-    crearGrafico();
   });
 
   async function cargarDatosNBA(temporada) {
@@ -31,6 +30,9 @@
       actualizarDatosNBA([]);
     } finally {
       cargandoDatos = false;
+      if (datosnba.length > 0) {
+        tick().then(crearGrafico); // Asegura que el DOM está actualizado y que hay datos
+      }
     }
 };
 
