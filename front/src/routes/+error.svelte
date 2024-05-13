@@ -1,12 +1,5 @@
 <script>
-import {onMount} from "svelte";
-import { dev } from '$app/environment';
-import { Button, Icon, FormGroup, Label, Table, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
-        Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
-        Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
-import { page } from '$app/stores'; 
-import {faCalendar, faLocationPin, faClock, faWaveSquare, faBuilding, faCity, faGlobe, faList, faBed, faPerson, faEuro, faMoon, faKitchenSet, faBook, faHouse, faCheck, faLongArrowLeft} from '@fortawesome/free-solid-svg-icons';
-import Fa from 'svelte-fa';
+import { Container} from '@sveltestrap/sveltestrap';
 </script>
 <main>
     <Container class="content-container" style="justify-content: center;"> 
