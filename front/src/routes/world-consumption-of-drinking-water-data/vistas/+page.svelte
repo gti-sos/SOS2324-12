@@ -4,6 +4,9 @@
 	<script src="https://code.highcharts.com/modules/exporting.js"></script>
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
     <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <script src="https://cdn.jsdelivr.net/npm/billboard.js/dist/billboard.pkgd.min.js"></script>
 </svelte:head>
 
 <script>
@@ -12,8 +15,6 @@
     import { Button, Icon, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
-//    import bb, { areaSpline } from 'billboard.js';
-//    import 'billboard.js/dist/billboard.css'; // Importa los estilos CSS de Billboard.js
     
     // VARIABLE RUTA API
     
@@ -83,7 +84,7 @@
 };
 
     // Función para calcular la media por país
-function calculateMeanByCountry(data, property) {
+    function calculateMeanByCountry(data, property) {
     return data.reduce((result, item) => {
         const country = item.country;
         const value = parseFloat(item[property]);
@@ -94,6 +95,32 @@ function calculateMeanByCountry(data, property) {
         return result;
     }, {});
 };
+    data.forEach(function(item) {
+    if(item.year) {
+        categories.push(item.country + ' - ' + item.year);
+    } else {
+        categories.push(item.country);
+    }
+    
+    var dataPoint = {
+        name: item.iso_code,
+        data: []
+    };
+
+    if (item.urban_improved_total) {
+        dataPoint.data.push(parseInt(item.urban_improved_total));
+    }
+
+    if (item.rural_improved_total) {
+        dataPoint.data.push(parseInt(item.rural_improved_total));
+    }
+
+    if (item.total_improved_total) {
+        dataPoint.data.push(parseInt(item.total_improved_total));
+    }
+
+    seriesData.push(dataPoint);
+    });
 
 
     async function getChart() {
@@ -106,6 +133,8 @@ function calculateMeanByCountry(data, property) {
             f_info();
     } else {
         // Preparación de los datos para Highcharts
+    var seriesData = [];
+    var categories = [];
     const categories = listings.map(item => item.country);
     const urbanImproved = listings.map(item => item.urban_improved_piped + item.urban_improved_other);
     const urbanUnimproved = listings.map(item => item.urban_unimproved_other);
@@ -234,47 +263,59 @@ function calculateMeanByCountry(data, property) {
             }]
         });
     }
+
+    // Crear el gráfico de columnas
+    Highcharts.chart('container3', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Comparación de Recursos por País/Año'
+    },
+    xAxis: {
+        categories: categories
+    },
+    yAxis: {
+        title: {
+            text: 'Valor'
+        }
+    },
+    series: seriesData
+    });
 }
 
 
-// Calcular la suma de los valores de los campos que no son iso_code, country o year para cada entrada
-var summedData = listings.map(entry => {
-    // Filtrar los campos que no son iso_code, country o year
-    var fields = Object.keys(entry).filter(key => !['iso_code', 'country', 'year'].includes(key));
-    // Sumar los valores de los campos restantes
-    var sum = fields.reduce((acc, key) => {
-        // Convertir los valores "-" a 0 antes de sumar
-        var value = entry[key] === "-" ? 0 : entry[key];
-        return acc + value;
-    }, 0);
-    return { id: `${entry.year}-${entry.country}`, sum: sum };
-});
+// Filtrar los datos para obtener solo los de un país específico
+    var cameroonData = data.filter(function(d) {
+        return d.iso_code === "CMR";
+    });
 
-// Configurar los datos para la gráfica de Billboard.js
-var chartData = {
-    json: summedData,
-    type: "bar",
-    x: "id",
-    y: "sum"
-};
+    // Crear un array de años y un array de valores de urban_improved_total para cada año
+    var years = cameroonData.map(function(d) {
+        return d.year;
+    });
 
-// Generar la gráfica utilizando Billboard.js
-var chart = bb.generate({
-    data: chartData,
-    axis: {
-        x: {
-            type: "category",
-            tick: {
-                rotate: 45,
-                multiline: false
+    var urbanImprovedTotal = cameroonData.map(function(d) {
+        return d.urban_improved_total;
+    });
+
+    // Crear la gráfica con Billboard.js
+    var chart = bb.generate({
+        data: {
+            x: "x",
+            columns: [
+                ["x"].concat(years),
+                ["Urban Improved Total"].concat(urbanImprovedTotal)
+            ],
+            type: "bar"
+        },
+        axis: {
+            x: {
+                type: "category"
             }
         },
-        y: {
-            label: "Suma de valores"
-        }
-    },
-    bindto: "container3"
-});
+        bindto: "#chart"
+    });
     
 </script>
 <main>
@@ -305,10 +346,11 @@ var chart = bb.generate({
             <Row><Col><h3> Gráfica de líneas para mostrar la evolución del acceso al agua mejorado a lo largo del tiempo para cada país</h3></Col></Row>
             <Row><Col><div id="container2" style="width:100%; height:400px;"></div></Col></Row>
             <br/>
-            <!--
-            <Row><Col><h3> Grádico Billboard.js para enseñar todos los elementos , su suma de todos los elementos distintos </h3></Col></Row>
+            <Row><Col><h3> Comparación de Recursos por País/Año</h3></Col></Row>
             <Row><Col><div id="container3" style="width:100%; height:400px;"></div></Col></Row>
-            -->
+            <br/>
+            <Row><Col><h3> Gráfico Billboard.js para enseñar todos los elementos , su suma de todos los elementos distintos </h3></Col></Row>
+            <Row><Col><div id="chart" style="width:100%; height:400px;"></div></Col></Row>
             {/if}
             </Container>
         </Container>
