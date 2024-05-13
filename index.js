@@ -45,6 +45,22 @@ app.use("/proxyAPI", function(req, res) {
   });
 });
 
+// Proxy Borja
+app.use("/proxyMelanie", function(req, res) {
+  var url = "https://spotify-statistics-and-stream-count.p.rapidapi.com/album/4DhwPZXdLy4LjoHqJxz8DM"; // URL de la API de Spotify
+  console.log("Proxying to: " + url);
+  
+  // Realizar la solicitud a la API de Spotify
+  request({
+      url: url,
+      qs: req.query, 
+      headers: {
+				'X-RapidAPI-Key': '86f188c83amsh7d037daa577bc3fp1fc5a3jsn27279c5d02d7',
+				'X-RapidAPI-Host': 'spotify-statistics-and-stream-count.p.rapidapi.com'
+			}
+  }).pipe(res); // Enviar la respuesta de la API de Spotify de vuelta al cliente
+});
+
 
 app.use(bodyParser.json());
 

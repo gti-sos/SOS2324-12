@@ -47,6 +47,7 @@
 		integration1();
 		integration2();
 		integration3();
+		integration4();
 	});
 
 	// DATOS
@@ -372,6 +373,77 @@
 		var chart = new google.visualization.PieChart(document.getElementById('integration3'));
 		chart.draw(data, options);
 	}
+
+	// Integración con proxy
+	async function integration4() {
+
+		let API2 = 'https://sos2324-12.appspot.com'; 
+    if (dev) {
+        API2 = 'http://localhost:10000'; 
+    }
+			const response = await fetch(`${API2}/proxyMelanie`);
+			const result = await response.json();
+			console.log(result);
+
+		let acc = 0;
+
+		let datos = [];
+
+		result.tracks.forEach((e) => {
+			acc += e.streamCount;
+			let name = e.name;
+			let count = e.streamCount;
+			datos.push([name, count]);
+		});
+
+		datos.push(['Total de reproducciones', acc]);
+		datos.sort(function (a, b) {
+			return b[1] - a[1]; // Ordena de forma descendente basado en el segundo valor de cada subarray
+		});
+		console.log(datos);
+
+		// Set up the chart
+		const chart = Highcharts.chart('integration4', {
+			chart: {
+				type: 'funnel3d',
+				options3d: {
+					enabled: true,
+					alpha: 10,
+					depth: 50,
+					viewDistance: 50
+				}
+			},
+			title: {
+				text: 'Reproducciones del album Cry Baby - Melanie Martínez'
+			},
+			accessibility: {
+				screenReaderSection: {
+					beforeChartFormat:
+						'<{headingTagName}>{chartTitle}</{headingTagName}><div>{typeDescription}</div><div>{chartSubtitle}</div><div>{chartLongdesc}</div>'
+				}
+			},
+			plotOptions: {
+				series: {
+					dataLabels: {
+						enabled: true,
+						format: '<b>{point.name}</b> ({point.y:,.0f})',
+						allowOverlap: true,
+						y: 10
+					},
+					neckWidth: '30%',
+					neckHeight: '25%',
+					width: '80%',
+					height: '80%'
+				}
+			},
+			series: [
+				{
+					name: 'Reproducciones',
+					data: datos
+				}
+			]
+		});
+	}
 </script>
 
 <svelte:head>
@@ -381,6 +453,9 @@
 	<script src="https://code.highcharts.com/modules/export-data.js"></script>
 	<script src="https://code.highcharts.com/modules/accessibility.js"></script>
 	<script src="https://www.gstatic.com/charts/loader.js"></script>
+	<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+	<script src="https://code.highcharts.com/modules/cylinder.js"></script>
+	<script src="https://code.highcharts.com/modules/funnel3d.js"></script>
 	<script>
 		google.charts.load('current', { packages: ['corechart'] });
 	</script>
@@ -419,6 +494,9 @@
 				<br />
 				<Row><Col><h3>Dificultad para hacer comidas chinas</h3></Col></Row>
 				<Row><Col><div id="integration3" style="width:100%; height:400px;"></div></Col></Row>
+				<br />
+				<Row><Col><h3>Cry baby - MM</h3></Col></Row>
+				<Row><Col><div id="integration4" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
 			{/if}
 		</Container>

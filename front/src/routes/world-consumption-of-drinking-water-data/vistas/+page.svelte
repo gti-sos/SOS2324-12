@@ -12,9 +12,8 @@
     import { Button, Icon, FormGroup, Label, Input, Modal, ModalBody, ModalFooter, ModalHeader, 
             Alert, Card, CardBody, CardHeader, CardText, CardTitle,  Row, Col, 
             Container, ButtonDropdown, DropdownMenu, DropdownItem, DropdownToggle} from '@sveltestrap/sveltestrap';
-    import bb, { areaSpline } from 'billboard.js';
-    import { area } from 'billboard.js';
-    import 'billboard.js/dist/billboard.css'; // Importa los estilos CSS de Billboard.js
+//    import bb, { areaSpline } from 'billboard.js';
+//    import 'billboard.js/dist/billboard.css'; // Importa los estilos CSS de Billboard.js
     
     // VARIABLE RUTA API
     
