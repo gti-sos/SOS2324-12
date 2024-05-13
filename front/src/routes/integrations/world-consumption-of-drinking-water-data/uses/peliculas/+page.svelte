@@ -108,20 +108,6 @@
         margin-bottom: 20px;
     }
 
-    .card-title {
-        font-family: 'Arial', sans-serif;
-        font-size: 1.8rem;
-        color: #0e2ac8;
-        margin-bottom: 5px;
-    }
-
-    .card-info {
-        font-family: 'Arial', sans-serif;
-        font-size: 1.4rem;
-        color: #555;
-        text-align: center;
-        margin-bottom: 10px;
-    }
 
     /* Estilos de las cartas */
     .card-container {
@@ -130,14 +116,7 @@
         justify-content: center;
     }
 
-    .card {
-        width: calc(30% - 20px);
-        margin: 0 10px 20px;
-        border-radius: 10px;
-        padding: 15px;
-        background-color: #f9f9f9;
-        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
-    }
+    
 
     .loading {
         font-family: 'Arial', sans-serif;
