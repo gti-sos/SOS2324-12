@@ -86,6 +86,53 @@
             <Col><br></Col>
         </Row>
         <Row>
+            <Col sm="12" md="4">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Vídeo Jose</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <CardSubtitle>
+                            <ul>
+                                <li><a href="/">Ir al vídeo</a></li>
+                            </ul>
+                        </CardSubtitle>
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col sm="12" md="4">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Vídeo Borja</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <CardSubtitle>
+                            <ul>
+                                <li><a href="/">Ir al vídeo</a></li>
+                            </ul>
+                        </CardSubtitle>
+                    </CardBody>
+                </Card>
+            </Col>
+            <Col sm="12" md="4">
+                <Card>
+                    <CardHeader>
+                        <CardTitle>Vídeo Jota</CardTitle>
+                    </CardHeader>
+                    <CardBody>
+                        <CardSubtitle>
+                            <ul>
+                                <li><a href="/">Ir al vídeo</a></li>
+                            </ul>
+                        </CardSubtitle>
+                    </CardBody>
+                </Card>
+            </Col>
+        </Row>
+        <Row>
+            <Col><br></Col>
+        </Row>
+        <Row>
             <Col>
                 <Card>
                     <CardHeader>
