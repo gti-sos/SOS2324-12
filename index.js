@@ -45,9 +45,9 @@ app.use("/proxyAPI", function(req, res) {
   });
 });
 
-// Proxy genérico JOTA
+// Proxy JOTA
 
-app.use("/proxyJOTA1", function (req, res) {
+app.use("/proxyJOTA", function (req, res) {
   const url = 'https://covid-19-statistics.p.rapidapi.com/reports?iso=ESP';
   const options = {
       url: url,

@@ -16,14 +16,14 @@ import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitl
         <div class="photo">
             <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/peliculas">world-consumption-of-drinking-water-data</Button>
         </div>
-        <h2 class="title">Comida</h2>
+        <h2 class="title">Películas</h2>
     </div>
 
     <div class="card" style="margin-left: 20px;">
         <div class="photo">
-            <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/geografia">world-consumption-of-drinking-water-data</Button>
+            <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/covid">world-consumption-of-drinking-water-data</Button>
         </div>
-        <h2 class="title">Geografía</h2>
+        <h2 class="title">Covid</h2>
     </div>
 
     <div class="card" style="margin-left: 20px;">

@@ -1,6 +1,3 @@
-<svelte:head>
-    <script src="https://cdn.canvasjs.com/canvasjs.min.js"></script>
-</svelte:head>
 
 <script>
   import { onMount } from 'svelte';
@@ -8,12 +5,24 @@
 
   
 
-  onMount(async () => {
-    await getSpotify();
-  });
+  onMount(() => {
+  if (typeof CanvasJS === 'undefined') {
+    // Cargar el script de CanvasJS dinámicamente solo si no está definido
+    const script = document.createElement('script');
+    script.src = 'https://cdn.canvasjs.com/canvasjs.min.js';
+    script.onload = () => {
+      console.log('CanvasJS loaded');
+      getSpotify(); // Llamar a tu función después de que el script esté cargado
+    };
+    document.head.appendChild(script);
+  } else {
+    getSpotify(); // El script ya está cargado, solo llama a la función
+  }
+});
+
 
   async function getSpotify() {
-    //const url = 'https://spotify23.p.rapidapi.com/user_followers/';
+    const url = 'https://spotify23.p.rapidapi.com/user_followers/';
     const params = new URLSearchParams({ id: 'nocopyrightsounds' });
     const fullUrl = `${url}?${params.toString()}`;
 
@@ -83,8 +92,6 @@
 
 <main>
   <Container class="content-container" style="justify-content: center;"> 
-<div id="chartContainer">
-
-</div>
+    <div id="chartContainer" style="height: 300px; width: 100%;"></div>
   </Container>
 </main>
