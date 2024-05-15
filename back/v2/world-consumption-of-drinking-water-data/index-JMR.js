@@ -1058,8 +1058,10 @@ function loadBackend_JMR_v2(app,db) {
         db.find({}, (err, listings) => {
             if (err) {
                 return res.status(500).send("Internal Server Error");
-            }
-
+            } else {
+                if (listings.length === 0) {
+                    return res.status(404).send("[]");
+                } else {
             const filteredListings = listings.filter(listing => {
                 const listingYear = parseInt(listing.year);
                 return listingYear >= fromYear && listingYear <= toYear;
@@ -1075,6 +1077,7 @@ function loadBackend_JMR_v2(app,db) {
                 } else {
                     paginatedListings = filteredListings.slice(0, limitNum);
                 }
+            }}
             }
 
             // Eliminar el campo _id de los resultados y enviar la respuesta
@@ -1104,6 +1107,7 @@ function loadBackend_JMR_v2(app,db) {
         if (queryParams.total_improved_total) queryParams.total_improved_total = parseInt(queryParams.total_improved_total);
         if (queryParams.total_unimproved_other) queryParams.total_unimproved_other = parseInt(queryParams.total_unimproved_other);
         if (queryParams.total_unimproved_surface) queryParams.total_unimproved_surface = parseInt(queryParams.total_unimproved_surface);
+
         db.find(queryParams, handleDbResponse);
     }
 
@@ -1124,6 +1128,10 @@ function loadBackend_JMR_v2(app,db) {
             }
         }
 
+        if (listings.length === 0) {
+            return res.status(404).send("[]");
+        }
+
         // Eliminar el campo _id de los resultados y enviar la respuesta
         const responseBody = paginatedListings.map((listing) => {
             delete listing._id;
@@ -1135,7 +1143,12 @@ function loadBackend_JMR_v2(app,db) {
         // GET => Lista todos los datos
     
     app.get(API_BASE_JMR+"/",(req,res)=>{
+
+        if (listings.length === 0) {
+            return res.status(404).send("[]");
+        } else {
         res.status(200).send(JSON.stringify(data));
+        }
     }),
 
     // GET => loadInitialData (al hacer un GET cree 10 o más datos en el array de NodeJS si está vacío)

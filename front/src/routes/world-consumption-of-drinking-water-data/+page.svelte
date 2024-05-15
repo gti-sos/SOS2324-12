@@ -205,15 +205,18 @@ async function getListings() {
     let status = response.status;
     console.log(`Response status: ${status}`);
 
+    
+
     if (response.status == 200) {
-        // Actualiza los datos después de una búsqueda exitosa
-        success_msg = "Mostrando los datos solicitados";
-        error_msg = "";
+               
         let data = await response.json();
         listings = data;
         countries = await fetchCountries();
         total_improved_total = await fetchTotal_improved_total();
         urban_improved_total = await fetchUrban_improved_total();
+        // Actualiza los datos después de una búsqueda exitosa
+        success_msg = "Mostrando los datos solicitados";
+        error_msg = "";
         window.scrollTo(0, 0);
         console.log(data);
     } else {

@@ -129,7 +129,7 @@
             <Alert color="info" isOpen={v_info} toggle={() => (v_info = false)}>{info}</Alert>
             <Button color="warning" on:click={getInitialListings}>Cargar datos</Button>
         {:else}
-            <Row><Col><div id="container1" style="width: 100%; height: 1400px;"></div></Col></Row>
+            <Row><Col><div id="container1" style="width: 100%; height: 1800px;"></div></Col></Row>
             <Row><Col><div id="container2" style="width: 100%; height: 900px;"></div></Col></Row>
             <Row><Col><div id="donutChart" style="width: 100%; height: 700px;"></div></Col></Row>
         {/if}

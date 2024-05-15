@@ -4,7 +4,6 @@ import {loadBackend_JMS} from "./back/v1/airbnb-listings/index-JMS.js";
 import {loadBackend_JMS_v2} from "./back/v2/airbnb-listings/index-JMS.js";
 import {loadBackend_JMS_v3} from "./back/v3/airbnb-listings/index-JMS.js";
 import { initializeApp } from "firebase/app";
-
 import {loadBackend_JMR} from "./back/v1/world-consumption-of-drinking-water-data/index-JMR.js";
 import {loadBackend_JMR_v2} from "./back/v2/world-consumption-of-drinking-water-data/index-JMR.js";
 import {loadBackend_BFA} from "./back/v1/global-food-prices/index-BFA.js";
