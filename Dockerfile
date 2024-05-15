@@ -1,5 +1,5 @@
 # Base image
-FROM node:latest
+FROM node:18
 
 
 # Move to app folder
@@ -16,5 +16,5 @@ RUN npm install
 
 # Copy the app code to the image
 COPY . .
-EXPOSE 8080
+EXPOSE 10000
 CMD [ "npm", "start" ]
