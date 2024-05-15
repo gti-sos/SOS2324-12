@@ -23,6 +23,7 @@ docker run -p 10000:10000 -d josmarsua/sos2324-12:0.0.2
         - [world-consumption-of-drinking-water-data](https://sos2324-12.appspot.com/api/v1/world-consumption-of-drinking-water-data/docs). Developed by [José Joaquín Mena-Bernal Rueda](https://github.com/josmenrue).
     - **v2**:
         - [airbnb-listings](https://sos2324-12.appspot.com/api/v2/airbnb-listings/docs). Developed by [José Martínez Suárez](https://github.com/josmarsua).
+        - [global-food-prices](https://sos2324-12.appspot.com/api/v2/global-food-prices/docs). Developed by [Borja Flores Avecilla](https://github.com/borfloave).
         - [world-consumption-of-drinking-water-data](https://sos2324-12.appspot.com/api/v2/world-consumption-of-drinking-water-data/docs). Developed by [José Joaquín Mena-Bernal Rueda](https://github.com/josmenrue).
 -  **FrontEnds**:
     - [airbnb-listings](https://sos2324-12.appspot.com/airbnb-listings/). Developed by [José Martínez Suárez](https://github.com/josmarsua).
