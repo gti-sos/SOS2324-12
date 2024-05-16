@@ -37,7 +37,7 @@ import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitl
         <div class="photo">
             <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/football">world-consumption-of-drinking-water-data</Button>
         </div>
-        <h2 class="title">football</h2>
+        <h2 class="title">Football</h2>
     </div>
 
     <div class="card" style="margin-left: 20px;">

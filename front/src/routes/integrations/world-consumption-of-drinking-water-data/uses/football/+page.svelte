@@ -18,9 +18,9 @@
 
   async function cargarLigas() {
     cargandoDatos = true;
-    const url = 'https://api-football-standings.azharimm.site/leagues';
+    const url = 'https://api-football-standings.azharimm.dev/leagues';
     try {
-      const response = await fetch(url);
+      const response = await fetch(`/proxyAPI?url=${encodeURIComponent(url)}`);
       const result = await response.json();
       actualizarLigas(result.data);
     } catch (error) {

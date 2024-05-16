@@ -20,7 +20,7 @@
     cargandoDatos = true;
     const url = 'https://emojihub.yurace.pro/api/all';
     try {
-      const response = await fetch(url);
+      const response = await fetch(`/proxyAPI?url=${encodeURIComponent(url)}`);
       const result = await response.json();
       actualizarEmojis(result);
     } catch (error) {
