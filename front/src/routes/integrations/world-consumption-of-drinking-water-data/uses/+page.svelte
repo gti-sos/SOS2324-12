@@ -32,6 +32,20 @@ import { Container, Row, Col, Card, CardHeader, CardBody, CardTitle, CardSubtitl
         </div>
         <h2 class="title">Spotify</h2>
     </div>
+
+    <div class="card" style="margin-left: 20px;">
+        <div class="photo">
+            <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/football">world-consumption-of-drinking-water-data</Button>
+        </div>
+        <h2 class="title">football</h2>
+    </div>
+
+    <div class="card" style="margin-left: 20px;">
+        <div class="photo">
+            <Button color="primary" href="/integrations/world-consumption-of-drinking-water-data/uses/Emoji">world-consumption-of-drinking-water-data</Button>
+        </div>
+        <h2 class="title">Emoji</h2>
+    </div>
     
 </Container>
 </main> 
