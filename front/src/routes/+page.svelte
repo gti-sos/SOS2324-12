@@ -94,7 +94,7 @@
                     <CardBody>
                         <CardSubtitle>
                             <ul>
-                                <li><a href="/">Ir al vídeo</a></li>
+                                <li><a href="https://youtu.be/GK9vAe1gWFU">Ir al vídeo</a></li>
                             </ul>
                         </CardSubtitle>
                     </CardBody>
