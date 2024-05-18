@@ -487,15 +487,19 @@
 				<br />
 			{:else}
 				<Row><Col><h3>Temperatura en Afghanistan</h3></Col></Row>
+				<Row><Col><h5><a href="https://rapidapi.com/visual-crossing-corporation-visual-crossing-corporation-default/api/visual-crossing-weather">Fuente</a></h5></Col></Row>
 				<Row><Col><div id="integration1" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
 				<Row><Col><h3>Precio del boniato en EEUU</h3></Col></Row>
+				<Row><Col><h5><a href="https://rapidapi.com/chihebnabil/api/grocery-pricing-api">Fuente</a></h5></Col></Row>
 				<Row><Col><div id="integration2" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
 				<Row><Col><h3>Dificultad para hacer comidas chinas</h3></Col></Row>
+				<Row><Col><h5><a href="https://rapidapi.com/rapihub-rapihub-default/api/chinese-food-db">Fuente</a></h5></Col></Row>
 				<Row><Col><div id="integration3" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
 				<Row><Col><h3>Cry baby - MM</h3></Col></Row>
+				<Row><Col><h5><a href="https://rapidapi.com/beat-analytics-beat-analytics-default/api/spotify-statistics-and-stream-count">Fuente</a></h5></Col></Row>
 				<Row><Col><div id="integration4" style="width:100%; height:400px;"></div></Col></Row>
 				<br />
 			{/if}
