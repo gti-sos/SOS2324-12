@@ -1044,102 +1044,68 @@ function loadBackend_JMR_v2(app,db) {
 
     app.get(API_BASE_JMR + "/", (req, res) => {
         const { from, to, limit, offset, ...queryParams } = req.query;
-
     
-    // Verifica si hay parámetros 'from' y 'to'
-    if (from !== undefined && to !== undefined) {
-        const fromYear = parseInt(from);
-        const toYear = parseInt(to);
-        if (isNaN(fromYear) || isNaN(toYear)) {
-            return res.status(400).send("Invalid year format. Please provide valid year values.");
-        }
-
-        // Filtra los resultados dentro del rango de años especificado
-        db.find({}, (err, listings) => {
+        // Función para manejar la respuesta de la base de datos y la paginación
+        function handleDbResponse(err, listings, filterFunction = null) {
             if (err) {
                 return res.status(500).send("Internal Server Error");
-            } else {
-                if (listings.length === 0) {
-                    return res.status(404).send("[]");
-                } else {
-            const filteredListings = listings.filter(listing => {
-                const listingYear = parseInt(listing.year);
-                return listingYear >= fromYear && listingYear <= toYear;
-            });
-
+            }
+    
+            // Aplicar filtro adicional si es necesario
+            let filteredListings = filterFunction ? listings.filter(filterFunction) : listings;
+    
+            if (filteredListings.length === 0) {
+                return res.status(404).send("[]");
+            }
+    
             // Aplicar paginación si los parámetros limit y offset están presentes
             let paginatedListings = filteredListings;
             if (limit !== undefined) {
                 const limitNum = parseInt(limit);
-                if (offset !== undefined) {
-                    const offsetNum = parseInt(offset);
-                    paginatedListings = filteredListings.slice(offsetNum, offsetNum + limitNum);
-                } else {
-                    paginatedListings = filteredListings.slice(0, limitNum);
-                }
-            }}
+                const offsetNum = parseInt(offset || 0); // Asegurar que offset tenga un valor por defecto de 0
+                paginatedListings = filteredListings.slice(offsetNum, offsetNum + limitNum);
             }
-
+    
             // Eliminar el campo _id de los resultados y enviar la respuesta
             const responseBody = paginatedListings.map((listing) => {
                 delete listing._id;
                 return listing;
             });
             res.status(200).send(responseBody);
-        });
-    } else if (Object.keys(queryParams).length === 0) {
-        // No hay parámetros de consulta, devolver todos los recursos
-        db.find({}, handleDbResponse);
-    } else {
-        // Hay parámetros de consulta, filtrar por esos parámetros
-        if (queryParams.year) queryParams.year = parseInt(queryParams.year);
-        if (queryParams.urban_improved_other) queryParams.urban_improved_other = parseInt(queryParams.urban_improved_other);
-        if (queryParams.urban_improved_piped) queryParams.urban_improved_piped = parseInt(queryParams.urban_improved_piped);
-        if (queryParams.urban_improved_total) queryParams.urban_improved_total = parseInt(queryParams.urban_improved_total);
-        if (queryParams.urban_unimproved_other) queryParams.urban_unimproved_other = parseInt(queryParams.urban_unimproved_other);
-        if (queryParams.rural_improved_other) queryParams.rural_improved_other = parseInt(queryParams.rural_improved_other);
-        if (queryParams.rural_improved_piped) queryParams.rural_improved_piped = parseInt(queryParams.rural_improved_piped);
-        if (queryParams.rural_improved_total) queryParams.rural_improved_total = parseInt(queryParams.rural_improved_total);
-        if (queryParams.rural_unimproved_other) queryParams.rural_unimproved_other = parseInt(queryParams.rural_unimproved_other);
-        if (queryParams.rural_unimproved_surface) queryParams.rural_unimproved_surface = parseInt(queryParams.rural_unimproved_surface);
-        if (queryParams.total_improved_other) queryParams.total_improved_other = parseInt(queryParams.total_improved_other);
-        if (queryParams.total_improved_piped) queryParams.total_improved_piped = parseInt(queryParams.total_improved_piped);
-        if (queryParams.total_improved_total) queryParams.total_improved_total = parseInt(queryParams.total_improved_total);
-        if (queryParams.total_unimproved_other) queryParams.total_unimproved_other = parseInt(queryParams.total_unimproved_other);
-        if (queryParams.total_unimproved_surface) queryParams.total_unimproved_surface = parseInt(queryParams.total_unimproved_surface);
-
-        db.find(queryParams, handleDbResponse);
-    }
-
-    function handleDbResponse(err, listings) {
-        if (err) {
-            return res.status(500).send("Internal Server Error");
         }
-
-        // Aplicar paginación si los parámetros limit y offset están presentes
-        let paginatedListings = listings;
-        if (limit !== undefined) {
-            const limitNum = parseInt(limit);
-            if (offset !== undefined) {
-                const offsetNum = parseInt(offset);
-                paginatedListings = listings.slice(offsetNum, offsetNum + limitNum);
-            } else {
-                paginatedListings = listings.slice(0, limitNum);
+    
+        // Verifica si hay parámetros 'from' y 'to'
+        if (from !== undefined && to !== undefined) {
+            const fromYear = parseInt(from);
+            const toYear = parseInt(to);
+            if (isNaN(fromYear) || isNaN(toYear)) {
+                return res.status(400).send("Invalid year format. Please provide valid year values.");
             }
+    
+            // Define un filtro basado en el rango de años
+            const yearFilter = listing => {
+                const listingYear = parseInt(listing.year);
+                return listingYear >= fromYear && listingYear <= toYear;
+            };
+    
+            // Filtra los resultados dentro del rango de años especificado
+            db.find({}, (err, listings) => handleDbResponse(err, listings, yearFilter));
+        } else if (Object.keys(queryParams).length === 0) {
+            // No hay parámetros de consulta, devolver todos los recursos
+            db.find({}, handleDbResponse);
+        } else {
+            // Convertir parámetros de consulta numéricos
+            Object.keys(queryParams).forEach(key => {
+                if (!isNaN(parseFloat(queryParams[key]))) {
+                    queryParams[key] = parseFloat(queryParams[key]);
+                }
+            });
+    
+            // Hay parámetros de consulta, filtrar por esos parámetros
+            db.find(queryParams, handleDbResponse);
         }
-
-        if (listings.length === 0) {
-            return res.status(404).send("[]");
-        }
-
-        // Eliminar el campo _id de los resultados y enviar la respuesta
-        const responseBody = paginatedListings.map((listing) => {
-            delete listing._id;
-            return listing;
-        });
-        res.status(200).send(responseBody);
-    }
-});
+    });
+    
         // GET => Lista todos los datos
     
     app.get(API_BASE_JMR+"/",(req,res)=>{
