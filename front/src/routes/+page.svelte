@@ -122,7 +122,7 @@
                     <CardBody>
                         <CardSubtitle>
                             <ul>
-                                <li><a href="/">Ir al vídeo</a></li>
+                                <li><a href="https://youtu.be/cwzYg1-5jsQ">Ir al vídeo</a></li>
                             </ul>
                         </CardSubtitle>
                     </CardBody>
