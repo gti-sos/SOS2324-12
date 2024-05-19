@@ -13,8 +13,8 @@
 
 Run the following commands:
 ```
-docker pull josmarsua/sos2324-12:0.0.2
-docker run -p 10000:10000 -d josmarsua/sos2324-12:0.0.2
+docker pull josmarsua/sos2324-12:1.0.0
+docker run -p 10000:10000 -d josmarsua/sos2324-12:1.0.0
 ```
 - **URL**: 
     - [sos2324-12.appspot.com](https://sos2324-12.appspot.com)
